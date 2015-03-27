@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+		<script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="static/js/ws/sockjs-0.3.4.js"></script>
+	<script type="text/javascript" src="static/js/ws/stomp.js"></script>
+    <script type="text/javascript">
+        var stompClient = null;
+
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+            document.getElementById('disconnect').disabled = !connected;
+            document.getElementById('conversationDiv').style.visibility = connected ? 'visible' : 'hidden';
+            document.getElementById('response').innerHTML = '';
+        }
+
+        function connect() {
+            var socket = new SockJS('/messages');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function(frame) {
+                setConnected(true);
+            });
+        }
+
+        function disconnect() {
+            if (stompClient != null) {
+                stompClient.disconnect();
+            }
+            setConnected(false);
+            console.log("Disconnected");
+        }
+
+        function sendPrivateMessage() {
+            var to = $('#to').val();
+            var message = $('#private-message').val();
+            stompClient.send("/app/private/messages", {}, JSON.stringify({ 'to': to, 'content': message }));
+        }
+
+        function sendPublicMessage() {
+            var room = $('#room').val();
+            var message = $('#public-message').val();
+            stompClient.send("/app/public/messages", {}, JSON.stringify({ 'room': room, 'content': message }));
+        }
+    </script>
+</head>
+<body onload="disconnect()">
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div>
+    <div>
+        <button id="connect" onclick="connect();">Connect</button>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+    </div>
+    <div id="conversationDiv">
+    	<h2>Private Message</h2>
+        <label>To:</label><input type="text" id="to" />
+        <label>Message:</label><input type="text" id="private-message" />
+        <button onclick="sendPrivateMessage();">Send</button>
+        <p id="response"></p>
+    </div>
+    
+    <div id="conversationDiv">
+    	<h2>Public Message</h2>
+        <label>Room:</label><input type="text" id="room" />
+        <label>Message:</label><input type="text" id="public-message" />
+        <button onclick="sendPublicMessage();">Send</button>
+        <p id="response"></p>
+    </div>
+</div>
+</body>
+</html>

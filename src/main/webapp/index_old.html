@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style type="text/css">
+			@IMPORT url("static/bootstrap/css/bootstrap.min.css");
+			@IMPORT url("static/bootstrap/css/bootstrap-theme.min.css");
+		</style>
+	</head>
+	<body>
+		<section class="container">
+		</section>
+		
+		<script type="text/template" id="table-establishments">
+			<table class="table table-hovered table-condensed table-bordered">
+				<thead>
+					<tr>
+						<td>Nome</td>
+						<td>Endereço</td>
+						<td>Pontuação</td>
+						<td>Avalie</td>
+					</tr>
+				</thead>
+				<%= body %>
+			</table>
+		</script>
+		<script type="text/template" id="row-establishment">
+			<td><%= establishment.name %></td>
+			<td><%= establishment.address %></td>
+			<td><%= establishment.averagePoints %></td>
+			<td>
+				<button class="btn btn-info btn-point">
+					<i class="glyphicon glyphicon-check">Avalie</i>
+				</button>
+			</td>
+		</script>
+		
+		<script type="text/javascript" src="static/js/jquery-2.1.3.min.js"></script>
+		<script type="text/javascript" src="static/js/ws/sockjs-0.3.4.js"></script>
+		<script type="text/javascript" src="static/js/ws/stomp.js"></script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				connect();
+			});
+			
+			var stompClient = null;
+
+	        function connect() {
+	            var socket = new SockJS('/messages');
+	            stompClient = Stomp.over(socket);
+	            stompClient.connect({}, function(frame) {
+	                stompClient.subscribe('/queue/messages-leonardo', function(message){
+	                	console.log('Receiving a private message...');
+	                    showMessage(JSON.parse(message.body));
+	                });
+	                
+	                stompClient.subscribe('/topic/rooms-ABC', function(message){
+	                	console.log('Receiving a message in ROOM...');
+	                    showMessage(JSON.parse(message.body));
+	                });
+	            });
+	        }
+
+	        function disconnect() {
+	            if (stompClient != null) {
+	                stompClient.disconnect();
+	            }
+	        }
+
+	        function showMessage(message) {
+	            console.log(message.content);
+	        }
+		</script>
+		
+		
+		<section id="container-poitings">
+			<div class="header">
+					
+			</div>
+			<div class="content">
+			
+			</div>
+			<div class="footer">
+				
+			</div>
+		</section>
+		
+		
+		
+	</body>
+</html>
