@@ -4,10 +4,11 @@ html {
     title("My first Groovy Page!")
 	link(href:"/flat-ui/css/vendor/bootstrap.min.css",type:"text/css", rel:"stylesheet")
 	link(href:"/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
+	link(href:"/css/main.css",type:"text/css", rel:"stylesheet")
   }
   body {
     header(class:"container"){
-		nav(class:"navbar navbar-inverse navbar-embossed"){
+		nav(class:"navbar navbar-inverse navbar-fixed-top navbar-embossed"){
 			div(class:"navbar-header"){
 				button(type:"button", class:"navbar-toggle", "data-toggle":"collapse", "data-target":"#navbar-collapse-01"){
 					span(class:"sr-only", "Toggle navigation")
@@ -31,7 +32,7 @@ html {
 						ul(class:"dropdown-menu"){
 							rooms.each { room ->
 								li{
-									a(href="#", room)
+									a(href="#", "data-code":room.code, class:"btn-connect-room", room.name)
 								}
 							}
 							li(class:"divider")
@@ -45,8 +46,31 @@ html {
 		}
 	}
 	
-	script(type:"text/javascript", src:"/js/jquery-2.1.3.min.js"){}
+	section(id:"opened-room"){
+		
+	}
+	
+	footer{
+		nav(class:"navbar navbar-inverse navbar-fixed-bottom navbar-embossed"){
+			div(id: "nav-active-rooms", class:"navbar-header"){
+				a(class:"navbar-brand", href:"#", "Active Rooms")
+			}
+			div(class:"collapse navbar-collapse"){
+				ul(id: "navbar-active-rooms", class:"nav navbar-nav navbar-left"){
+					
+				}
+			}
+		}
+	}
+	
+	script(type:"text/javascript", src:"js/jquery-2.1.3.min.js"){}
 	script(type:"text/javascript", src:"flat-ui/js/flat-ui.min.js"){}
+	
+	script(type:"text/javascript", src:"js/ws/sockjs-0.3.4.js"){}
+	script(type:"text/javascript", src:"js/ws/stomp.js"){}
+	
+	script(type:"text/javascript", src:"js/home.js"){}
+	script(type:"text/javascript", src:"js/views/RoomView.js"){}
   }
 }
 
