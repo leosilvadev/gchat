@@ -1,11 +1,41 @@
-var RoomView = function(roomCode, roomName, stompClient){
+var RoomView = function(roomCode, roomName, homeView){
 	
-	this.stompClient = stompClient;
-	this.roomCode = roomCode;
-	this.roomName = roomName;
+	var sef = this;
+	sef.homeView = homeView;
+	sef.roomCode = roomCode;
+	sef.roomName = roomName;
 	
-	this.render = function(){
-		subscribe(this.roomCode, this.roomName, this.stompClient);
+	sef.render = function(){
+		subscribe(sef.roomCode, sef.roomName, sef.homeView.stompClient);
+		applyListeners();
+	};
+	
+	sef.active = function(){
+		$('.opened-room').removeClass('active-room');
+		$('.opened-room[data-code="'+this.roomCode+'"]').addClass('active-room');
+
+		$('.chat').addClass('invisible');
+		$('.chat[data-code="'+this.roomCode+'"]').removeClass('invisible');
+	};
+	
+	var focusLastMessage = function(){
+		$(".chat-content").animate({ scrollTop: $('.chat-content').height() + 1000 }, 1000);
+	};
+	
+	var applyListeners = function(){
+		$('.txt-message').on('blur keyup', validateMessage);
+	};
+	
+	var validateMessage = function(){
+		var $txtMessage = $(this);
+		var $btn = $txtMessage.parents('.chat-message').find('.btn-send-message');
+		if ( $txtMessage.val() ) {
+			$btn.removeAttr('disabled');
+			
+		} else {
+			$btn.attr('disabled', 'disabled');
+			
+		}
 	};
 	
 	var subscribe = function(roomCode, roomName, stompClient){
@@ -20,7 +50,7 @@ var RoomView = function(roomCode, roomName, stompClient){
 		
 		$roomTab.on('click', function(){
 			var roomCode = $(this).attr('data-code');
-			var room = findRoom(roomCode);
+			var room = sef.homeView.findRoom(roomCode);
 			room.active();
 		});
 		
@@ -32,8 +62,12 @@ var RoomView = function(roomCode, roomName, stompClient){
 			'<div class="chat" data-code="'+roomCode+'">' + 
 				'<div class="chat-content"></div>' +
 				'<div class="chat-message">' +
-					'<div><textarea class="txt-message"></textarea></div>' + 
-					'<div><button class="btn-send-message btn btn-primary">Send</button></div>' + 
+					'<div><textarea class="txt-message form-control"></textarea></div>' + 
+					'<div>' +
+						'<button class="btn-send-message btn btn-primary" disabled="disabled">' +
+							'<span class="glyphicon glyphicon-send"><span> Send' + 
+						'</button>' +
+					'</div>' + 
 				'</div>' +
 				'<div class="chat-users"></div>' +
 			'</div>';
@@ -41,9 +75,11 @@ var RoomView = function(roomCode, roomName, stompClient){
 		$('#opened-room').append(chatTemplate);
 		
 		$('.chat[data-code="' + roomCode + '"] button.btn-send-message').on('click', function(){
-			var message = $(this).parents('.chat-message').find('textarea').val();
-			var messageJSON = JSON.stringify({"from":"Leonardo", "content":message});
+			var txtMessage = $(this).parents('.chat-message').find('textarea');
+			var messageJSON = JSON.stringify({"from":"Leonardo", "content":txtMessage.val()});
 			sendMessage(messageJSON);
+			txtMessage.val('');
+			txtMessage.focus();
 		});
 	};
 	
@@ -67,18 +103,6 @@ var RoomView = function(roomCode, roomName, stompClient){
 		var $chat = $('.chat[data-code="'+roomCode+'"] .chat-content');
 		$chat.append(messageHTML);
 		focusLastMessage();
-	};
-	
-	this.active = function(){
-		$('.opened-room').removeClass('active-room');
-		$('.opened-room[data-code="'+this.roomCode+'"]').addClass('active-room');
-
-		$('.chat').addClass('invisible');
-		$('.chat[data-code="'+this.roomCode+'"]').removeClass('invisible');
-	};
-	
-	var focusLastMessage = function(){
-		$(".chat-content").animate({ scrollTop: $('.chat-content').height() + 1000 }, 1000);
 	};
 	
 };

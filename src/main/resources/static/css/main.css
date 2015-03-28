@@ -63,5 +63,5 @@
 	display: none;
 }
 
-.txt-message{ width: 100%; }
+.txt-message{ margin-bottom: 10px; }
 .btn-send-message { width: 200px; float: right; }

@@ -1,8 +1,8 @@
 yieldUnescaped '<!DOCTYPE html>'
 html {
   head {
-    title("My first Groovy Page!")
-	link(href:"/flat-ui/css/vendor/bootstrap.min.css",type:"text/css", rel:"stylesheet")
+    title("GChat - Home")
+	link(href:"/bootstrap/css/bootstrap.min.css",type:"text/css", rel:"stylesheet")
 	link(href:"/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
 	link(href:"/css/main.css",type:"text/css", rel:"stylesheet")
   }
@@ -32,7 +32,9 @@ html {
 						ul(class:"dropdown-menu"){
 							rooms.each { room ->
 								li{
-									a(href="#", "data-code":room.code, class:"btn-connect-room", room.name)
+									a(href="#", "data-code":room.code, class:"btn-connect-room"){
+										span(room.name)
+									}
 								}
 							}
 							li(class:"divider")
@@ -70,7 +72,7 @@ html {
 	script(type:"text/javascript", src:"js/ws/stomp.js"){}
 	
 	script(type:"text/javascript", src:"js/views/RoomView.js"){}
-	script(type:"text/javascript", src:"js/home.js"){}
+	script(type:"text/javascript", src:"js/views/HomeView.js"){}
   }
 }
 
