@@ -9,9 +9,9 @@ var RoomView = function(roomCode, roomName, stompClient){
 	};
 	
 	var subscribe = function(roomCode, roomName, stompClient){
-		console.log('Subscribing... '+'/topic/rooms-'+roomCode);
 		stompClient.subscribe('/topic/rooms-'+roomCode, function(message){
-			console.log('Receiving a message in ROOM...');
+			console.log('message: '+message.body);
+			showMessage(roomCode, JSON.parse(message.body));
 		});
 
 		$('.opened-room').removeClass('active-room');
@@ -41,12 +41,28 @@ var RoomView = function(roomCode, roomName, stompClient){
 		$('#opened-room').append(chatTemplate);
 	};
 	
+	var showMessage = function(roomCode, message){
+		var messageHTML = 
+			'<div class="message">' +
+				'<header>' + message.from + ' said: </header>' +
+				'<div>' + message.content + '</div>' +
+			'</div>';
+		
+		var $chat = $('.chat[data-code="'+roomCode+'"] .chat-content');
+		$chat.append(messageHTML);
+		focusLastMessage();
+	};
+	
 	this.active = function(){
 		$('.opened-room').removeClass('active-room');
 		$('.opened-room[data-code="'+this.roomCode+'"]').addClass('active-room');
 
 		$('.chat').addClass('invisible');
 		$('.chat[data-code="'+this.roomCode+'"]').removeClass('invisible');
+	};
+	
+	var focusLastMessage = function(){
+		$(".chat-content").animate({ scrollTop: $('.chat-content').height() + 1000 }, 1000);
 	};
 	
 };

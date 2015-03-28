@@ -37,17 +37,7 @@ var findRoom = function(roomCode){
 var connect = function() {
     var socket = new SockJS('/messages');
     stompClient = Stomp.over(socket);
-    stompClient.connect({}, function(frame) {
-        stompClient.subscribe('/queue/messages-leonardo', function(message){
-        	console.log('Receiving a private message...');
-            showMessage(JSON.parse(message.body));
-        });
-        
-        stompClient.subscribe('/topic/rooms-ABC', function(message){
-        	console.log('Receiving a message in ROOM...');
-            showMessage(JSON.parse(message.body));
-        });
-    });
+    stompClient.connect({});
 }
 
 var disconnect = function() {
