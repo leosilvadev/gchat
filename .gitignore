@@ -4,6 +4,7 @@ build/
 .project
 .settings
 .springBeans
+/bin
 
 # Ignore Gradle GUI config
 gradle-app.setting

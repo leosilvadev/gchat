@@ -30,7 +30,7 @@ var RoomView = function(roomCode, roomName, stompClient){
 	var create = function(roomCode, roomName){
 		var chatTemplate = 
 			'<div class="chat" data-code="'+roomCode+'">' + 
-				'<div class="chat-content">'+roomCode+'</div>' +
+				'<div class="chat-content"></div>' +
 				'<div class="chat-message">' +
 					'<div><textarea class="txt-message"></textarea></div>' + 
 					'<div><button class="btn-send-message btn btn-primary">Send</button></div>' + 
@@ -39,6 +39,22 @@ var RoomView = function(roomCode, roomName, stompClient){
 			'</div>';
 		
 		$('#opened-room').append(chatTemplate);
+		
+		$('.chat[data-code="' + roomCode + '"] button.btn-send-message').on('click', function(){
+			var message = $(this).parents('.chat-message').find('textarea').val();
+			var messageJSON = JSON.stringify({"from":"Leonardo", "content":message});
+			sendMessage(messageJSON);
+		});
+	};
+	
+	var sendMessage = function(messageJSON){
+		var url = 'chat/'+roomCode+'/messages';
+		$.ajax({
+	        type: "POST",
+	        url: url,
+	        contentType : 'application/json',
+	        data: messageJSON
+	    });
 	};
 	
 	var showMessage = function(roomCode, message){

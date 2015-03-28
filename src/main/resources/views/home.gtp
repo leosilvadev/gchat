@@ -69,8 +69,8 @@ html {
 	script(type:"text/javascript", src:"js/ws/sockjs-0.3.4.js"){}
 	script(type:"text/javascript", src:"js/ws/stomp.js"){}
 	
-	script(type:"text/javascript", src:"js/home.js"){}
 	script(type:"text/javascript", src:"js/views/RoomView.js"){}
+	script(type:"text/javascript", src:"js/home.js"){}
   }
 }
 
