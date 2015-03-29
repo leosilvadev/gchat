@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod
 import br.leosilvadev.gchat.manager.RoomsManager
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/home")
 class HomeController {
 
 	@Autowired RoomsManager roomsManager
 	
 	@RequestMapping(method=RequestMethod.GET)
-	String home(Model model){
+	def home(Model model){
 		model.addAttribute("rooms", roomsManager.rooms)
-		return "home"
+		"home"
 	}
 	
 }

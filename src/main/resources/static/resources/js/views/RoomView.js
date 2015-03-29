@@ -1,16 +1,16 @@
 var RoomView = function(roomCode, roomName, homeView){
 	
-	var sef = this;
-	sef.homeView = homeView;
-	sef.roomCode = roomCode;
-	sef.roomName = roomName;
+	var self = this;
+	self.homeView = homeView;
+	self.roomCode = roomCode;
+	self.roomName = roomName;
 	
-	sef.render = function(){
-		subscribe(sef.roomCode, sef.roomName, sef.homeView.stompClient);
+	self.render = function(){
+		subscribe(self.roomCode, self.roomName, self.homeView.stompClient);
 		applyListeners();
 	};
 	
-	sef.active = function(){
+	self.active = function(){
 		$('.opened-room').removeClass('active-room');
 		$('.opened-room[data-code="'+this.roomCode+'"]').addClass('active-room');
 
@@ -50,7 +50,7 @@ var RoomView = function(roomCode, roomName, homeView){
 		
 		$roomTab.on('click', function(){
 			var roomCode = $(this).attr('data-code');
-			var room = sef.homeView.findRoom(roomCode);
+			var room = self.homeView.findRoom(roomCode);
 			room.active();
 		});
 		

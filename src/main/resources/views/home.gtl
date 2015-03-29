@@ -2,9 +2,9 @@ yieldUnescaped '<!DOCTYPE html>'
 html {
   head {
     title("GChat - Home")
-	link(href:"/bootstrap/css/bootstrap.min.css",type:"text/css", rel:"stylesheet")
-	link(href:"/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
-	link(href:"/css/main.css",type:"text/css", rel:"stylesheet")
+	link(href:"resources/bootstrap/css/bootstrap.min.css",type:"text/css", rel:"stylesheet")
+	link(href:"resources/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
+	link(href:"resources/css/main.css",type:"text/css", rel:"stylesheet")
   }
   body {
     header(class:"container"){
@@ -13,7 +13,7 @@ html {
 				button(type:"button", class:"navbar-toggle", "data-toggle":"collapse", "data-target":"#navbar-collapse-01"){
 					span(class:"sr-only", "Toggle navigation")
 				}
-				a(class:"navbar-brand", href:"#", "Flat UI")
+				a(class:"navbar-brand", href:"#", "GroovyChat")
 			}
 			div(id:"navbar-collapse-01", class:"collapse navbar-collapse"){
 				ul(class:"nav navbar-nav navbar-left"){
@@ -65,14 +65,14 @@ html {
 		}
 	}
 	
-	script(type:"text/javascript", src:"js/jquery-2.1.3.min.js"){}
-	script(type:"text/javascript", src:"flat-ui/js/flat-ui.min.js"){}
+	script(type:"text/javascript", src:"resources/js/jquery-2.1.3.min.js"){}
+	script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
 	
-	script(type:"text/javascript", src:"js/ws/sockjs-0.3.4.js"){}
-	script(type:"text/javascript", src:"js/ws/stomp.js"){}
+	script(type:"text/javascript", src:"resources/js/ws/sockjs-0.3.4.js"){}
+	script(type:"text/javascript", src:"resources/js/ws/stomp.js"){}
 	
-	script(type:"text/javascript", src:"js/views/RoomView.js"){}
-	script(type:"text/javascript", src:"js/views/HomeView.js"){}
+	script(type:"text/javascript", src:"resources/js/views/RoomView.js"){}
+	script(type:"text/javascript", src:"resources/js/views/HomeView.js"){}
   }
 }
 

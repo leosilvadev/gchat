@@ -31,13 +31,16 @@ dependencies {
 	runtime("javax.servlet:jstl:1.1.2")
     
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.boot:spring-boot-starter-websocket")
+	compile("org.springframework.boot:spring-boot-starter-security")
+	
 	compile("mysql:mysql-connector-java:5.1.34")
-    compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.hibernate:hibernate-core:4.3.8.Final")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-starter-websocket")
     compile("org.springframework:spring-messaging")
 	compile("cglib:cglib-nodep:3.1")
+	compile("org.codehaus.groovy:groovy-all:2.3.11")
 	
 	testCompile("junit:junit")
 	testCompile("org.objenesis:objenesis:2.1")

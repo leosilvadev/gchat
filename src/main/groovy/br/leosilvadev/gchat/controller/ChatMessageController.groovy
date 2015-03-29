@@ -1,5 +1,6 @@
 package br.leosilvadev.gchat.controller
 
+import java.security.Principal;
 import java.util.concurrent.ConcurrentHashMap
 
 import javax.annotation.PostConstruct
@@ -35,9 +36,10 @@ class ChatMessageController {
 	@RequestMapping(value="/{room}/messages", method=RequestMethod.POST)
     def handlePublicMessage(
 		@RequestBody Message message, 
-		@PathVariable String room) {
+		@PathVariable String room,
+		Principal loggedUser) {
 		
-		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message, room))
+		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message, room, loggedUser.getPrincipal().getUsername()))
 		
 		new ResponseEntity(HttpStatus.OK)
     }
@@ -45,9 +47,10 @@ class ChatMessageController {
 	@RequestMapping(value="/messages/{user}", method=RequestMethod.POST)
 	def handlePrivateMessage(
 		@RequestBody Message message, 
-		@PathVariable String user) throws Exception {
+		@PathVariable String user,
+		Principal loggedUser) throws Exception {
 		
-		def privateMessage = new PrivateMessage(to: user, from: message.from, content: message.content)
+		def privateMessage = builder.privateMessage(to: user, from: loggedUser.getPrincipal().getUsername(), content: message.content)
 		template.convertAndSend("/queue/messages-"+user, privateMessage);
 		
 		new ResponseEntity(HttpStatus.OK)
