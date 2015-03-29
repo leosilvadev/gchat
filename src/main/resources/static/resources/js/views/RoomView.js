@@ -24,6 +24,14 @@ var RoomView = function(roomCode, roomName, homeView){
 	
 	var applyListeners = function(){
 		$('.txt-message').on('blur keyup', validateMessage);
+		$('.txt-message').on('keypress', function(event){
+			if(event.which == 13) {
+				var $txtMessage = $(this);
+				var $btn = $txtMessage.parents('.chat-message').find('.btn-send-message');
+				$btn.trigger('click');
+				return false;
+		    }
+		});
 	};
 	
 	var validateMessage = function(){
