@@ -34,5 +34,23 @@ class UserRegistrationSpec extends Specification {
 			1 * userService.register(user)
 			response.getStatusCode() == HttpStatus.CREATED
 	}
+	
+	
+	def "Should not register a User with a validation error"(){
+		def bindingResult = Mock(BindingResult)
+		ResponseEntity response
+		
+		given: "A new User"
+			def user = new ChatUser(name: "fake", email: "fake@fake.com", password: "abc")
+			
+		when: "The User try to register himself"
+			response = controller.register(user, bindingResult)
+			
+		then: "The user must got an validation error"
+			1 * bindingResult.hasErrors() >> true
+			response.getStatusCode() == HttpStatus.BAD_REQUEST
+			
+	}
+	
 
 }

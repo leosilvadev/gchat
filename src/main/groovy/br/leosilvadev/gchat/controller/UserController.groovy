@@ -31,7 +31,7 @@ class UserController {
 	}
 	
 	@InitBinder
-    def void initBinder(WebDataBinder binder) {
+    void initBinder(WebDataBinder binder) {
         binder.setValidator(new ChatUserValidator());
     }
 	
