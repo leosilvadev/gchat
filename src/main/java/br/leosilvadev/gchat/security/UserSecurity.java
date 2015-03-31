@@ -13,8 +13,15 @@ public class UserSecurity implements UserDetails {
 
 	private User user;
 	
-	public UserSecurity(User user) {
+	private String code;
+	
+	public UserSecurity(User user, String code) {
 		this.user = user;
+		this.code = code;
+	}
+	
+	public String getCode(){
+		return code;
 	}
 	
 	@Override

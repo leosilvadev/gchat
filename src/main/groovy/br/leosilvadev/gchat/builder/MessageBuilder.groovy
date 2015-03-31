@@ -7,7 +7,11 @@ import br.leosilvadev.gchat.model.dto.PublicMessage
 
 @Component
 class MessageBuilder {
-
+	
+	def publicSystemMessage(message, room) {
+		new PublicMessage(room: room, content: message.content)
+	}
+	
 	def publicMessage(message, room, from) {
 		new PublicMessage(room: room, from: from, content: message.content)
 	}

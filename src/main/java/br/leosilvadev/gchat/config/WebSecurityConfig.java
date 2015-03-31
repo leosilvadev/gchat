@@ -1,5 +1,7 @@
 package br.leosilvadev.gchat.config;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import br.leosilvadev.gchat.model.domain.User;
 import br.leosilvadev.gchat.repositories.UserRepository;
@@ -47,7 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
             .userDetailsService((email) -> {
             	User user = userRepository.findOneByEmail(email);
-				return new UserSecurity(user);
+            	String code = UUID.randomUUID().toString();
+				return new UserSecurity(user, code);
 				
             }).passwordEncoder(encoder());
     }

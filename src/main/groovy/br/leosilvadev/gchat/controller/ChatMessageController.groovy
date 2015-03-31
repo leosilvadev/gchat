@@ -38,7 +38,7 @@ class ChatMessageController {
 		@PathVariable String room,
 		Principal loggedUser) {
 		
-		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message, room, loggedUser.getName()))
+		template.convertAndSend("/topic/rooms-${room}", builder.publicMessage(message, room, loggedUser.getName()))
 		
 		new ResponseEntity(HttpStatus.CREATED)
     }
@@ -49,7 +49,7 @@ class ChatMessageController {
 		@PathVariable String user,
 		Principal loggedUser) throws Exception {
 		
-		template.convertAndSend("/queue/messages-"+user, builder.privateMessage(message, user, loggedUser.getName()))
+		template.convertAndSend("/queue/messages-${user}", builder.privateMessage(message, user, loggedUser.getName()))
 		
 		new ResponseEntity(HttpStatus.CREATED)
 	}

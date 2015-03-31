@@ -4,6 +4,12 @@ class Room {
 	
 	String code
 	String name
-	List users
+	List users = []
+	
+	def listeners
+	
+	def addUser(user){
+		users << user
+	}
 	
 }

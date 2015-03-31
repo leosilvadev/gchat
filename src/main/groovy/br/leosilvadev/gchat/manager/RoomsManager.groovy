@@ -1,24 +1,50 @@
 package br.leosilvadev.gchat.manager
 
-import javax.annotation.PostConstruct
-
 import org.springframework.stereotype.Component
 
+import br.leosilvadev.gchat.exceptions.RoomNotFoundException
+import br.leosilvadev.gchat.exceptions.RoomValidationException
 import br.leosilvadev.gchat.model.dto.Room
+import br.leosilvadev.gchat.security.UserSecurity
 
 @Component
 class RoomsManager {
 
-	List rooms
+	private List rooms = []
 	
-	@PostConstruct
-	def init(){
-		rooms = [
-			new Room(code:"12345", name:"Room 1"),
-			new Room(code:"23456", name:"Room 2"),
-			new Room(code:"34567", name:"Room 3"),
-			new Room(code:"45678", name:"Room 4"),
-		]
+	def newRoom(Room room){
+		if ( room.name ) rooms.add(room)
+		else throw new RoomValidationException()
+	}
+	
+	def rooms() { rooms }
+	
+	def doInRoom(codeRoom, callback){
+		boolean found = false
+		rooms.each { 
+			if ( it.code.equals(codeRoom) ) callback(it); found = true;
+		}
+		if(!found) throw new RoomNotFoundException()
+	}
+	
+	def login(user){
+		new LoginRequest(user, this)
+	}
+	
+	static class LoginRequest {
+		private UserSecurity user
+		private RoomsManager roomsManager
+		
+		LoginRequest(user, roomsManager){
+			this.user = user
+			this.roomsManager = roomsManager
+		}
+		
+		def to(codeRoom){
+			roomsManager.doInRoom(codeRoom){
+				it.addUser(user)
+			}
+		}
 	}
 	
 }
