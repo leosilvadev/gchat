@@ -104,7 +104,7 @@ var RoomView = function(roomCode, roomName, homeView){
 	var showMessage = function(roomCode, message){
 		var messageHTML = 
 			'<div class="message">' +
-				'<header>' + message.from + ' said: </header>' +
+				'<header> <span class="sent-at">['+message.sentAt+']</span>' + message.from + ' said: </header>' +
 				'<div>' + message.content + '</div>' +
 			'</div>';
 		

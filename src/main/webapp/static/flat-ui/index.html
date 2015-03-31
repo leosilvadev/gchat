@@ -1,36 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Flat UI Free 101 Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<style type="text/css">
+.chat-content {
+	display: block;
+	position: absolute;
+	bottom: 180px;
+	top: 0px;
+	background-color: rgb(242, 242, 242);
+	width: 80%;
+	overflow-y: scroll;
+	left: 0px;
+	height: 80%;
+}
 
-    <!-- Loading Bootstrap -->
-    <link href="../dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+.chat-content>div.message {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background-color: rgba(255, 255, 255, 0.31);
+	border: 1px solid rgba(0, 0, 0, 0.07);
+	margin: 5px;
+	border-radius: 4px;
+	word-break: break-all;
+}
 
-    <!-- Loading Flat UI -->
-    <link href="../dist/css/flat-ui.min.css" rel="stylesheet">
+.chat-content>div.message>header {
+	font-weight: bold;
+}
 
-    <link rel="shortcut icon" href="img/favicon.ico">
+.chat-message {
+	display: block;
+	position: absolute;
+	bottom: 0px;
+	background-color: rgb(224, 224, 224);
+	width: 80%;
+	padding: 0px;
+	left: 0px;
+	height: 20%;
+}
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-      <script src="js/vendor/html5shiv.js"></script>
-      <script src="js/vendor/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="container">
-        <h1>Hello, world!</h1>
-    </div>
-    <!-- /.container -->
-
-
-    <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-    <script src="../dist/js/vendor/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../dist/js/vendor/video.js"></script>
-    <script src="../dist/js/flat-ui.min.js"></script>
-
-  </body>
+.chat-users {
+	display: block;
+	position: absolute;
+	bottom: 53px;
+	top: 0px;
+	background-color: rgba(52, 73, 94, 0.83);
+	width: 20%;
+	right: 0px;
+	border-left: 1px solid black;
+	height: 100%;
+}
+</style>
+</head>
+<body>
+	<div class="chat" data-code="12345">
+		<div class="chat-content"></div>
+		<div class="chat-message">
+			<div>
+				<textarea class="txt-message form-control"></textarea>
+			</div>
+			<div>
+				<button class="btn-send-message btn btn-primary" disabled="disabled">
+					<span class="glyphicon glyphicon-send"><span> Send</span></span>
+				</button>
+			</div>
+		</div>
+		<div class="chat-users"></div>
+	</div>
+</body>
 </html>

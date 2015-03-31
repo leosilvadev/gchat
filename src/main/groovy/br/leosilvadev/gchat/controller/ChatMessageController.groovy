@@ -1,6 +1,6 @@
 package br.leosilvadev.gchat.controller
 
-import java.security.Principal;
+import java.security.Principal
 import java.util.concurrent.ConcurrentHashMap
 
 import javax.annotation.PostConstruct
@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod
 
 import br.leosilvadev.gchat.builder.MessageBuilder
 import br.leosilvadev.gchat.model.dto.Message
-import br.leosilvadev.gchat.model.dto.PrivateMessage
 
 @Controller
 @RequestMapping("/chat")
 class ChatMessageController {
 	
-	@Autowired SimpMessagingTemplate template;
+	@Autowired SimpMessagingTemplate template
 	@Autowired MessageBuilder builder
 	
 	public static ConcurrentHashMap<String, String> users;
@@ -39,9 +38,9 @@ class ChatMessageController {
 		@PathVariable String room,
 		Principal loggedUser) {
 		
-		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message, room, loggedUser.getPrincipal().getUsername()))
+		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message, room, loggedUser.getName()))
 		
-		new ResponseEntity(HttpStatus.OK)
+		new ResponseEntity(HttpStatus.CREATED)
     }
 		
 	@RequestMapping(value="/messages/{user}", method=RequestMethod.POST)
@@ -50,10 +49,9 @@ class ChatMessageController {
 		@PathVariable String user,
 		Principal loggedUser) throws Exception {
 		
-		def privateMessage = builder.privateMessage(to: user, from: loggedUser.getPrincipal().getUsername(), content: message.content)
-		template.convertAndSend("/queue/messages-"+user, privateMessage);
+		template.convertAndSend("/queue/messages-"+user, builder.privateMessage(message, user, loggedUser.getName()))
 		
-		new ResponseEntity(HttpStatus.OK)
+		new ResponseEntity(HttpStatus.CREATED)
 	}
 	
 }
