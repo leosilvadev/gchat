@@ -72,3 +72,9 @@
 
 .txt-message{ margin-bottom: 10px; }
 .btn-send-message { width: 200px; float: right; }
+
+ul.navbar-right { margin-right: 20px !important; }
+ul.navbar-right>li>a:HOVER, ul.navbar-right>li>a { border-radius: 0px !important; }
+
+ul.navbar-left { margin-left: 10px !important; }
+ul.navbar-left>li>a:HOVER, ul.navbar-left>li>a { border-radius: 0px !important; }

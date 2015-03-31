@@ -36,18 +36,18 @@ var HomeView = function(){
 			}
 		}
 	};
-
+	
 	var connect = function() {
 	    var socket = new SockJS('/messages');
 	    self.stompClient = Stomp.over(socket);
 	    self.stompClient.connect({});
-	}
+	};
 
 	var disconnect = function() {
 	    if (self.stompClient != null) {
 	    	self.stompClient.disconnect();
 	    }
-	}
+	};
 	
 	var applyListeners = function(){
 		$('.btn-connect-room').on('click', self.openRoom);
