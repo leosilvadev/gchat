@@ -34,4 +34,16 @@ class User {
 	@ManyToMany
 	Set<Role> roles
 	
+	def save(repository, successCallback, errorCallback){
+		try {
+			repository.save(this)
+			if(successCallback) successCallback(this)
+			
+		} catch(ex){
+			if(errorCallback) errorCallback(this, ex)
+			else ex.printStackTrace()
+			
+		}
+	}
+		
 }
