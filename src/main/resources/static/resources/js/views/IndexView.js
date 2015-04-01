@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+	indexView = new IndexView();
 });
 
 
@@ -7,14 +7,26 @@ var IndexView = function(){
 	
 	var self = this;
 	
-	self.openRegistration = function(){
-		$('#modal-registration').modal('show');
+	self.showSuccessMessage = function(message){
+		$.notify({
+			message: message
+		}, buildMessageOptions('success', 3000));
 	};
 	
+	self.showErrorMessage = function(message){
+		$.notify({
+			message: message
+		}, buildMessageOptions('warning', 3000));
+	};
 	
-	
-	var applyListeners = function(){
-		
-	}
+	var buildMessageOptions = function(type, delay){
+		return {
+			delay: delay,
+			type: type,
+			placement: {
+				align: 'center'
+			}
+		};
+	};
 	
 };

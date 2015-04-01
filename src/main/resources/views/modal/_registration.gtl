@@ -1,23 +1,41 @@
 div(id:"modal-registration", class:"modal fade"){
 	div(class:"modal-dialog"){
 		div(class:"modal-content"){
-			
 			div(class:"modal-header"){
 				button(type:"button", class:"close", "data-dismiss":"modal", "aria-label":"Close"){
 					span("aria-label":"true", "&times;")
 				}
-				h4("Registration")
+				h4(){
+					span(class:"glyphicon glyphicon-star-empty")
+					span(" Registration ")
+					span(class:"glyphicon glyphicon-star-empty")
+				}
 			}
 			
 			div(class:"modal-body"){
+				label(for:"name", "Name")
+				input(id:"name", class:"form-control")
 				
+				label(for:"email", "E-mail")
+				input(id:"email", class:"form-control")
+				
+				label(for:"password", "Password")
+				input(id:"password", class:"form-control", type:"password")
+				
+				label(for:"passwordConfirmation", "Password confirmation")
+				input(id:"passwordConfirmation", class:"form-control", type:"password")
 			}
 			
 			div(class:"modal-footer"){
-				button(type:"button", class:"btn btn-default", "data-dismiss":"modal", "Close")
-				button(type:"button", class:"btn btn-primary", "Register")
+				button(type:"button", class:"btn btn-default", "data-dismiss":"modal"){
+					span(class:"glyphicon glyphicon-remove")
+					span(" Close")
+				}
+				button(id:"btn-register", type:"button", class:"btn btn-primary"){
+					span(class:"glyphicon glyphicon-ok")
+					span(" Register")
+				}
 			}
-			
 		}
 	}
 }

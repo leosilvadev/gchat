@@ -7,8 +7,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 class ChatUser {
 
-	String token
-	
 	@NotNull @NotEmpty
 	String name
 	

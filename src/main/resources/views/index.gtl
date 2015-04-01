@@ -40,6 +40,11 @@ html {
 	  
 	  script(type:"text/javascript", src:"resources/js/jquery-2.1.3.min.js"){}
 	  script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
+	  script(type:"text/javascript", src:"resources/js/bootstrap-notify.min.js"){}
+	  
+	  script(type:"text/javascript", src:"resources/js/main.js"){}
+	  
 	  script(type:"text/javascript", src:"resources/js/views/IndexView.js"){}
+	  script(type:"text/javascript", src:"resources/js/views/UserRegistrationView.js"){}
   }
 }

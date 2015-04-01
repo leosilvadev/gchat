@@ -1,6 +1,7 @@
 package br.leosilvadev.gchat.controller
 
 import javax.validation.Valid
+import javax.validation.Validator
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -23,6 +24,9 @@ class UserController {
 
 	@Autowired UserService userService
 	
+	@Autowired Validator validator;
+	@Autowired ChatUserValidator chatUserValidator
+	
 	@RequestMapping(method=RequestMethod.POST)
 	def register(@Valid @RequestBody ChatUser chatUser, BindingResult bindingResult){
 		if ( bindingResult.hasErrors() ) return new ResponseEntity(HttpStatus.BAD_REQUEST)
@@ -32,7 +36,7 @@ class UserController {
 	
 	@InitBinder
     void initBinder(WebDataBinder binder) {
-        binder.setValidator(new ChatUserValidator());
+		binder.addValidators(chatUserValidator, validator)
     }
 	
 }

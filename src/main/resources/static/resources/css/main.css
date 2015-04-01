@@ -3,6 +3,28 @@
 #opened-room{
 }
 
+.modal-header>h4{
+	text-align: center;
+}
+
+label.error{
+	font-weight: bold;
+	color: rgba(223, 48, 48, 0.76);
+}
+input.error{
+	border: 1px solid rgba(223, 48, 48, 0.76);
+}
+
+span.error-detail{
+	font-size: 0.8em;
+	color: rgb(184, 184, 184);
+	margin-left: 10px;
+}
+
+.alert {
+	z-index: 999999999999999 !important;
+}
+
 .chat-content{
 	display: block;
 	position: absolute;
