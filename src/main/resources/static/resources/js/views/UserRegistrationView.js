@@ -1,15 +1,15 @@
 $(document).ready(function(){
-	
-	var view = new UserRegistrationView(indexView);
+	var notifier = new Notifier(); 
+	var view = new UserRegistrationView(notifier);
 	view.render();
 	
 });
 
 
-var UserRegistrationView = function(indexView){
+var UserRegistrationView = function(notifier){
 	
 	var self = this;
-	var parent = indexView;
+	var notifier = notifier;
 	
 	self.render = function(){
 		registerEvents();
@@ -68,11 +68,11 @@ var UserRegistrationView = function(indexView){
 	
 	var registerSuccessCallback = function(){
     	self.closeModal();
-    	parent.showSuccessMessage('Thank you! You will receive a confirmation at your e-mail');
+    	notifier.showSuccessMessage('Thank you! You will receive a confirmation at your e-mail');
     };
     
     var registerErrorCallback = function(jqXHR, textStatus, errorThrown){
-    	parent.showErrorMessage('Warning! Fill all the fields correctly!<br/>'+jqXHR.responseText);
+    	notifier.showErrorMessage('Warning! Fill all the fields correctly!<br/>'+jqXHR.responseText);
     };
 	
 	var buildUser = function(){

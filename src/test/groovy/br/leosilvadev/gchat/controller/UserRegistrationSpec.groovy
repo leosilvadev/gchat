@@ -1,5 +1,7 @@
 package br.leosilvadev.gchat.controller
 
+import geb.Browser;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult
@@ -51,6 +53,5 @@ class UserRegistrationSpec extends Specification {
 			response.getStatusCode() == HttpStatus.BAD_REQUEST
 			
 	}
-	
 
 }

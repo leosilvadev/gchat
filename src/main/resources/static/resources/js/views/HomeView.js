@@ -57,7 +57,12 @@ var HomeView = function(){
 
 
 $(document).ready(function(){
-	var view = new HomeView();
-	view.render();
+	var notifier = new Notifier();
+	var homeView = new HomeView();
+		
+	var roomRegistrationView = new RoomRegistrationView(notifier);
+	roomRegistrationView.render();
+		
+	homeView.render();
 });
 

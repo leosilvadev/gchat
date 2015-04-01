@@ -1,0 +1,32 @@
+div(id:"modal-new-room", class:"modal fade"){
+	div(class:"modal-dialog"){
+		div(class:"modal-content"){
+			div(class:"modal-header"){
+				button(type:"button", class:"close", "data-dismiss":"modal", "aria-label":"Close"){
+					span("aria-label":"true", "&times;")
+				}
+				h4(){
+					span(class:"glyphicon glyphicon-star-empty")
+					span(" New Room ")
+					span(class:"glyphicon glyphicon-star-empty")
+				}
+			}
+			
+			div(class:"modal-body"){
+				label(for:"new-room-name", "Name")
+				input(id:"new-room-name", class:"form-control")
+			}
+			
+			div(class:"modal-footer"){
+				button(type:"button", class:"btn btn-default", "data-dismiss":"modal"){
+					span(class:"glyphicon glyphicon-remove")
+					span(" Close")
+				}
+				button(id:"btn-register-room", type:"button", class:"btn btn-primary"){
+					span(class:"glyphicon glyphicon-ok")
+					span(" Create")
+				}
+			}
+		}
+	}
+}

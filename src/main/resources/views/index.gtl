@@ -44,6 +44,7 @@ html {
 	  
 	  script(type:"text/javascript", src:"resources/js/main.js"){}
 	  
+	  script(type:"text/javascript", src:"resources/js/components/Notifier.js"){}
 	  script(type:"text/javascript", src:"resources/js/views/IndexView.js"){}
 	  script(type:"text/javascript", src:"resources/js/views/UserRegistrationView.js"){}
   }

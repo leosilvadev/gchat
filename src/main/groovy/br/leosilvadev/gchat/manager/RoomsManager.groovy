@@ -13,7 +13,10 @@ class RoomsManager {
 	private List rooms = []
 	
 	def newRoom(Room room){
-		if ( room.name ) rooms.add(room)
+		if ( room.name ) {
+			room.generateCode()
+			rooms.add(room)
+		}
 		else throw new RoomValidationException()
 	}
 	

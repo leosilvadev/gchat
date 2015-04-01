@@ -33,7 +33,7 @@ html {
 							}
 							li(class:"divider")
 							li{
-								a(href="#", "Create a Room")
+								a(href="#", "data-toggle":"modal", "data-target":"#modal-new-room", "Create a Room")
 							}
 						}
 					}
@@ -77,14 +77,19 @@ html {
 	}
 	
 	include template: 'modal/_logout_confirm.gtl'
+	include template: 'modal/_new_room.gtl'
 	
 	script(type:"text/javascript", src:"resources/js/jquery-2.1.3.min.js"){}
 	script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
+	script(type:"text/javascript", src:"resources/js/bootstrap-notify.min.js"){}
 	
 	script(type:"text/javascript", src:"resources/js/ws/sockjs-0.3.4.js"){}
 	script(type:"text/javascript", src:"resources/js/ws/stomp.js"){}
 	
+	script(type:"text/javascript", src:"resources/js/main.js"){}
+	script(type:"text/javascript", src:"resources/js/components/Notifier.js"){}
 	script(type:"text/javascript", src:"resources/js/views/RoomView.js"){}
+	script(type:"text/javascript", src:"resources/js/views/RoomRegistrationView.js"){}
 	script(type:"text/javascript", src:"resources/js/views/HomeView.js"){}
   }
 }
