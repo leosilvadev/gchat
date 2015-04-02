@@ -18,10 +18,16 @@ class RoomLoginListener implements ApplicationListener<SessionSubscribeEvent> {
 	@Override
 	void onApplicationEvent(SessionSubscribeEvent event) {
 		def wrapper = new EventWrapper(event)
-		def user = wrapper.getSender()
-		def room = wrapper.getDestination().split("-")[1]
+		def user = wrapper.sender()
+		def destination = wrapper.destination()
 		
-		roomsManager.login(user).to(room)
+		def roomCode = wrapper.loggedRoom(destination)
+		if ( roomCode ) {
+			roomsManager.login(user).to(roomCode)
+			
+		}
+		
+		
 	}
 
 }

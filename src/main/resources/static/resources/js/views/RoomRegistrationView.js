@@ -5,7 +5,7 @@ var RoomRegistrationView = function(notifier){
 	var notifier = notifier;
 	
 	self.render = function(){
-		applyListeners();
+		registerEvents();
 	};
 	
 	self.register = function(){
@@ -24,17 +24,21 @@ var RoomRegistrationView = function(notifier){
 		$('#modal-new-room').modal('hide');
 	};
 	
+	self.cleanModal = function(){
+		$('#new-room-name').val('');
+	}
+	
 	var registerSuccessCallback = function(){
 		self.closeModal();
-		notifier.showSuccessMessage('Your Room was created successfully!');
 	};
 	
 	var registerErrorCallback = function(jqXHR, textStatus, errorThrown){
 		notifier.showErrorMessage('Warning! Fill all the fields correctly!<br/>'+jqXHR.responseText);
 	};
 	
-	var applyListeners = function(){
+	var registerEvents = function(){
 		$('#btn-register-room').on('click', self.register);
+		$('#modal-new-room').on('hidden.bs.modal', self.cleanModal);
 	};
 	
 };

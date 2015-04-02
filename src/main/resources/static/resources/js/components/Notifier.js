@@ -3,16 +3,18 @@ var Notifier = function(){
 	
 	var self = this;
 	
-	self.showSuccessMessage = function(message){
+	self.showSuccessMessage = function(message, delay){
+		var delay = delay || 3000;
 		$.notify({
 			message: message
-		}, buildMessageOptions('success', 3000));
+		}, buildMessageOptions('success', delay));
 	};
 	
-	self.showErrorMessage = function(message){
+	self.showErrorMessage = function(message, delay){
+		var delay = delay || 3000;
 		$.notify({
 			message: message
-		}, buildMessageOptions('warning', 3000));
+		}, buildMessageOptions('warning', delay));
 	};
 	
 	var buildMessageOptions = function(type, delay){

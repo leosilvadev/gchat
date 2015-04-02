@@ -7,7 +7,7 @@ var HomeView = function(){
 	
 	self.render = function(){
 		connect();
-		applyListeners();
+		registerEvents();
 	};
 	
 	self.openRoom = function(){
@@ -40,7 +40,11 @@ var HomeView = function(){
 	var connect = function() {
 	    var socket = new SockJS('/messages');
 	    self.stompClient = Stomp.over(socket);
-	    self.stompClient.connect({});
+	    self.stompClient.connect({}, function(frame){
+	    	self.stompClient.subscribe('/topic/rooms', function(message){
+	    		showNewRoom(JSON.parse(message.body));
+			});
+	    });
 	};
 
 	var disconnect = function() {
@@ -49,8 +53,31 @@ var HomeView = function(){
 	    }
 	};
 	
-	var applyListeners = function(){
+	var registerEvents = function(){
 		$('.btn-connect-room').on('click', self.openRoom);
+	};
+	
+	var showNewRoom = function(room){
+		var roomsDivider = $('#dropdown-rooms>li.divider');
+		var newRoom = 
+			'<li>' +
+				'<a href="#" data-code="'+room.code+'" class="btn-connect-room">' +
+					'<span class="glyphicon glyphicon-share-alt"></span>' +
+					'<span>'+room.name+'</span>' +
+				'</a>' +
+			'</li>';
+		roomsDivider.before(newRoom);
+		
+		var roomView = self.findRoom(room.code);
+		if ( roomView ) {
+			roomView.active();
+			
+		} else {
+			roomView = new RoomView(room.code, room.name, self);
+			roomView.render();
+			activeRooms.push(roomView);
+			
+		}
 	};
 	
 };

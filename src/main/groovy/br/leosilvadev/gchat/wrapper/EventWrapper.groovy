@@ -8,12 +8,20 @@ class EventWrapper {
 	
 	EventWrapper(event){ this.event = event }
 
-	UserSecurity getSender(){
+	UserSecurity sender(){
 		event.getMessage().getHeaders().get("simpUser").getPrincipal()
 	}
 	
-	String getDestination(){
+	String destination(){
 		event.getMessage().getHeaders().get("simpDestination")
+	}
+	
+	String loggedRoom(destination){
+		if ( destination.contains("-") ){
+			def brokenDest = destination.split("-")
+			if (brokenDest[0]?.equals("/topic/rooms")) return brokenDest[1]
+		}
+		return null
 	}
 	
 }

@@ -23,17 +23,21 @@ html {
 							b(class:"caret"){}
 						}
 						span(class:"dropdown-arrow"){}
-						ul(class:"dropdown-menu"){
+						ul(id:"dropdown-rooms", class:"dropdown-menu"){
 							rooms.each { room ->
 								li{
 									a(href="#", "data-code":room.code, class:"btn-connect-room"){
-										span(room.name)
+										span(class:"glyphicon glyphicon-share-alt"){}
+										span(" ${room.name}")
 									}
 								}
 							}
 							li(class:"divider")
 							li{
-								a(href="#", "data-toggle":"modal", "data-target":"#modal-new-room", "Create a Room")
+								a(href="#", "data-toggle":"modal", "data-target":"#modal-new-room"){
+									span(class:"glyphicon glyphicon-plus"){}
+									span(" Create a Room")
+								}
 							}
 						}
 					}

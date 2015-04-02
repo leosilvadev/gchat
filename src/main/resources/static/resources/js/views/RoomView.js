@@ -7,7 +7,7 @@ var RoomView = function(roomCode, roomName, homeView){
 	
 	self.render = function(){
 		subscribe(self.roomCode, self.roomName, self.homeView.stompClient);
-		applyListeners();
+		registerEvents();
 	};
 	
 	self.active = function(){
@@ -19,13 +19,24 @@ var RoomView = function(roomCode, roomName, homeView){
 	};
 	
 	var focusLastMessage = function(){
-		$(".chat-content").animate({ scrollTop: $('.chat-content').height() + 1000 }, 1000);
+		var txtMessage = $('.txt-message');
+		txtMessage.attr('disabled', 'disabled');
+		
+		$(".chat-content").animate(
+				{ 
+					scrollTop: $('.chat-content').height() + 500
+				
+				}, 1000, function(){
+					txtMessage.removeAttr('disabled');
+					txtMessage.focus();
+					
+				});
 	};
 	
-	var applyListeners = function(){
+	var registerEvents = function(){
 		$('.txt-message').on('blur keyup', validateMessage);
 		$('.txt-message').on('keypress', function(event){
-			if(event.which == 13) {
+			if(event.which == 13 && !$(event.target).attr('disabled')) {
 				var $txtMessage = $(this);
 				var $btn = $txtMessage.parents('.chat-message').find('.btn-send-message');
 				$btn.trigger('click');
