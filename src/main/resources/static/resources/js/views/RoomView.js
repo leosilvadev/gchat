@@ -1,6 +1,8 @@
 var RoomView = function(roomCode, roomName, homeView){
 	
 	var self = this;
+	var messagesSubscription;
+	
 	self.homeView = homeView;
 	self.roomCode = roomCode;
 	self.roomName = roomName;
@@ -17,6 +19,13 @@ var RoomView = function(roomCode, roomName, homeView){
 		$('.chat').addClass('invisible');
 		$('.chat[data-code="'+this.roomCode+'"]').removeClass('invisible');
 	};
+	
+	self.close = function(){
+		unsubscribe();
+		console.log(self.roomCode);
+		$('.chat[data-code="'+self.roomCode+'"]').remove();
+		$('.opened-room[data-code="'+self.roomCode+'"]').remove();
+	}
 	
 	var focusLastMessage = function(){
 		var txtMessage = $('.txt-message');
@@ -57,21 +66,27 @@ var RoomView = function(roomCode, roomName, homeView){
 		}
 	};
 	
+	var unsubscribe = function(){
+		messagesSubscription.unsubscribe();
+	};
+	
 	var subscribe = function(roomCode, roomName, stompClient){
-		stompClient.subscribe('/topic/rooms-'+roomCode, function(message){
+		messagesSubscription = stompClient.subscribe('/topic/rooms-'+roomCode, function(message){
 			console.log('message: '+message.body);
 			showMessage(roomCode, JSON.parse(message.body));
 		});
 
 		$('.opened-room').removeClass('active-room');
-		var $roomTab = $('<li class="opened-room active-room" data-code="'+roomCode+'"><a href="#">'+roomName+'</a></li>');
+		var $roomTab = 
+			$('<li class="opened-room active-room" data-code="' + roomCode + '"><a href="#">'+roomName+'</a><span class="glyphicon glyphicon-remove close"></span></li>');
 		$('#navbar-active-rooms').append($roomTab);
 		
 		$roomTab.on('click', function(){
-			var roomCode = $(this).attr('data-code');
-			var room = self.homeView.findRoom(roomCode);
-			room.active();
+			self.active();
 		});
+		
+		var $btnClose = $roomTab.find('.close');
+		$btnClose.on('click', self.close);
 		
 		create(roomCode, roomName);
 	};
