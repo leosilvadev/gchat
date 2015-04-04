@@ -43,7 +43,7 @@ html {
 	  script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
 	  
 	  script(type:"text/javascript", src:"resources/js/templates/UserRegistrationTemplate.js"){}
-	  script(type:"text/javascript", src:"resources/js/templates/UserLoginTemplate.js"){}
+	  script(type:"text/javascript", src:"resources/js/templates/LoginTemplate.js"){}
 	  
 	  script(type:"text/javascript", src:"resources/js/models/User.js"){}
 	  script(type:"text/javascript", src:"resources/js/models/Alert.js"){}
@@ -53,7 +53,7 @@ html {
 	  script(type:"text/javascript", src:"resources/js/views/AlertView.js"){}
 	  
 	  script(type:"text/javascript", src:"resources/js/views/UserRegistrationView.js"){}
-	  script(type:"text/javascript", src:"resources/js/views/UserLoginView.js"){}
+	  script(type:"text/javascript", src:"resources/js/views/LoginView.js"){}
 	  
 	  script(type:"text/javascript", src:"resources/js/loaders/IndexLoader.js"){}
   }
