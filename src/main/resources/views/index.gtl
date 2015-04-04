@@ -35,10 +35,6 @@ html {
 		  }
 	  }
 	  
-	  div(id:"user-registration-container"){}
-	  
-	  include template: 'modal/_login.gtl'
-	  
 	  script(type:"text/javascript", src:"resources/js/libs/jquery-2.1.3.min.js"){}
 	  script(type:"text/javascript", src:"resources/js/libs/bootstrap-notify.min.js"){}
 	  
@@ -46,17 +42,19 @@ html {
 	  script(type:"text/javascript", src:"resources/js/libs/backbone-min.js"){}
 	  script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
 	  
-	  script(type:"text/javascript", src:"resources/js/components/Notifier.js"){}
-	  
 	  script(type:"text/javascript", src:"resources/js/templates/UserRegistrationTemplate.js"){}
+	  script(type:"text/javascript", src:"resources/js/templates/UserLoginTemplate.js"){}
 	  
 	  script(type:"text/javascript", src:"resources/js/models/User.js"){}
 	  script(type:"text/javascript", src:"resources/js/models/Alert.js"){}
 	  script(type:"text/javascript", src:"resources/js/models/Notification.js"){}
 	  
 	  script(type:"text/javascript", src:"resources/js/views/NotificationView.js"){}
-	  script(type:"text/javascript", src:"resources/js/views/UserRegistrationView.js"){}
 	  script(type:"text/javascript", src:"resources/js/views/AlertView.js"){}
+	  
+	  script(type:"text/javascript", src:"resources/js/views/UserRegistrationView.js"){}
+	  script(type:"text/javascript", src:"resources/js/views/UserLoginView.js"){}
+	  
 	  script(type:"text/javascript", src:"resources/js/loaders/IndexLoader.js"){}
   }
 }
