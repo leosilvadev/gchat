@@ -1,0 +1,142 @@
+var RoomView = function(roomCode, roomName, homeView){
+	
+	var self = this;
+	var messagesSubscription;
+	
+	self.homeView = homeView;
+	self.roomCode = roomCode;
+	self.roomName = roomName;
+	
+	self.render = function(){
+		subscribe(self.roomCode, self.roomName, self.homeView.stompClient);
+		registerEvents();
+	};
+	
+	self.active = function(){
+		$('.opened-room').removeClass('active-room');
+		$('.opened-room[data-code="'+this.roomCode+'"]').addClass('active-room');
+
+		$('.chat').addClass('invisible');
+		$('.chat[data-code="'+this.roomCode+'"]').removeClass('invisible');
+	};
+	
+	self.close = function(){
+		unsubscribe();
+		console.log(self.roomCode);
+		$('.chat[data-code="'+self.roomCode+'"]').remove();
+		$('.opened-room[data-code="'+self.roomCode+'"]').remove();
+	}
+	
+	var focusLastMessage = function(){
+		var txtMessage = $('.txt-message');
+		txtMessage.attr('disabled', 'disabled');
+		
+		$(".chat-content").animate(
+				{ 
+					scrollTop: $('.chat-content').height() + 500
+				
+				}, 1000, function(){
+					txtMessage.removeAttr('disabled');
+					txtMessage.focus();
+					
+				});
+	};
+	
+	var registerEvents = function(){
+		$('.txt-message').on('blur keyup', validateMessage);
+		$('.txt-message').on('keypress', function(event){
+			if(event.which == 13 && !$(event.target).attr('disabled')) {
+				var $txtMessage = $(this);
+				var $btn = $txtMessage.parents('.chat-message').find('.btn-send-message');
+				$btn.trigger('click');
+				return false;
+		    }
+		});
+	};
+	
+	var validateMessage = function(){
+		var $txtMessage = $(this);
+		var $btn = $txtMessage.parents('.chat-message').find('.btn-send-message');
+		if ( $txtMessage.val() ) {
+			$btn.removeAttr('disabled');
+			
+		} else {
+			$btn.attr('disabled', 'disabled');
+			
+		}
+	};
+	
+	var unsubscribe = function(){
+		messagesSubscription.unsubscribe();
+	};
+	
+	var subscribe = function(roomCode, roomName, stompClient){
+		messagesSubscription = stompClient.subscribe('/topic/rooms-'+roomCode, function(message){
+			console.log('message: '+message.body);
+			showMessage(roomCode, JSON.parse(message.body));
+		});
+
+		$('.opened-room').removeClass('active-room');
+		var $roomTab = 
+			$('<li class="opened-room active-room" data-code="' + roomCode + '"><a href="#">'+roomName+'</a><span class="glyphicon glyphicon-remove close"></span></li>');
+		$('#navbar-active-rooms').append($roomTab);
+		
+		$roomTab.on('click', function(){
+			self.active();
+		});
+		
+		var $btnClose = $roomTab.find('.close');
+		$btnClose.on('click', self.close);
+		
+		create(roomCode, roomName);
+	};
+	
+	var create = function(roomCode, roomName){
+		var chatTemplate = 
+			'<div class="chat" data-code="'+roomCode+'">' + 
+				'<div class="chat-content"></div>' +
+				'<div class="chat-message">' +
+					'<div><textarea class="txt-message form-control"></textarea></div>' + 
+					'<div>' +
+						'<button class="btn-send-message btn btn-primary" disabled="disabled">' +
+							'<span class="glyphicon glyphicon-send"><span> Send' + 
+						'</button>' +
+					'</div>' + 
+				'</div>' +
+				'<div class="chat-users"></div>' +
+			'</div>';
+		
+		$('#opened-room').append(chatTemplate);
+		
+		$('.chat[data-code="' + roomCode + '"] button.btn-send-message').on('click', function(){
+			var txtMessage = $(this).parents('.chat-message').find('textarea');
+			var messageJSON = JSON.stringify({"from":"Leonardo", "content":txtMessage.val()});
+			sendMessage(messageJSON);
+			txtMessage.val('');
+			txtMessage.focus();
+		});
+	};
+	
+	var sendMessage = function(messageJSON){
+		var url = 'chat/'+roomCode+'/messages';
+		$.ajax({
+	        type: "POST",
+	        url: url,
+	        contentType : 'application/json',
+	        data: messageJSON
+	    });
+	};
+	
+	var showMessage = function(roomCode, message){
+		var messageHTML = 
+			'<div class="message">' +
+				'<header> <span class="sent-at">['+message.sentAt+']</span>' + message.from + ' said: </header>' +
+				'<div>' + message.content + '</div>' +
+			'</div>';
+		
+		var $chat = $('.chat[data-code="'+roomCode+'"] .chat-content');
+		$chat.append(messageHTML);
+		focusLastMessage();
+	};
+	
+};

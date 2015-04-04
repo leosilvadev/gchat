@@ -1,117 +1,72 @@
-$(document).ready(function(){
-	var notifier = new Notifier(); 
-	var view = new UserRegistrationView(notifier);
-	view.render();
-	
-});
+var UserRegistrationView = Backbone.View.extend({
 
+	template : _.template(userRegistrationTemplate),
+	id : 'modal-registration',
+	className : 'modal fade',
 
-var UserRegistrationView = function(notifier){
-	
-	var self = this;
-	var notifier = notifier;
-	
-	self.render = function(){
-		registerEvents();
-	};
-	
-	self.register = function(){
-		var user = buildUser();
-		
-		var errors = hasErrors(user);
-		if (errors.length) {
-			showErrors(errors);
-		
-		} else {
-			var url = 'users';
-			var messageJSON = JSON.stringify(user);
-			postJSON(url, messageJSON, registerSuccessCallback, registerErrorCallback);
-		
-		}
-	};
-	
-	self.openModal = function(){
-		$('#modal-registration').modal('show');
-	};
-	
-	self.closeModal = function(){
-		$('#modal-registration').modal('hide');
-	}
-	
-	var showErrors = function(errors){
-		cleanErrors();
-		var firstError = errors[0];
-		errors.forEach(function(error){
-			var label = $('label[for="'+error.prop+'"]');
-			label.addClass("error");
-			label.after('<span data-prop="'+error.prop+'" class="error-detail">'+error.message+'</span>');
-			
+	initialize : function() {
+		this.model.on('invalid', this.showErrors);
+	},
+
+	events : {
+		'click #btn-register' : 'register',
+		'hidden.bs.modal' : 'clean'
+	},
+
+	register : function() {
+		this.model.set('name', $('#name').val());
+		this.model.set('email', $('#email').val());
+		this.model.set('password', $('#password').val());
+		this.model.set('passwordConfirmation', $('#passwordConfirmation').val());
+		this.model.save({}, {
+			success : this.showSuccess(this)
 		});
-		$('input#'+firstError.prop).focus();
-	}
-	
-	var cleanErrors = function(){
-		$('.error-detail').remove();
-		$('label[for=name]').removeClass('error');
-		$('label[for=email]').removeClass('error');
-		$('label[for=password]').removeClass('error');
-		$('label[for=passwordConfirmation]').removeClass('error');
-	};
-	
-	var cleanAll = function(){
-		cleanErrors();
-		$('input#name').val('');
-		$('input#email').val('');
-		$('input#password').val('');
-		$('input#passwordConfirmation').val('');
-	};
-	
-	var registerSuccessCallback = function(){
-    	self.closeModal();
-    	notifier.showSuccessMessage('Thank you! You will receive a confirmation at your e-mail');
-    };
-    
-    var registerErrorCallback = function(jqXHR, textStatus, errorThrown){
-    	notifier.showErrorMessage('Warning! Fill all the fields correctly!<br/>'+jqXHR.responseText);
-    };
-	
-	var buildUser = function(){
-		var user = {
-			name: $('#name').val(),
-			email: $('#email').val(),
-			password: $('#password').val(),
-			passwordConfirmation: $('#passwordConfirmation').val()
-		}
+	},
+
+	buildModel : function() {
+		var user = new User({
+			name : $('#name').val(),
+			email : $('#email').val(),
+			password : $('#password').val(),
+			passwordConfirmation : $('#passwordConfirmation').val()
+		});
 		return user;
-	};
-	
-	var hasErrors = function(user){
-		var errors = [];
+	},
+
+	showErrors : function(model, error) {
+		var alert = new Alert({
+			message : error,
+			type : 'warning'
+		});
+		var alertView = new AlertView({
+			model : alert
+		});
+		alertView.render();
+		$('#registration-messages').html(alertView.el);
+	},
+
+	showSuccess : function(model, resp, options) {
+		this.closeModal();
 		
-		if (!user.name) errors.push({prop:"name", message:"Name is required"});
-		
-		if (user.email){
-			if (isInvalidEmail(user.email)) errors.push({prop:"email", message:"Invalid e-mail"});
-			
-		} else {
-			errors.push({prop:"email", message:"E-mail is required"});
-			
-		}
-		
-		if (!user.password) 			errors.push({prop:"password", message:"Password is required"});
-		if (!user.passwordConfirmation) errors.push({prop:"passwordConfirmation", message:"Password Confirmation is required"});
-		
-		return errors;
-	};
-	
-	var isInvalidEmail = function(email){
-		var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-		return !regex.test(email);
-	};
-	
-	var registerEvents = function(){
-		$('#btn-register').on('click', self.register);
-		$('#modal-registration').on('hidden.bs.modal', cleanAll);
-	};
-	
-};
+		var notification = new Notification({type:'success', message: 'You were successfully registered!</br>We are sending a confirmation e-mail to you...'});
+		new NotificationView({model:notification}).render();
+	},
+
+	openModal : function() {
+		$('#modal-registration').modal('show');
+	},
+
+	closeModal : function() {
+		$('#modal-registration').modal('hide');
+	},
+
+	clean : function() {
+		this.model.clean();
+		this.render();
+	},
+
+	render : function() {
+		this.$el.html(this.template(this.model.attributes));
+	}
+
+});

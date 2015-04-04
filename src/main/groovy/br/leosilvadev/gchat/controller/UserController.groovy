@@ -30,8 +30,8 @@ class UserController {
 	@RequestMapping(method=RequestMethod.POST)
 	def register(@Valid @RequestBody ChatUser chatUser, BindingResult bindingResult){
 		if ( bindingResult.hasErrors() ) return new ResponseEntity(HttpStatus.BAD_REQUEST)
-		userService.register(chatUser)
-		new ResponseEntity(HttpStatus.CREATED)
+		def user = userService.register(chatUser)
+		new ResponseEntity(user, HttpStatus.CREATED)
 	}
 	
 	@InitBinder

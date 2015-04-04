@@ -19,6 +19,7 @@ class UserService {
 			.onSuccess({println "User ${it.name} was saved succesfully!"})
 			.onError({println "Error saving user ${it.name}"})
 			.save(userRepository)
+			
 	}
 	
 }
