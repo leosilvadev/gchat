@@ -20,7 +20,17 @@ class RoomsManager {
 		else throw new RoomValidationException()
 	}
 	
-	def rooms() { rooms }
+	def rooms(roomName) {
+		if (roomName) {
+			this.rooms.findAll { room ->
+				roomName && room.name.contains(roomName)
+			}
+			
+		} else {
+			[]
+			
+		}
+	}
 	
 	def doInRoom(codeRoom, callback){
 		boolean found = false

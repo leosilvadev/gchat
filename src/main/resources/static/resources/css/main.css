@@ -1,29 +1,31 @@
 @CHARSET "UTF-8";
 
-.opened-room>a{
+.opened-room>a {
 	padding-right: 50px !important;
 }
-.opened-room>span.close{
+
+.opened-room>span.close {
 	position: absolute;
-  	top: 8px;
-  	right: 10px;
-  	color: rgb(202, 103, 103);
-  	font-size: 1.5em;
+	top: 8px;
+	right: 10px;
+	color: rgb(202, 103, 103);
+	font-size: 1.5em;
 }
 
-.modal-header>h4{
+.modal-header>h4 {
 	text-align: center;
 }
 
-label.error{
+label.error {
 	font-weight: bold;
 	color: rgba(223, 48, 48, 0.76);
 }
-input.error{
+
+input.error {
 	border: 1px solid rgba(223, 48, 48, 0.76);
 }
 
-span.error-detail{
+span.error-detail {
 	font-size: 0.8em;
 	color: rgb(184, 184, 184);
 	margin-left: 10px;
@@ -33,7 +35,7 @@ span.error-detail{
 	z-index: 999999999999999 !important;
 }
 
-.chat-content{
+.chat-content {
 	display: block;
 	position: absolute;
 	bottom: 180px;
@@ -43,7 +45,7 @@ span.error-detail{
 	overflow-y: scroll;
 }
 
-.chat-content>div.message{
+.chat-content>div.message {
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 10px;
@@ -55,11 +57,11 @@ span.error-detail{
 	word-break: break-all;
 }
 
-.chat-content>div.message>header{
+.chat-content>div.message>header {
 	font-weight: bold;
 }
 
-.chat-message{
+.chat-message {
 	display: block;
 	position: absolute;
 	bottom: 53px;
@@ -69,7 +71,7 @@ span.error-detail{
 	padding: 5px;
 }
 
-.chat-users{
+.chat-users {
 	display: block;
 	position: absolute;
 	bottom: 53px;
@@ -80,36 +82,63 @@ span.error-detail{
 	border-left: 1px solid black;
 }
 
-.sent-at{
+.sent-at {
 	font-size: 0.7em;
 	font-style: italic;
 	margin-right: 10px;
 }
 
-#nav-active-rooms{
+#nav-active-rooms {
 	margin-right: 30px;
 }
 
-.active-room{
+.active-room {
 	background-color: rgb(63, 81, 100);
 	border-left: 1px solid rgb(83, 103, 124);
 	border-right: 1px solid rgb(83, 103, 124);
 }
 
-.invisible{
+.invisible {
 	display: none;
 }
 
-.txt-message{ margin-bottom: 10px; }
-.btn-send-message { width: 200px; float: right; }
+.txt-message {
+	margin-bottom: 10px;
+}
 
-ul.navbar-right { margin-right: 20px !important; }
-ul.navbar-right>li>a:HOVER, ul.navbar-right>li>a { border-radius: 0px !important; }
+.btn-send-message {
+	width: 200px;
+	float: right;
+}
 
-ul.navbar-left { margin-left: 10px !important; }
-ul.navbar-left>li>a:HOVER, ul.navbar-left>li>a { border-radius: 0px !important; }
+ul.navbar-right {
+	margin-right: 20px !important;
+}
 
+ul.navbar-right>li>a:HOVER, ul.navbar-right>li>a {
+	border-radius: 0px !important;
+}
 
-#modal-rooms>.modal-dialog{
+ul.navbar-left {
+	margin-left: 10px !important;
+}
+
+ul.navbar-left>li>a:HOVER, ul.navbar-left>li>a {
+	border-radius: 0px !important;
+}
+
+#modal-rooms>.modal-dialog {
 	width: 90%;
+}
+
+.room {
+	padding: 10px;
+  border: 2px solid rgb(189, 195, 199);
+  margin: 5px;
+  border-radius: 6px;
+}
+
+.room:HOVER {
+	background-color: rgb(242, 242, 242);
+	cursor: pointer;
 }

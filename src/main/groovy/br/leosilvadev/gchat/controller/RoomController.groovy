@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.leosilvadev.gchat.events.NewRoomEvent
 import br.leosilvadev.gchat.manager.RoomsManager
@@ -32,8 +33,8 @@ class RoomController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	def list(){
-		def rooms = roomsManager.rooms()
+	def list(@RequestParam(required=false) String roomName){
+		def rooms = roomsManager.rooms(roomName)
 		new ResponseEntity(rooms, HttpStatus.OK)
 	}
 
