@@ -6,6 +6,9 @@ var LogoutView = Backbone.View.extend({
 	id: 'modal-logout',
 	className: 'modal fade',
 	
+	render: function(){
+		this.$el.html(this.template());
+	}
 	
 });
 

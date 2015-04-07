@@ -15,7 +15,11 @@ class Room {
 	@NotNull @NotEmpty
 	String name
 	
+	Calendar createdAt
+	
 	List users = []
+	
+	Room(){ this.createdAt=Calendar.getInstance() }
 	
 	def listeners
 	
