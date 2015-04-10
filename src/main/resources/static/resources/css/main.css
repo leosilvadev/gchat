@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
 .opened-room>a {
-	padding-right: 50px !important;
+	padding-right: 10px !important;
 }
 
 .opened-room>span.close {
@@ -10,6 +10,10 @@
 	right: 10px;
 	color: rgb(202, 103, 103);
 	font-size: 1.5em;
+}
+
+.btn-room-logout>span{
+	margin-left: 10px;
 }
 
 .modal-header>h4 {
@@ -141,4 +145,8 @@ ul.navbar-left>li>a:HOVER, ul.navbar-left>li>a {
 .room:HOVER {
 	background-color: rgb(242, 242, 242);
 	cursor: pointer;
+}
+
+.to-right{
+	text-align: right;
 }

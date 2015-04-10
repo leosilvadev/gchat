@@ -9,7 +9,6 @@ var RoomListView = Backbone.View.extend({
 	initialize: function(){
 		this.collection.on('reset', this.addAll, this);
 		this.collection.on('add', this.addOne, this);
-//		this.listenToNewRooms();
 	},
 	
 	events: {
@@ -40,18 +39,10 @@ var RoomListView = Backbone.View.extend({
 		
 		var $modalBody = this.$el.find('.rooms');
 		$modalBody.append(roomView.render().el);
-	}
+	},
 	
-//	listenToNewRooms: function(){
-//	    var self = this;
-//		var socket = new SockJS('/messages');
-//	    this.stompClient = Stomp.over(socket);
-//	    this.stompClient.connect({}, function(frame){
-//	    	self.stompClient.subscribe('/topic/rooms', function(message){
-//	    		var room = JSON.parse(message.body);
-//	    		self.addOne(new Room({name:room.name, createdAt:room.createdAt}));
-//			});
-//	    });
-//	}
+	closeModal: function(){
+		this.$el.modal('hide');
+	}
 	
 });

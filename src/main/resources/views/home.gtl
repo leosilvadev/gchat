@@ -88,18 +88,26 @@ html {
 	
 	script(type:"text/javascript", src:"resources/js/ws/sockjs-0.3.4.js"){}
 	script(type:"text/javascript", src:"resources/js/ws/stomp.js"){}
+	script(type:"text/javascript", src:"resources/js/utils/StompUtils.js"){}
 	
 	script(type:"text/javascript", src:"resources/js/templates/LogoutTemplate.js"){}
 	script(type:"text/javascript", src:"resources/js/templates/RoomsTemplate.js"){}
 	script(type:"text/javascript", src:"resources/js/templates/RoomTemplate.js"){}
+	script(type:"text/javascript", src:"resources/js/templates/ChatRoomTemplate.js"){}
 	
 	script(type:"text/javascript", src:"resources/js/models/Room.js"){}
+	script(type:"text/javascript", src:"resources/js/models/ChatMessage.js"){}
 	
 	script(type:"text/javascript", src:"resources/js/collections/RoomList.js"){}
+	script(type:"text/javascript", src:"resources/js/collections/ChatMessageList.js"){}
 	
 	script(type:"text/javascript", src:"resources/js/views/LogoutView.js"){}
 	script(type:"text/javascript", src:"resources/js/views/RoomView.js"){}
 	script(type:"text/javascript", src:"resources/js/views/RoomListView.js"){}
+	script(type:"text/javascript", src:"resources/js/views/ChatMessageView.js"){}
+	
+	script(type:"text/javascript", src:"resources/js/views/ChatRoomView.js"){}
+	script(type:"text/javascript", src:"resources/js/views/TabRoomView.js"){}
 	
 	script(type:"text/javascript", src:"resources/js/loaders/HomeLoader.js"){}
 //	script(type:"text/javascript", src:"resources/js/views/RoomRegistrationView.js"){}
