@@ -94,6 +94,7 @@ html {
 	script(type:"text/javascript", src:"resources/js/templates/RoomsTemplate.js"){}
 	script(type:"text/javascript", src:"resources/js/templates/RoomTemplate.js"){}
 	script(type:"text/javascript", src:"resources/js/templates/ChatRoomTemplate.js"){}
+	script(type:"text/javascript", src:"resources/js/templates/RoomRegistrationTemplate.js"){}
 	
 	script(type:"text/javascript", src:"resources/js/models/Room.js"){}
 	script(type:"text/javascript", src:"resources/js/models/ChatMessage.js"){}
@@ -103,6 +104,7 @@ html {
 	
 	script(type:"text/javascript", src:"resources/js/views/LogoutView.js"){}
 	script(type:"text/javascript", src:"resources/js/views/RoomView.js"){}
+	script(type:"text/javascript", src:"resources/js/views/RoomRegistrationView.js"){}
 	script(type:"text/javascript", src:"resources/js/views/RoomListView.js"){}
 	script(type:"text/javascript", src:"resources/js/views/ChatMessageView.js"){}
 	

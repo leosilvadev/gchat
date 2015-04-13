@@ -18,6 +18,9 @@ var roomsTemplate =
 					'</div>',
 					'<div class="rooms">',
 					'</div>',
-				'</div>', 
+				'</div>',
+				'<div class="modal-footer">',
+					'<button id="btn-create-room" type="button" class="btn btn-primary">Create room</button>',
+				'</div>',
 			'</div>',
 		'</div>'].join("\n");

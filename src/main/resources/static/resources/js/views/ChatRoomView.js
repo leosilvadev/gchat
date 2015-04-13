@@ -9,8 +9,8 @@ var ChatRoomView = Backbone.View.extend({
 	
 	events: {
 		'keyup .txt-message': 'checkMessage',
-		'click .btn-send-message': 'sendMessage',
-		'remove': 'remove'
+		'remove': 'remove',
+		submit: 'sendMessage'
 	},
 	
 	render: function(){
@@ -23,37 +23,29 @@ var ChatRoomView = Backbone.View.extend({
 	},
 	
 	checkMessage: function(event){
-		if(event.which == 13 && this.isButtonSendMessageEnabled()) {
-			var $txtMessage = $(event.target);
-			var $btn = $txtMessage.parents('.chat-message').find('.btn-send-message');
-			$btn.trigger('click');
-			
-	    } else {
-			var $input = $(event.currentTarget);
-			if ($input.val()) {
-				this.ableButtonSendMessage();
-			} else {
-				this.disableButtonSendMessage();
-			}
-			
-	    }
+		if (this.$('.txt-message').val()) {
+			this.ableButtonSendMessage();
+		} else {
+			this.disableButtonSendMessage();
+		}
 	},
 
 	isButtonSendMessageEnabled: function(){
-		return !this.$el.find('.btn-send-message').attr('disabled');
+		return !this.$('.btn-send-message').attr('disabled');
 	},
 	
 	ableButtonSendMessage: function(){
-		this.$el.find('.btn-send-message').removeAttr('disabled');
+		this.$('.btn-send-message').removeAttr('disabled');
 	},
 
 	disableButtonSendMessage: function(){
-		this.$el.find('.btn-send-message').attr('disabled', 'disabled');
+		this.$('.btn-send-message').attr('disabled', 'disabled');
 	},
 	
-	sendMessage: function(){
+	sendMessage: function(e){
+		e.preventDefault();
 		var roomCode = this.model.get('code');
-		var $textMessage = this.$el.find('.txt-message');
+		var $textMessage = this.$('.txt-message');
 		var content = $textMessage.val();
 		
 		if ( content ) {
@@ -70,20 +62,22 @@ var ChatRoomView = Backbone.View.extend({
 	
 	showMessage: function(chatMessage){
 		var chatMessageView = new ChatMessageView({model:chatMessage});
-		var $messages = this.$el.find('.chat[data-code="'+this.model.get('code')+'"] .chat-content');
+		var $messages = this.$('.chat[data-code="'+this.model.get('code')+'"] .chat-content');
 		$messages.append( chatMessageView.render().el );
 		this.focusLastMessages();
 	},
 	
 	focusLastMessages: function(){
-		var txtMessage = this.$el.find('.txt-message');
+		var txtMessage = this.$('.txt-message');
 		txtMessage.attr('disabled', 'disabled');
 		
-		$(".chat-content").animate({ 
-			scrollTop: $('.chat-content').height() + 500
+		this.$(".chat-content").animate({ 
+			scrollTop: this.$('.chat-content').height() + 500
+			
 		}, 1000, function(){
 			txtMessage.removeAttr('disabled');
 			txtMessage.focus();
+			
 		});
 	}
 	

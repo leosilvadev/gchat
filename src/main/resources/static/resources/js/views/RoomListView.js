@@ -9,10 +9,12 @@ var RoomListView = Backbone.View.extend({
 	initialize: function(){
 		this.collection.on('reset', this.addAll, this);
 		this.collection.on('add', this.addOne, this);
+		this.roomRegistrationView = new RoomRegistrationView();
 	},
 	
 	events: {
-		'keyup #search-name': 'findRooms'
+		'keyup #search-name'	: 'findRooms',
+		'click #btn-create-room': 'createRoom'
 	},
 	
 	findRooms: function(){
@@ -28,6 +30,7 @@ var RoomListView = Backbone.View.extend({
 	render: function(){
 		this.$el.html(this.template({rooms:this.collection}));
 		this.addAll();
+		$('body').append( this.roomRegistrationView.render().el );
 	},
 	
 	addAll: function(){
@@ -39,6 +42,11 @@ var RoomListView = Backbone.View.extend({
 		
 		var $modalBody = this.$el.find('.rooms');
 		$modalBody.append(roomView.render().el);
+	},
+	
+	createRoom: function(){
+		this.closeModal();
+		this.roomRegistrationView.openModal();
 	},
 	
 	closeModal: function(){

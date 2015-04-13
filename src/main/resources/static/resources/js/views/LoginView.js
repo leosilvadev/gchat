@@ -5,6 +5,10 @@ var LoginView = Backbone.View.extend({
 	id : 'modal-login',
 	className : 'modal fade',
 	
+	openModal: function(){
+		this.$el.modal('show');
+	},
+	
 	render: function(){
 		this.$el.html(this.template());
 	}
