@@ -2,10 +2,10 @@ yieldUnescaped '<!DOCTYPE html>'
 html {
   head {
 	title("GChat - Welcome")
-	link(href:"resources/bootstrap/css/bootstrap.min.css",type:"text/css", rel:"stylesheet")
-	link(href:"resources/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
-	link(href:"resources/css/main.css",type:"text/css", rel:"stylesheet")
-	link(href:"resources/css/index.css",type:"text/css", rel:"stylesheet")
+	link(href:"assets/libs/bootstrap/dist/css/bootstrap.min.css",type:"text/css", rel:"stylesheet")
+	link(href:"assets/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
+	link(href:"assets/css/main.css",type:"text/css", rel:"stylesheet")
+	link(href:"assets/css/index.css",type:"text/css", rel:"stylesheet")
   }
   body {
 	  header(class:"container"){
@@ -35,27 +35,6 @@ html {
 		  }
 	  }
 	  
-	  script(type:"text/javascript", src:"resources/js/libs/jquery-2.1.3.min.js"){}
-	  script(type:"text/javascript", src:"resources/js/libs/bootstrap-notify.min.js"){}
-	  
-	  script(type:"text/javascript", src:"resources/js/libs/underscore-min.js"){}
-	  script(type:"text/javascript", src:"resources/js/libs/backbone-min.js"){}
-	  script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
-	  
-	  script(type:"text/javascript", src:"resources/js/templates/UserRegistrationTemplate.js"){}
-	  script(type:"text/javascript", src:"resources/js/templates/LoginTemplate.js"){}
-	  
-	  script(type:"text/javascript", src:"resources/js/models/User.js"){}
-	  script(type:"text/javascript", src:"resources/js/models/Alert.js"){}
-	  script(type:"text/javascript", src:"resources/js/models/Notification.js"){}
-	  
-	  script(type:"text/javascript", src:"resources/js/views/NotificationView.js"){}
-	  script(type:"text/javascript", src:"resources/js/views/AlertView.js"){}
-	  
-	  script(type:"text/javascript", src:"resources/js/views/UserRegistrationView.js"){}
-	  script(type:"text/javascript", src:"resources/js/views/LoginView.js"){}
-	  
-	  script(type:"text/javascript", src:"resources/js/routers/IndexRouter.js"){}
-	  script(type:"text/javascript", src:"resources/js/applications/IndexApplication.js"){}
+	  script(type:"text/javascript", src:"assets/libs/requirejs/require.js", "data-main":"assets/js/IndexMain.js"){}
   }
 }
