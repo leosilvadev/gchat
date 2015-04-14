@@ -36,12 +36,18 @@ define(
 		},
 		
 		initModals: function(){
-			if(!this.userRegistrationView){
+			if(this.userRegistrationView){
+				this.userRegistrationView.closeModal();
+				
+			} else {
 				this.userRegistrationView = new UserRegistrationView({model: new User()});
 				this.userRegistrationView.render();
 			}
 			
-			if(!this.loginView){
+			if(this.loginView){
+				this.loginView.closeModal();
+				
+			} else {
 				this.loginView = new LoginView();
 				this.loginView.render();
 			}

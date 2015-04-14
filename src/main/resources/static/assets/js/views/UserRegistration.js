@@ -51,7 +51,6 @@ define(
 				model : alert
 			});
 			alertView.render();
-			console.log(this.$el);
 			$('#registration-messages').html(alertView.el);
 		},
 	
@@ -76,7 +75,6 @@ define(
 		},
 	
 		render : function() {
-			console.log('rendering...');
 			this.$el.html(this.template(this.model.attributes));
 		}
 	
