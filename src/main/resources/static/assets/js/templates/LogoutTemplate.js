@@ -1,5 +1,6 @@
-
-var logoutTemplate = 
+define([], function(){
+	
+	var LogoutTemplate = 
 		['<div class="modal-dialog">',
 			 '<div class="modal-content">', 
 			 	'<div class="modal-header">', 
@@ -17,9 +18,13 @@ var logoutTemplate =
 					'<button type="button" class="btn btn-default" data-dismiss="modal">',
 				 		'<span class="glyphicon glyphicon-remove"></span> No',
 				 	'</button>', 
-				 	'<a href="logout" class="btn btn-primary">',
+				 	'<a href="logout" class="btn btn-primary" external="true">',
 				 		'<span class="glyphicon glyphicon-ok"></span> Yes',
 				 	'</a>', 
 				 '</div>', 
 			 '</div>',
 		 '</div>'].join("\n");
+
+	return LogoutTemplate;
+	
+});

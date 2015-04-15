@@ -3,7 +3,7 @@ define(
 		 'jquery', 
 		 'backbone', 
 		 'views/UserRegistration', 
-		 'views/Login',
+		 'views/LoginView',
 		 'models/User'
 		], function($, Backbone, UserRegistrationView, LoginView, User){
 

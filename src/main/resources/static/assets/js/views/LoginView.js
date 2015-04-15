@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'templates/Login', 'boostrap'], function($, _, Backbone, LoginTemplate){
+define(['jquery', 'underscore', 'backbone', 'templates/Login', 'bootstrap'], function($, _, Backbone, LoginTemplate){
 
 	var LoginView = Backbone.View.extend({
 		

@@ -2,9 +2,9 @@ yieldUnescaped '<!DOCTYPE html>'
 html {
   head {
     title("GChat - Home")
-	link(href:"resources/bootstrap/css/bootstrap.min.css",type:"text/css", rel:"stylesheet")
-	link(href:"resources/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
-	link(href:"resources/css/main.css",type:"text/css", rel:"stylesheet")
+	link(href:"assets/libs/bootstrap/dist/css/bootstrap.min.css",type:"text/css", rel:"stylesheet")
+	link(href:"assets/flat-ui/css/flat-ui.min.css",type:"text/css", rel:"stylesheet")
+	link(href:"assets/css/main.css",type:"text/css", rel:"stylesheet")
   }
   body {
     header(class:"container"){
@@ -18,7 +18,7 @@ html {
 			div(id:"navbar-collapse-01", class:"collapse navbar-collapse"){
 				ul(class:"nav navbar-nav navbar-left"){
 					li(){
-						a("data-toggle":"modal", "data-target":"#modal-rooms", "Rooms")
+						a(href:"rooms", "Rooms")
 //						ul(id:"dropdown-rooms", class:"dropdown-menu"){
 //							rooms.each { room ->
 //								li{
@@ -50,7 +50,7 @@ html {
 							}
 							li(class:"divider")
 							li{
-								a(href:"#", "data-toggle":"modal", "data-target":"#modal-logout", "Logout")
+								a(href:"logout", "Logout")
 							}
 						}
 					}
@@ -76,44 +76,41 @@ html {
 		}
 	}
 	
-//	include template: 'modal/_logout_confirm.gtl'
-//	include template: 'modal/_new_room.gtl'
-	
-	script(type:"text/javascript", src:"resources/js/libs/jquery-2.1.3.min.js"){}
-	script(type:"text/javascript", src:"resources/js/libs/bootstrap-notify.min.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/libs/underscore-min.js"){}
-	script(type:"text/javascript", src:"resources/js/libs/backbone-min.js"){}
-	script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/ws/sockjs-0.3.4.js"){}
-	script(type:"text/javascript", src:"resources/js/ws/stomp.js"){}
-	script(type:"text/javascript", src:"resources/js/utils/StompUtils.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/templates/LogoutTemplate.js"){}
-	script(type:"text/javascript", src:"resources/js/templates/RoomsTemplate.js"){}
-	script(type:"text/javascript", src:"resources/js/templates/RoomTemplate.js"){}
-	script(type:"text/javascript", src:"resources/js/templates/ChatRoomTemplate.js"){}
-	script(type:"text/javascript", src:"resources/js/templates/RoomRegistrationTemplate.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/models/Room.js"){}
-	script(type:"text/javascript", src:"resources/js/models/ChatMessage.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/collections/RoomList.js"){}
-	script(type:"text/javascript", src:"resources/js/collections/ChatMessageList.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/views/LogoutView.js"){}
-	script(type:"text/javascript", src:"resources/js/views/RoomView.js"){}
-	script(type:"text/javascript", src:"resources/js/views/RoomRegistrationView.js"){}
-	script(type:"text/javascript", src:"resources/js/views/RoomListView.js"){}
-	script(type:"text/javascript", src:"resources/js/views/ChatMessageView.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/views/ChatRoomView.js"){}
-	script(type:"text/javascript", src:"resources/js/views/TabRoomView.js"){}
-	
-	script(type:"text/javascript", src:"resources/js/loaders/HomeLoader.js"){}
+//	script(type:"text/javascript", src:"resources/js/libs/jquery-2.1.3.min.js"){}
+//	script(type:"text/javascript", src:"resources/js/libs/bootstrap-notify.min.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/libs/underscore-min.js"){}
+//	script(type:"text/javascript", src:"resources/js/libs/backbone-min.js"){}
+//	script(type:"text/javascript", src:"resources/flat-ui/js/flat-ui.min.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/ws/sockjs-0.3.4.js"){}
+//	script(type:"text/javascript", src:"resources/js/ws/stomp.js"){}
+//	script(type:"text/javascript", src:"resources/js/utils/StompUtils.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/templates/LogoutTemplate.js"){}
+//	script(type:"text/javascript", src:"resources/js/templates/RoomsTemplate.js"){}
+//	script(type:"text/javascript", src:"resources/js/templates/RoomTemplate.js"){}
+//	script(type:"text/javascript", src:"resources/js/templates/ChatRoomTemplate.js"){}
+//	script(type:"text/javascript", src:"resources/js/templates/RoomRegistrationTemplate.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/models/Room.js"){}
+//	script(type:"text/javascript", src:"resources/js/models/ChatMessage.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/collections/RoomList.js"){}
+//	script(type:"text/javascript", src:"resources/js/collections/ChatMessageList.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/views/LogoutView.js"){}
+//	script(type:"text/javascript", src:"resources/js/views/RoomView.js"){}
 //	script(type:"text/javascript", src:"resources/js/views/RoomRegistrationView.js"){}
-//	script(type:"text/javascript", src:"resources/js/views/HomeView.js"){}
+//	script(type:"text/javascript", src:"resources/js/views/RoomListView.js"){}
+//	script(type:"text/javascript", src:"resources/js/views/ChatMessageView.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/views/ChatRoomView.js"){}
+//	script(type:"text/javascript", src:"resources/js/views/TabRoomView.js"){}
+//	
+//	script(type:"text/javascript", src:"resources/js/loaders/HomeLoader.js"){}
+	
+	script(type:"text/javascript", src:"assets/libs/requirejs/require.js", "data-main":"assets/js/HomeMain.js"){}
   }
 }
 

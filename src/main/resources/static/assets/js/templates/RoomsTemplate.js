@@ -1,5 +1,6 @@
-
-var roomsTemplate = 
+define([], function(){
+	
+	var RoomsTemplate = 
 		['<div class="modal-dialog">',
 		 	'<div class="modal-content">', 
 		 		'<div class="modal-header">', 
@@ -24,3 +25,7 @@ var roomsTemplate =
 				'</div>',
 			'</div>',
 		'</div>'].join("\n");
+	
+	return RoomsTemplate;
+	
+});

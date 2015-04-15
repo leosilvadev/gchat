@@ -1,5 +1,6 @@
-
-var roomTemplate = 
+define([], function(){
+	
+	var RoomTemplate = 
 		[
 		 '<div class="col-sm-5">',
 		 	'<%= name %>',
@@ -22,3 +23,7 @@ var roomTemplate =
 		 	'</button>',
 		 '</div>'
 		 ].join("\n");
+	
+	return RoomTemplate;
+
+});

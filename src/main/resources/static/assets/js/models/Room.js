@@ -1,6 +1,11 @@
-
-var Room = Backbone.Model.extend({
+define(['backbone'], function(Backbone){
 	
-	urlRoot: '/rooms'
+	var Room = Backbone.Model.extend({
 		
+		urlRoot: '/rooms'
+			
+	});
+
+	return Room;
+	
 });

@@ -14,10 +14,12 @@
     "tests"
   ],
   "dependencies":{
-	  "jquery": "2.1.3",
-	  "backbone-amd":"1.1.0",
-	  "underscore-amd":"1.5.2",
-	  "requirejs": "2.1.17",
-	  "bootstrap": "3.3.4"
+	  "jquery"			: "2.1.3",
+	  "backbone-amd"	: "1.1.0",
+	  "underscore-amd"	: "1.5.2",
+	  "requirejs"		: "2.1.17",
+	  "bootstrap"		: "3.3.4",
+	  "sockjs"			: "0.3.4",
+	  "stomp-websocket"	: "2.3.4"
   }
 }
