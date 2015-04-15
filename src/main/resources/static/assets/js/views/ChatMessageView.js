@@ -1,13 +1,18 @@
-
-var ChatMessageView = Backbone.View.extend({
+define(['backbone', 'underscore'], function(Backbone, _){
 	
-	className: 'message',
-	template: _.template('<header> <span class="sent-at">[<%= sentAt %>]</span><%= from %> said: </header>' +
-			'<div><%= content %></div>'),
+	var ChatMessageView = Backbone.View.extend({
 		
-	render: function(){
-		this.$el.html(this.template(this.model.attributes));
-		return this;
-	}
+		className: 'message',
+		template: _.template('<header> <span class="sent-at">[<%= sentAt %>]</span><%= from %> said: </header>' +
+				'<div><%= content %></div>'),
+			
+		render: function(){
+			this.$el.html(this.template(this.model.attributes));
+			return this;
+		}
+		
+	});
+
+	return ChatMessageView;
 	
 });

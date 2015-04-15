@@ -1,5 +1,6 @@
-
-var chatRoomTemplate = 
+define([], function(){
+	
+	var ChatRoomTemplate = 
 		['<form>',
 			 '<div class="chat" data-code="<%= code %>">', 
 				'<div class="chat-content"></div>',
@@ -14,3 +15,7 @@ var chatRoomTemplate =
 				'<div class="chat-users"></div>',
 			'</div>',
 		'</form>'].join("\n");
+	
+	return ChatRoomTemplate;
+
+});

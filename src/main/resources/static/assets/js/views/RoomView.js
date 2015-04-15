@@ -1,4 +1,13 @@
-define(['backbone', 'templates/RoomTemplate'], function(Backbone, RoomTemplate){
+define(
+		['backbone', 
+		 'templates/RoomTemplate', 
+		 'views/ChatRoomView', 
+		 'views/TabRoomView', 
+		 'collections/ChatMessageList',
+		 'connectors/StompConnector',
+		 'models/ChatMessage'], 
+		
+		function(Backbone, RoomTemplate, ChatRoomView, TabRoomView, ChatMessageList, StompConnector, ChatMessage){
 	
 	var RoomView = Backbone.View.extend({
 		
@@ -25,18 +34,15 @@ define(['backbone', 'templates/RoomTemplate'], function(Backbone, RoomTemplate){
 			
 			var chatRoomView = new ChatRoomView({model: this.model, collection: new ChatMessageList()});
 			$('body').append(chatRoomView.render().el);
-			this.model.chatView = chatRoomView;
+			this.model.chatRoomView = chatRoomView;
 			
-			this.messagesSubscription = StompUtils.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
+			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
 				var chatMessage = new ChatMessage(JSON.parse(request.body));
 				chatRoomView.showMessage(chatMessage);
-				
 			});
-			
 		},
 		
-	
-		close: function(){
+		destroy: function(){
 			this.messagesSubscription.unsubscribe();
 			this.$el.remove();
 		},

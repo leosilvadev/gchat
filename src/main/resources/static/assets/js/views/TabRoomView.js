@@ -1,24 +1,28 @@
-
-var TabRoomView = Backbone.View.extend({
-
-	template: _.template('<a href="#" class="btn-room-logout"><%= name %><span class="glyphicon glyphicon-remove close"></span></a>'),
-	tagName: 'li',
-	className: 'opened-room active-room',
+define(['backbone'], function(Backbone){
 	
-	events: {
-		'click .close': 'close'
-	},
+	var TabRoomView = Backbone.View.extend({
 	
-	close: function(){
-//		$('.chat[data-code="'+this.model.get('code')+'"]').remove();
-		this.$el.remove();
-		this.model.roomView.close();
-		this.model.chatView.close();
-	},
+		template: _.template('<a href="#" class="btn-room-logout"><%= name %><span class="glyphicon glyphicon-remove close"></span></a>'),
+		tagName: 'li',
+		className: 'opened-room active-room',
+		
+		events: {
+			'click .close': 'close'
+		},
+		
+		close: function(){
+			this.$el.remove();
+			this.model.roomView.destroy();
+			this.model.chatRoomView.destroy();
+		},
+		
+		render: function(){
+			this.$el.html(this.template(this.model.attributes));
+			return this;
+		}
 	
-	render: function(){
-		this.$el.html(this.template(this.model.attributes));
-		return this;
-	}
+	});
+	
+	return TabRoomView;
 
 });
