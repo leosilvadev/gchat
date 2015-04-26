@@ -1,6 +1,5 @@
-define(['backbone', 'templates/ChatRoomTemplate', 'models/ChatMessage', 'views/ChatMessageView'], 
-		
-		function(Backbone, ChatRoomTemplate, ChatMessage, ChatMessageView){
+define(['backbone', 'templates/chat-room', 'models/chat-message', 'views/chat-message'], 
+	function(Backbone, ChatRoomTemplate, ChatMessage, ChatMessageView){
 	
 	var ChatRoomView = Backbone.View.extend({
 		
@@ -26,11 +25,19 @@ define(['backbone', 'templates/ChatRoomTemplate', 'models/ChatMessage', 'views/C
 		},
 		
 		checkMessage: function(event){
-			if (this.$('.txt-message').val()) {
+			event.preventDefault();
+			
+			var message = this.$('.txt-message').val().trim();
+			if (message) {
 				this.ableButtonSendMessage();
+				if (event.keyCode===13) this.sendMessage(event);
+				
 			} else {
 				this.disableButtonSendMessage();
+			
 			}
+			this.$('.txt-message').val('');
+			
 		},
 	
 		isButtonSendMessageEnabled: function(){
@@ -40,7 +47,7 @@ define(['backbone', 'templates/ChatRoomTemplate', 'models/ChatMessage', 'views/C
 		ableButtonSendMessage: function(){
 			this.$('.btn-send-message').removeAttr('disabled');
 		},
-	
+		
 		disableButtonSendMessage: function(){
 			this.$('.btn-send-message').attr('disabled', 'disabled');
 		},

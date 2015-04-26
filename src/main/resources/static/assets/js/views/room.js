@@ -1,11 +1,11 @@
 define(
 		['backbone', 
-		 'templates/RoomTemplate', 
-		 'views/ChatRoomView', 
-		 'views/TabRoomView', 
-		 'collections/ChatMessageList',
-		 'connectors/StompConnector',
-		 'models/ChatMessage'], 
+		 'templates/room', 
+		 'views/chat-room', 
+		 'views/tab-room', 
+		 'collections/chat-messages',
+		 'connectors/stomp-connector',
+		 'models/chat-message'], 
 		
 		function(Backbone, RoomTemplate, ChatRoomView, TabRoomView, ChatMessageList, StompConnector, ChatMessage){
 	

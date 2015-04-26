@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'templates/LogoutTemplate'], function($, _, Backbone, LogoutTemplate){
+define(['jquery', 'underscore', 'backbone', 'templates/logout'], function($, _, Backbone, LogoutTemplate){
 	
 	var LogoutView = Backbone.View.extend({
 		

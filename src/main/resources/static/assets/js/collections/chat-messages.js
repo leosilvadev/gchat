@@ -1,4 +1,4 @@
-define(['backbone', 'models/ChatMessage'], function(Backbone, ChatMessage){
+define(['backbone', 'models/chat-message'], function(Backbone, ChatMessage){
 	
 	var ChatMessageList = Backbone.Collection.extend({
 	

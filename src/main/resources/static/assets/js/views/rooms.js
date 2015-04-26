@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'templates/RoomsTemplate', 'collections/RoomList', 'views/RoomView'], function($, _, Backbone, RoomsTemplate, RoomList, RoomView){
+define(['jquery', 'underscore', 'backbone', 'templates/rooms', 'collections/rooms', 'views/room'], function($, _, Backbone, RoomsTemplate, RoomList, RoomView){
 	
 	var RoomListView = Backbone.View.extend({
 		

@@ -1,8 +1,8 @@
-define(['jquery','backbone', 'models/Alert', 'views/AlertView'], function($, Backbone, Alert, AlertView){
+define(['jquery','backbone'], function($, Backbone){
 
 	var NotificationView = Backbone.View.extend({
 		
-		render: function(){
+		render: function($el){
 			var notification = this.model;
 	
 			//TODO:change to a new implementation to user notification

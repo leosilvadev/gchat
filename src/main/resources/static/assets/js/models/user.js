@@ -12,13 +12,11 @@ define(['backbone'], function(Backbone){
 		},
 	
 		validate : function(attrs, options) {
-			if (!attrs.name) return "Name is required";
-			
-			if (this.isInvalidEmail(attrs.email)) return "Invalid e-mail";
-	
-			
-			if (!attrs.password) return "Password is required";
-			if (!attrs.passwordConfirmation) return "Password Confirmation is required";
+			if (!attrs.name) 						return "Name is required";
+			if (this.isInvalidEmail(attrs.email)) 	return "Invalid e-mail";			
+			if (!attrs.password) 					return "Password is required";
+			if (!attrs.passwordConfirmation) 		return "Password Confirmation is required";
+			if (attrs.password !== attrs.passwordConfirmation) return "Passwords does not match";
 		},
 		
 		isInvalidEmail : function(email){

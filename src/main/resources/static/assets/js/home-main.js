@@ -5,7 +5,8 @@ require.config({
 		"backbone"		: "../libs/backbone-amd/backbone",
 		"bootstrap"		: "../libs/bootstrap/dist/js/bootstrap",
 		"sockjs"		: "../libs/sockjs/sockjs.min",
-		"stomp"			: "../libs/stomp-websocket/lib/stomp.min"
+		"stomp"			: "../libs/stomp-websocket/lib/stomp.min",
+		"navigator"		: "utils/navigator"
 	},
 
     shim: {
@@ -15,7 +16,7 @@ require.config({
     }
 });
 
-require(['applications/HomeApp'], function(HomeApp){
+require(['applications/home'], function(HomeApp){
 	Date.prototype.parse = function() {
 		var hours = this.getHours().toString();
 		var minutes = this.getMinutes().toString();

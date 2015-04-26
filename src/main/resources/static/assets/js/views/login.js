@@ -1,8 +1,14 @@
-define(['jquery', 'underscore', 'backbone', 'templates/Login', 'bootstrap'], function($, _, Backbone, LoginTemplate){
+define(
+		['jquery', 
+		 'underscore', 
+		 'backbone', 
+		 'utils/template',
+		 'bootstrap'], 
+		 
+		 function($, _, Backbone, template){
 
 	var LoginView = Backbone.View.extend({
 		
-		template: _.template(LoginTemplate),
 		id : 'modal-login',
 		className : 'modal fade',
 
@@ -15,7 +21,7 @@ define(['jquery', 'underscore', 'backbone', 'templates/Login', 'bootstrap'], fun
 		},
 		
 		render: function(){
-			this.$el.html(this.template());
+			template.render('_login', this.$el, _);
 		}
 		
 	});

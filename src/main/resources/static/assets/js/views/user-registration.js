@@ -1,20 +1,17 @@
-define(
-		['jquery',
-		 'underscore',
-		 'backbone', 
-		 'templates/UserRegistration', 
-		 'models/Notification', 
-		 'views/Notification'
-		], function($, _, Backbone, UserRegistrationTemplate, Notification, NotificationView){
+define(['jquery',
+		'backbone', 
+		'models/user',
+		'models/notification',
+		'views/notification',
+		'utils/template'], function($, Backbone, User, Notification, NotificationView, template){
+	
+	var UserRegistrationForm = Backbone.View.extend({
 
-	var UserRegistrationView = Backbone.View.extend({
-
-		template : _.template(UserRegistrationTemplate),
 		id : 'modal-registration',
 		className : 'modal fade',
 	
 		initialize : function() {
-			this.model.on('invalid', this.showErrors, this);
+			this.model = new User();
 		},
 	
 		events : {
@@ -27,9 +24,11 @@ define(
 			this.model.set('email', $('#email').val());
 			this.model.set('password', $('#password').val());
 			this.model.set('passwordConfirmation', $('#passwordConfirmation').val());
-			this.model.save({}, {
-				success : this.showSuccess(this)
-			});
+			if ( this.model.isValid() ) {
+				this.model.save({success: this.showSuccess(this)});
+			} else {
+				this.showErrors(this.model.validationError);
+			}
 		},
 	
 		buildModel : function() {
@@ -42,23 +41,16 @@ define(
 			return user;
 		},
 	
-		showErrors : function(model, error) {
-			var alert = new Alert({
-				message : error,
-				type : 'warning'
-			});
-			var alertView = new AlertView({
-				model : alert
-			});
-			alertView.render();
-			$('#registration-messages').html(alertView.el);
+		showErrors : function(error) {
+			var view = new NotificationView({model:new Notification({message:error})});
+			view.render();
 		},
 	
 		showSuccess : function(model, resp, options) {
 			this.closeModal();
-			
 			var notification = new Notification({type:'success', message: 'You were successfully registered!</br>We are sending a confirmation e-mail to you...', delay:3000});
-			new NotificationView({model:notification}).render();
+			var view = new NotificationView({model: notification});
+			view.render();
 		},
 	
 		openModal : function() {
@@ -75,11 +67,11 @@ define(
 		},
 	
 		render : function() {
-			this.$el.html(this.template(this.model.attributes));
+			template.render('_user_registration', this.$el, this.model.attributes);
 		}
 	
 	});
 	
-	return UserRegistrationView;
+	return UserRegistrationForm;
 	
 });

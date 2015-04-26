@@ -2,9 +2,9 @@ define(
 		[
 		 'jquery', 
 		 'backbone',
-		 'connectors/StompConnector',
-		 'views/LogoutView',
-		 'views/RoomListView'
+		 'connectors/stomp-connector',
+		 'views/logout',
+		 'views/rooms'
 		], function($, Backbone, StompConnector, LogoutView, RoomListView){
 
 	var HomeRouter = Backbone.Router.extend({

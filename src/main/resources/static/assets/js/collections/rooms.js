@@ -1,4 +1,4 @@
-define(['backbone', 'models/Room'], function(Backbone, Room){
+define(['backbone', 'models/room'], function(Backbone, Room){
 	
 	var RoomList = Backbone.Collection.extend({
 	

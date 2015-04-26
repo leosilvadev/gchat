@@ -35,6 +35,6 @@ html {
 		  }
 	  }
 	  
-	  script(type:"text/javascript", src:"assets/libs/requirejs/require.js", "data-main":"assets/js/IndexMain.js"){}
+	  script(type:"text/javascript", src:"assets/libs/requirejs/require.js", "data-main":"assets/js/index-main.js"){}
   }
 }

@@ -110,7 +110,7 @@ html {
 //	
 //	script(type:"text/javascript", src:"resources/js/loaders/HomeLoader.js"){}
 	
-	script(type:"text/javascript", src:"assets/libs/requirejs/require.js", "data-main":"assets/js/HomeMain.js"){}
+	script(type:"text/javascript", src:"assets/libs/requirejs/require.js", "data-main":"assets/js/home-main.js"){}
   }
 }
 
