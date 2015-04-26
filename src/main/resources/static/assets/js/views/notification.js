@@ -7,7 +7,7 @@ define(['jquery','backbone'], function($, Backbone){
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
 					  	'<span aria-hidden="true">&times;</span>' +
 					'</button>' +
-					'<%= message %>' +
+					'<span class="message"><%= message %></span>' +
 				'</div>'),
 		
 		events: {
