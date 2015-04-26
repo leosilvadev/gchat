@@ -1,3 +1,29 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+ext {
+	drivers = ["chrome"]
+
+	ext {
+		groovyVersion 		= '2.3.10'
+		
+		springSecurityVersion = '4.0.0.RELEASE'
+		
+		jstlVersion 		= '1.1.2'
+		mysqlVersion 		= '5.1.34'
+		hibernateVersion 	= '4.3.8.Final'
+		cglibVersion 		= '3.1'
+		
+		objenesisVersion 	= '2.1'
+		
+		gebVersion 			= '0.10.0'
+		getJunitVersion 	= '0.10.0'
+		mockitoVersion 		= '2.0.2-beta'
+		chromeDriverVersion = '2.10'
+		seleniumVersion 	= '2.43.1'
+		spockVersion 		= '1.0-groovy-2.3'
+	}
+}
+
 buildscript {
     repositories {
         mavenCentral()
@@ -13,7 +39,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
-apply plugin: 'jacoco'
+apply from: "gradle/drivers_downloads.gradle"
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -29,11 +55,12 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    def gebVersion = "0.10.0"
-    def seleniumVersion = "2.43.1"
-	
-	runtime("javax.servlet:jstl:1.1.2")
+sourceSets.main.java.srcDirs = []
+sourceSets.main.groovy.srcDirs = ["src/main/java", "src/main/groovy"]
+
+
+dependencies {	
+	runtime("javax.servlet:jstl:$jstlVersion")
     
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	compile("org.springframework.boot:spring-boot-starter-web")
@@ -41,34 +68,48 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-websocket")
 	compile("org.springframework.boot:spring-boot-starter-security")
 	
-	compile("mysql:mysql-connector-java:5.1.34")
-	compile("org.hibernate:hibernate-core:4.3.8.Final")
+	compile("mysql:mysql-connector-java:$mysqlVersion")
+	compile("org.hibernate:hibernate-core:$hibernateVersion")
     compile("org.springframework:spring-messaging")
-	compile("cglib:cglib-nodep:3.1")
-	compile("org.codehaus.groovy:groovy-all:2.3.10")
+	compile("cglib:cglib-nodep:$cglibVersion")
+	compile("org.codehaus.groovy:groovy-all:$groovyVersion")
+	
 	
 	testCompile("junit:junit")
-	testCompile("org.mockito:mockito-all:2.0.2-beta")
-	testCompile("org.springframework.security:spring-security-test:4.0.0.RELEASE")
-	testCompile("org.objenesis:objenesis:2.1")
+	testCompile("org.mockito:mockito-all:$mockitoVersion")
+	testCompile("org.springframework.security:spring-security-test:$springSecurityVersion")
+	testCompile("org.objenesis:objenesis:$objenesisVersion")
 	
-	testCompile("org.gebish:geb-spock:0.10.0")
-	testCompile("org.gebish:geb-junit4:0.10.0")
-	testCompile("org.seleniumhq.selenium:selenium-firefox-driver:2.43.1")
-	testRuntime("org.seleniumhq.selenium:selenium-support:2.43.1")
+	testCompile("org.gebish:geb-spock:$gebVersion")
+	testCompile("org.gebish:geb-junit4:$getJunitVersion")
+	testCompile("org.gebish:geb-junit4:$gebVersion")
+	testRuntime("org.seleniumhq.selenium:selenium-support:$seleniumVersion")
+    testCompile("org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion")
 	
 	testCompile("org.springframework:spring-test")
-	testCompile("org.spockframework:spock-core:1.0-groovy-2.3")
-	testCompile("org.spockframework:spock-spring:1.0-groovy-2.3")
+	testCompile("org.spockframework:spock-core:$spockVersion")
+	testCompile("org.spockframework:spock-spring:$spockVersion")
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+//Define tasks for all drivers
+drivers.each { driver ->
+	task "${driver}Test"(type: Test) {
+		reports {
+			html.destination = reporting.file("tests")
+		}
+	}
 }
 
+//Task for configure tests for chrome
+chromeTest {
+	dependsOn unzipChromeDriver
+
+	def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
+	systemProperty "webdriver.chrome.driver", new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
+}
+
+//Makes your 'test' phase depends on tests of all registered drivers
 test {
-	systemProperties "geb.build.reportsDir": "$reportsDir/geb"
+	dependsOn drivers.collect { tasks["${it}Test"] }
+	enabled = false
 }
-
-sourceSets.main.java.srcDirs = []
-sourceSets.main.groovy.srcDirs = ["src/main/java", "src/main/groovy"]
