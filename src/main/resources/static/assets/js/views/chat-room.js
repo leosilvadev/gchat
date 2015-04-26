@@ -21,7 +21,7 @@ define(['backbone', 'templates/chat-room', 'models/chat-message', 'views/chat-me
 		},
 		
 		destroy: function(){
-			this.$el.remove();
+			this.remove();
 		},
 		
 		checkMessage: function(event){

@@ -6,9 +6,10 @@ define(['jquery',
 	var IndexRouter = Backbone.Router.extend({
 		
 		routes:{
-			''			: 'index',
-			'register'	: 'register',
-			'login'		: 'login'
+			''				: 'index',
+			'register'		: 'register',
+			'login'			: 'login',
+			'invalidUser'	: 'invalidUser'
 		},
 		
 		index: function(){
@@ -21,14 +22,16 @@ define(['jquery',
 		
 		register: function(){
 			this.renderChildren();
-			
 			this.userView.openModal();
 		},
 		
 		login: function(){
 			this.renderChildren();
-			
 			this.loginView.openModal();
+		},
+		
+		invalidUser: function(){
+			alert('invalid user');
 		},
 		
 		renderChildren: function(){

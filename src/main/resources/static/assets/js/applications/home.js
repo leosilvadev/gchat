@@ -10,7 +10,6 @@ define(
 	var HomeApp = new (Backbone.View.extend({
 		
 		initialize:function(){
-			console.log(Routers);
 			var router = new Routers.Home();
 			this.start();
 		},

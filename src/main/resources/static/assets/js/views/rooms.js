@@ -1,8 +1,11 @@
-define(['jquery', 'underscore', 'backbone', 'templates/rooms', 'collections/rooms', 'views/room'], function($, _, Backbone, RoomsTemplate, RoomList, RoomView){
+define(['jquery',
+        'underscore',
+        'backbone',
+        'collections/rooms',
+        'views/room',
+        'utils/template'], function($, _, Backbone, RoomList, RoomView, template){
 	
 	var RoomListView = Backbone.View.extend({
-		
-		template: _.template(RoomsTemplate),
 		
 		id: 'modal-rooms',
 		className: 'modal fade',
@@ -11,27 +14,30 @@ define(['jquery', 'underscore', 'backbone', 'templates/rooms', 'collections/room
 			this.collection = new RoomList();
 			this.collection.on('reset', this.addAll, this);
 			this.collection.on('add', this.addOne, this);
+			
+			this.rooms = [];
 		},
 		
 		events: {
 			'keyup #search-name': 'findRooms',
+			'hidden.bs.modal': 'cleanRooms'
 		},
 		
 		findRooms: function(){
-			console.log('findRooms...');
 			this.cleanRooms();
 			var roomName = this.$el.find('#search-name').val();
 			this.collection.fetch({data:{roomName:roomName}});
-			console.log(this.collection);
 		},
 		
 		cleanRooms: function(){
-			this.$el.find('.rooms').html('');
+			this.rooms.forEach(function(room){
+				room.remove();
+			});
+			this.rooms = [];
 		},
 		
 		render: function(){
-			this.$el.html(this.template({rooms:this.collection}));
-			this.addAll();
+			template.render('_rooms', this.$el);
 			return this;
 		},
 		
@@ -41,6 +47,7 @@ define(['jquery', 'underscore', 'backbone', 'templates/rooms', 'collections/room
 		
 		addOne: function(room){
 			var roomView = new RoomView({model:room});
+			this.rooms.push(roomView);
 			
 			var $modalBody = this.$el.find('.rooms');
 			$modalBody.append(roomView.render().el);

@@ -12,7 +12,6 @@ define(
 	var RoomView = Backbone.View.extend({
 		
 		template: _.template(RoomTemplate),
-		
 		className: 'row room',
 		
 		events: {
@@ -48,8 +47,6 @@ define(
 		},
 		
 		render: function(){
-			console.log('createdAt: '+new Date(this.model.get('createdAt')));
-			
 			var name = this.model.get('name');
 			var createdAt = new Date(this.model.get('createdAt')).parse();
 			var users = this.model.get('users').length;

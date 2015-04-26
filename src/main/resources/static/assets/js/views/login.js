@@ -11,11 +11,11 @@ define(
 		
 		id : 'modal-login',
 		className : 'modal fade',
-
+		
 		openModal: function(){
 			this.$el.modal('show');
 		},
-
+		
 		closeModal: function(){
 			this.$el.modal('hide');
 		},

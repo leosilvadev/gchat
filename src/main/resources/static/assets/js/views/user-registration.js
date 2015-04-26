@@ -12,11 +12,19 @@ define(['jquery',
 	
 		initialize : function() {
 			this.model = new User();
+			this.notifications = [];
 		},
 	
 		events : {
 			'click #btn-register' : 'register',
 			'hidden.bs.modal' : 'clean'
+		},
+		
+		cleanNotifications : function(){
+			this.notifications.forEach(function(notification){
+				notification.remove();
+			});
+			this.notifications = [];
 		},
 	
 		register : function() {
@@ -42,8 +50,10 @@ define(['jquery',
 		},
 	
 		showErrors : function(error) {
+			this.cleanNotifications();
 			var view = new NotificationView({model:new Notification({message:error})});
-			view.render();
+			this.notifications.push(view);
+			$('#registration-messages').html( view.render().el );
 		},
 	
 		showSuccess : function(model, resp, options) {

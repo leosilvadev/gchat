@@ -1,8 +1,9 @@
-define(['jquery', 'underscore', 'backbone', 'templates/logout'], function($, _, Backbone, LogoutTemplate){
+define(['jquery', 
+        'underscore', 
+        'backbone', 
+        'utils/template'], function($, _, Backbone, template){
 	
 	var LogoutView = Backbone.View.extend({
-		
-		template: _.template(LogoutTemplate),
 		
 		id: 'modal-logout',
 		className: 'modal fade',
@@ -16,7 +17,7 @@ define(['jquery', 'underscore', 'backbone', 'templates/logout'], function($, _, 
 		},
 		
 		render: function(){
-			this.$el.html(this.template());
+			template.render('_logout', this.$el, _);
 			return this;
 		}
 		
