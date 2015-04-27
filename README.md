@@ -9,14 +9,18 @@ Tiny-chat example using Gradle, Groovy, GroovyTemplate, Java and Spring (Data, M
 	gradle test
 
 ### Testing
-The project is testing using Spock, GEB and Jasmine (sooner)
+The project is testing using Spock, GEB, Jasmine (sooner) and JaCoCo for test coverage report
 To run the tests run the command:
 
 	gradle test
 	
-The testing report are gerenated at
+The testing report are generated at:
 
 	~gchat/build/reports/tests/index.html
+	
+The coverage report are generated at:
+
+	~gchat/build/reports/coverage/test/html/index.html
 	
 ## How to run?
 Since GChat is built using SpringBoot and Gradle, it's really easy to run, run the command:
