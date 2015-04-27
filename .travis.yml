@@ -3,4 +3,4 @@ before_script:
   - "wget http://repo.gradle.org/gradle/distributions/gradle-1.0-milestone-7-bin.zip"
   - "unzip gradle-1.0* > /dev/null"
 
-script: "gradle-1.0*/bin/gradle -q test"
+script: "gradle-1.0*/bin/gradle test"
