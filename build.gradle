@@ -115,7 +115,7 @@ chromeTest {
 
 //Makes your 'test' phase depends on tests of all registered drivers
 test {
-	dependsOn drivers.collect { tasks["${it}Test"] }
+//	dependsOn drivers.collect { tasks["${it}Test"] }
 	enabled = false
 }
 
