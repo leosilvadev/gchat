@@ -35,6 +35,8 @@ html {
 		  }
 	  }
 	  
+	  section(id:"global-notifications"){}
+	  
 	  script(type:"text/javascript", src:"assets/libs/requirejs/require.js", "data-main":"assets/js/index-main.js"){}
   }
 }

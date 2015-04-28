@@ -150,3 +150,9 @@ ul.navbar-left>li>a:HOVER, ul.navbar-left>li>a {
 .to-right{
 	text-align: right;
 }
+
+#global-notifications{
+	margin-top: 60px;
+	margin-left: 10px;
+	margin-right: 10px;
+}

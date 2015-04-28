@@ -8,6 +8,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.test.context.web.WebAppConfiguration
 
 import br.leosilvadev.gchat.Application
+import br.leosilvadev.gchat.utils.RandomString
 
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -27,7 +28,26 @@ class UserRegistrationSpec extends GebSpec {
 			$('button#btn-register').click()
 			
 		then: "A message about different passwords must be visible"
-			$('div#registration-messages div.alert > span.message').text() == "Passwords does not match"
+			$('#registration-messages div.alert > span.message').text() == "Passwords does not match"
+		
+	}
+	
+	def "Should register a new user"(){
+		def email = RandomString.randomEmail()
+		
+		given: "A user in registration page"
+			go "/#register"
+			waitFor { $('#modal-registration').displayed }
+	
+		when: "User try to register himself"
+			$('input#name').value("NewUser")
+			$('input#email').value(email)
+			$('input#password').value("newuser")
+			$('input#passwordConfirmation').value("newuser")
+			$('button#btn-register').click()
+			
+		then: "A user must be saved"
+			$('#global-notifications > div.alert > span.message').text() == "User registered successfully!"
 		
 	}
 
