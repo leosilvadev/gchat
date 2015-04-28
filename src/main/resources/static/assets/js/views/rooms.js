@@ -19,19 +19,24 @@ define(['jquery',
 		},
 		
 		events: {
-			'keyup #search-name': 'findRooms',
-			'hidden.bs.modal': 'cleanRooms'
+			'keyup #search-name': 'listRooms',
+			'hidden.bs.modal': 'cleanModal'
 		},
 		
-		findRooms: function(){
+		cleanModal: function(){
+			this.$('#search-name').val('');
 			this.cleanRooms();
-			var roomName = this.$el.find('#search-name').val();
+		},
+		
+		listRooms: function(){
+			this.cleanRooms();
+			var roomName = this.$('#search-name').val();
 			this.collection.fetch({data:{roomName:roomName}});
 		},
 		
 		cleanRooms: function(){
 			this.rooms.forEach(function(room){
-				room.remove();
+				room.destroy();
 			});
 			this.rooms = [];
 		},
@@ -47,10 +52,12 @@ define(['jquery',
 		
 		addOne: function(room){
 			var roomView = new RoomView({model:room});
+			roomView.render();
+			
 			this.rooms.push(roomView);
 			
-			var $modalBody = this.$el.find('.rooms');
-			$modalBody.append(roomView.render().el);
+			var $modalBody = this.$('.rooms');
+			$modalBody.append(roomView.el);
 		},
 	
 		closeModal: function(){

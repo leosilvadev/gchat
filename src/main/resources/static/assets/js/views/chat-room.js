@@ -1,9 +1,9 @@
-define(['backbone', 'templates/chat-room', 'models/chat-message', 'views/chat-message'], 
-	function(Backbone, ChatRoomTemplate, ChatMessage, ChatMessageView){
+define(['backbone', 
+        'models/chat-message', 
+        'views/chat-message',
+        'utils/template'], function(Backbone, ChatMessage, ChatMessageView, template){
 	
 	var ChatRoomView = Backbone.View.extend({
-		
-		template: _.template(ChatRoomTemplate),
 		
 		initialize: function(){
 			this.collection.on('add', this.saveMessage, this);
@@ -11,17 +11,7 @@ define(['backbone', 'templates/chat-room', 'models/chat-message', 'views/chat-me
 		
 		events: {
 			'keyup .txt-message': 'checkMessage',
-			'remove': 'remove',
 			submit: 'sendMessage'
-		},
-		
-		render: function(){
-			this.$el.html(this.template(this.model.attributes));
-			return this;
-		},
-		
-		destroy: function(){
-			this.remove();
 		},
 		
 		checkMessage: function(event){
@@ -89,6 +79,14 @@ define(['backbone', 'templates/chat-room', 'models/chat-message', 'views/chat-me
 				txtMessage.focus();
 				
 			});
+		},
+		
+		destroy: function(){
+			this.remove();
+		},
+		
+		render: function(){
+			template.render('_chat_room', this.$el, this.model.attributes);
 		}
 		
 	});

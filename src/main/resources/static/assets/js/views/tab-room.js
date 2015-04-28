@@ -6,18 +6,25 @@ define(['backbone'], function(Backbone){
 		tagName: 'li',
 		className: 'opened-room active-room',
 		
-		events: {
-			'click .close': 'close'
+		initialize: function(options){
+			this.roomView = options.roomView;
+			this.chatRoomView = options.chatRoomView;
+			this.name = options.name;
 		},
 		
-		close: function(){
-			this.$el.remove();
-			this.model.roomView.destroy();
-			this.model.chatRoomView.destroy();
+		events: {
+			'click .close': 'destroy'
+		},
+		
+		destroy: function(){
+			console.log(this);
+			this.roomView.destroy();
+			this.chatRoomView.destroy();
+			this.remove();
 		},
 		
 		render: function(){
-			this.$el.html(this.template(this.model.attributes));
+			this.$el.html(this.template({name: this.name}));
 			return this;
 		}
 	

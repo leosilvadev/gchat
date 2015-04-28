@@ -1,19 +1,18 @@
 define(
 		['backbone', 
-		 'templates/room', 
 		 'views/chat-room', 
 		 'views/tab-room', 
 		 'collections/chat-messages',
 		 'connectors/stomp-connector',
-		 'models/chat-message'], 
+		 'models/chat-message',
+		 'utils/template'], 
 		
-		function(Backbone, RoomTemplate, ChatRoomView, TabRoomView, ChatMessageList, StompConnector, ChatMessage){
+		function(Backbone, ChatRoomView, TabRoomView, ChatMessageList, StompConnector, ChatMessage, template){
 	
 	var RoomView = Backbone.View.extend({
 		
-		template: _.template(RoomTemplate),
 		className: 'row room',
-		
+				
 		events: {
 			'click .btn-enter-room': 'enter'
 		},
@@ -25,15 +24,16 @@ define(
 			
 			$('.opened-room').removeClass('active-room');
 			
-			this.model.roomView = this;
+			var chatRoomView = new ChatRoomView({model: this.model, collection: new ChatMessageList()});
+			chatRoomView.render();
+			$('body').append(chatRoomView.el);
 			
-			var tabRoomView = new TabRoomView({model: this.model});
-			$('#navbar-active-rooms').append(tabRoomView.render().el);
+
+			var tabRoomView = new TabRoomView({roomView: this, chatRoomView: chatRoomView, name: this.model.get('name')});
+			tabRoomView.render();
+			$('#navbar-active-rooms').append(tabRoomView.el);
 			$('#modal-rooms').modal('hide');
 			
-			var chatRoomView = new ChatRoomView({model: this.model, collection: new ChatMessageList()});
-			$('body').append(chatRoomView.render().el);
-			this.model.chatRoomView = chatRoomView;
 			
 			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
 				var chatMessage = new ChatMessage(JSON.parse(request.body));
@@ -42,17 +42,12 @@ define(
 		},
 		
 		destroy: function(){
-			this.messagesSubscription.unsubscribe();
-			this.$el.remove();
+			if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
+			this.remove();
 		},
 		
 		render: function(){
-			var name = this.model.get('name');
-			var createdAt = new Date(this.model.get('createdAt')).parse();
-			var users = this.model.get('users').length;
-			
-			this.$el.html(this.template({name:name, users:users, createdAt: createdAt}))
-			return this
+			template.render('_room', this.$el, this.model.attributes);
 		}
 		
 	});
