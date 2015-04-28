@@ -115,7 +115,7 @@ chromeTest {
 
 //Makes your 'test' phase depends on tests of all registered drivers
 test {
-	if ("$System.env.SKIP-GEB") dependsOn drivers.collect { tasks["${it}Test"] }
+	if (!System.env.SKIP_GEB) dependsOn drivers.collect { tasks["${it}Test"] }
 	enabled = false
 }
 
