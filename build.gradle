@@ -113,10 +113,16 @@ chromeTest {
 	systemProperty "webdriver.chrome.driver", new File(unzipChromeDriver.outputs.files.singleFile, chromedriverFilename).absolutePath
 }
 
+task systemTest(){
+	dependsOn drivers.collect { tasks["${it}Test"] }
+}
+
 //Makes your 'test' phase depends on tests of all registered drivers
 test {
-	if (!System.env.SKIP_GEB) dependsOn drivers.collect { tasks["${it}Test"] }
-	enabled = false
+    filter {
+        includeTestsMatching "*Spec"
+    }
+	if (!System.env.SKIP_GEB) dependsOn tasks.systemTest
 }
 
 test.finalizedBy(jacocoTestReport)

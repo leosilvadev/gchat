@@ -58,6 +58,7 @@ class ChatMessageControllerSpec extends Specification {
 			1 * messageBuilder.privateMessage(message, "FAKE_TARGET", "FAKE_SENDER") >> privMessage
 			1 * template.convertAndSend("/queue/messages-FAKE_TARGET", privMessage)
 			HttpStatus.CREATED == response.statusCode
+
 	}
 	
 }
