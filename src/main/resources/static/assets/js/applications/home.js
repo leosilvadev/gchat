@@ -2,16 +2,19 @@ define(
 		['jquery', 
 		 'backbone', 
 		 'routers/routers', 
-		 'navigator', 
+		 'navigator',
+		 'client/notifications',
 		 'bootstrap'], 
 		 
-		 function($, Backbone, Routers, navigator){
+		 function($, Backbone, Routers, navigator, notifications){
 	
 	var HomeApp = new (Backbone.View.extend({
 		
 		initialize:function(){
 			var router = new Routers.Home();
 			this.start();
+			
+			notifications.start();
 		},
 		
 		events: {

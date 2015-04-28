@@ -1,9 +1,8 @@
 define(['jquery',
 		'backbone', 
 		'models/user',
-		'models/notification',
-		'views/notification',
-		'utils/template'], function($, Backbone, User, Notification, NotificationView, template){
+		'utils/template',
+		'utils/events'], function($, Backbone, User, template, events){
 	
 	var UserRegistrationForm = Backbone.View.extend({
 
@@ -19,13 +18,6 @@ define(['jquery',
 			'click #btn-register' : 'register',
 			'hidden.bs.modal' : 'clean'
 		},
-		
-		cleanNotifications : function(){
-			this.notifications.forEach(function(notification){
-				notification.remove();
-			});
-			this.notifications = [];
-		},
 	
 		register : function() {
 			this.model.set('name', $('#name').val());
@@ -34,8 +26,10 @@ define(['jquery',
 			this.model.set('passwordConfirmation', $('#passwordConfirmation').val());
 			if ( this.model.isValid() ) {
 				this.model.save({success: this.showSuccess(this)});
+				
 			} else {
 				this.showErrors(this.model.validationError);
+			
 			}
 		},
 	
@@ -50,17 +44,12 @@ define(['jquery',
 		},
 	
 		showErrors : function(error) {
-			this.cleanNotifications();
-			var view = new NotificationView({model:new Notification({message:error})});
-			this.notifications.push(view);
-			$('#registration-messages').html( view.render().el );
+			events.trigger('notify:warning', error, $('#registration-messages'));
 		},
 	
 		showSuccess : function(model, resp, options) {
 			this.closeModal();
-			var notification = new Notification({type:'success', message: 'You were successfully registered!</br>We are sending a confirmation e-mail to you...', delay:3000});
-			var view = new NotificationView({model: notification});
-			view.render();
+			events.trigger('notify:info', 'User registered successfully!');
 		},
 	
 		openModal : function() {

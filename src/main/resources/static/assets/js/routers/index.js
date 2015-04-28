@@ -1,7 +1,8 @@
 define(['jquery', 
 		'backbone', 
 		'views/login',
-		'views/user-registration'], function($, Backbone, LoginView, UserRegistrationForm){
+		'views/user-registration',
+		'utils/events'], function($, Backbone, LoginView, UserRegistrationForm, events){
 	
 	var IndexRouter = Backbone.Router.extend({
 		
@@ -31,7 +32,7 @@ define(['jquery',
 		},
 		
 		invalidUser: function(){
-			alert('invalid user');
+			events.trigger('notify:warning', 'Invalid email/password');
 		},
 		
 		renderChildren: function(){
