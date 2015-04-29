@@ -7,7 +7,7 @@ define(['jquery',
 		var $container = $container || $('#global-notifications');
 		
 		var notification = {message: message, type: type};
-		template.render('_notification', $container, notification);
+		template.html('_notification', $container, notification);
 	};
 	
 	var NotificationsView = {

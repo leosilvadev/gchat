@@ -4,14 +4,14 @@ define(['jquery', 'underscore'], function($, _){
 		
 		var object = object || {};
 		
-		this.render = function(templateName, $el, object){
+		this.html = function(templateName, $el, object){
 			$.get('templates/' + templateName + ".html").success(function(html){
 				var template = _.template(html);
 				$el.html(template(object));
 			});
 		};
 		
-		this.appendRender = function(templateName, $el, object){
+		this.append = function(templateName, $el, object){
 			$.get('templates/' + templateName + ".html").success(function(html){
 				var template = _.template(html);
 				$el.append(template(object));

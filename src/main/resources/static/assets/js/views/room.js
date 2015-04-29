@@ -1,13 +1,16 @@
 define(
 		['backbone', 
 		 'views/chat-room', 
-		 'views/tab-room', 
+		 'views/tab-room',
 		 'collections/chat-messages',
 		 'connectors/stomp-connector',
 		 'models/chat-message',
-		 'utils/template'], 
+		 'utils/template',
+		 'utils/events',
+		 'managers/tab-rooms',
+		 'managers/chat-rooms'], 
 		
-		function(Backbone, ChatRoomView, TabRoomView, ChatMessageList, StompConnector, ChatMessage, template){
+		function(Backbone, ChatRoomView, TabRoomView, ChatMessageList, StompConnector, ChatMessage, template, events){
 	
 	var RoomView = Backbone.View.extend({
 		
@@ -24,16 +27,13 @@ define(
 			
 			$('.opened-room').removeClass('active-room');
 			
-			var chatRoomView = new ChatRoomView({model: this.model, collection: new ChatMessageList()});
-			chatRoomView.render();
-			$('body').append(chatRoomView.el);
-			
+			events.trigger('room:chat-new', this.model, function(){
+				$('#modal-rooms').modal('hide');
+			});
 
-			var tabRoomView = new TabRoomView({roomView: this, chatRoomView: chatRoomView, name: this.model.get('name')});
-			tabRoomView.render();
-			$('#navbar-active-rooms').append(tabRoomView.el);
-			$('#modal-rooms').modal('hide');
-			
+			events.trigger('room:tab-new', this.model, function(){
+				$('#modal-rooms').modal('hide');
+			});
 			
 			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
 				var chatMessage = new ChatMessage(JSON.parse(request.body));
@@ -47,7 +47,7 @@ define(
 		},
 		
 		render: function(){
-			template.render('_room', this.$el, this.model.attributes);
+			template.html('_room', this.$el, this.model.attributes);
 		}
 		
 	});

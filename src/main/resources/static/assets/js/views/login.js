@@ -21,7 +21,8 @@ define(
 		},
 		
 		render: function(){
-			template.render('_login', this.$el, _);
+			template.html('_login', this.$el);
+			return this;
 		}
 		
 	});

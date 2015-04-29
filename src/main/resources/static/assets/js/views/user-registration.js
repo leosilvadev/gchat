@@ -66,7 +66,8 @@ define(['jquery',
 		},
 	
 		render : function() {
-			template.render('_user_registration', this.$el, this.model.attributes);
+			template.html('_user_registration', this.$el, this.model.attributes);
+			return this;
 		}
 	
 	});

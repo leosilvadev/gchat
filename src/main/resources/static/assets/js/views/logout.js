@@ -17,7 +17,7 @@ define(['jquery',
 		},
 		
 		render: function(){
-			template.render('_logout', this.$el, _);
+			template.html('_logout', this.$el, _);
 			return this;
 		}
 		

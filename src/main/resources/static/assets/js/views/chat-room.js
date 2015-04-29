@@ -1,11 +1,14 @@
 define(['backbone', 
-        'models/chat-message', 
+        'models/chat-message',
+        'collections/chat-messages',
         'views/chat-message',
-        'utils/template'], function(Backbone, ChatMessage, ChatMessageView, template){
+        'utils/template',
+        'utils/events'], function(Backbone, ChatMessage, ChatMessageList, ChatMessageView, template, events){
 	
 	var ChatRoomView = Backbone.View.extend({
 		
 		initialize: function(){
+			this.collection = new ChatMessageList();
 			this.collection.on('add', this.saveMessage, this);
 		},
 		
@@ -86,7 +89,8 @@ define(['backbone',
 		},
 		
 		render: function(){
-			template.render('_chat_room', this.$el, this.model.attributes);
+			template.html('_chat_room', this.$el, this.model.attributes);
+			return this;
 		}
 		
 	});

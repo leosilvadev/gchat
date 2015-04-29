@@ -1,30 +1,22 @@
-define(['backbone'], function(Backbone){
+define(['backbone', 'utils/template', 'utils/events'], function(Backbone, template, events){
 	
 	var TabRoomView = Backbone.View.extend({
 	
-		template: _.template('<a href="#" class="btn-room-logout"><%= name %><span class="glyphicon glyphicon-remove close"></span></a>'),
 		tagName: 'li',
 		className: 'opened-room active-room',
-		
-		initialize: function(options){
-			this.roomView = options.roomView;
-			this.chatRoomView = options.chatRoomView;
-			this.name = options.name;
-		},
-		
+				
 		events: {
 			'click .close': 'destroy'
 		},
 		
 		destroy: function(){
-			console.log(this);
-			this.roomView.destroy();
-			this.chatRoomView.destroy();
+			events.trigger('room:tab-destroy', this.model);
+			events.trigger('room:chat-destroy', this.model);
 			this.remove();
 		},
 		
 		render: function(){
-			this.$el.html(this.template({name: this.name}));
+			template.html('_tab_room', this.$el, this.model.attributes);
 			return this;
 		}
 	

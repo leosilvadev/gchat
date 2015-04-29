@@ -41,11 +41,6 @@ define(['jquery',
 			this.rooms = [];
 		},
 		
-		render: function(){
-			template.render('_rooms', this.$el);
-			return this;
-		},
-		
 		addAll: function(){
 			this.collection.forEach(this.addOne, this);
 		},
@@ -66,6 +61,11 @@ define(['jquery',
 		
 		openModal: function(){
 			this.$el.modal('show');
+		},
+		
+		render: function(){
+			template.html('_rooms', this.$el);
+			return this;
 		}
 		
 	});
