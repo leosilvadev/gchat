@@ -5,7 +5,8 @@ define(['backbone', 'views/chat-room', 'utils/events'], function(Backbone, ChatR
 	var ChatRoomsManager = Backbone.View.extend({
 
 		initialize: function(options){
-			events.on('room:chat-new', this.newChat);
+			events.on('room:chat-new'	 , this.newChat);
+			events.on('room:chat-switch' , this.switchChat);
 			events.on('room:chat-destroy', this.destroy);
 		},
 		
@@ -16,6 +17,14 @@ define(['backbone', 'views/chat-room', 'utils/events'], function(Backbone, ChatR
 
 			chats.push(chat);
 			
+			if(callback) callback();
+		},
+		
+		switchChat: function(room, callback){
+			for(var it in chats){
+				var chat = chats[it];
+				chat.model.get('code') === room.get('code') ? chat.show() : chat.hide();
+			}
 			if(callback) callback();
 		},
 

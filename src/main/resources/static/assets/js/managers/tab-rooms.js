@@ -5,7 +5,8 @@ define(['backbone', 'views/tab-room', 'utils/events'], function(Backbone, TabRoo
 	var TabRoomsManager = Backbone.View.extend({
 		
 		initialize: function(options){
-			events.on('room:tab-new', this.newTab);
+			events.on('room:tab-new'	, this.newTab);
+			events.on('room:chat-switch', this.switchTab);
 			events.on('room:tab-destroy', this.destroy);
 		},
 		
@@ -18,10 +19,19 @@ define(['backbone', 'views/tab-room', 'utils/events'], function(Backbone, TabRoo
 			
 			if(callback) callback();
 		},
+
+		switchTab: function(room, callback){
+			for(var it in tabs){
+				var tab = tabs[it];
+				tab.model.get('code') === room.get('code') ? tab.show() : tab.hide();
+			}
+			if(callback) callback();
+		},
 		
 		destroy: function(room, callback){
 			for(var it in tabs){
-				if ( tabs[it].model.get('code') === room.get('code') ){
+				var tab = tabs[it];
+				if ( tab.model.get('code') === room.get('code') ){
 					tabs.splice(it, 1);
 				}
 			}

@@ -98,6 +98,14 @@ define(['backbone',
 			});
 		},
 		
+		hide: function(){
+			this.$el.hide();
+		},
+		
+		show: function(){
+			this.$el.show();
+		},
+		
 		destroy: function(){
 			if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
 			this.remove();

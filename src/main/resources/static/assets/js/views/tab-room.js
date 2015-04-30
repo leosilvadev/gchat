@@ -6,7 +6,20 @@ define(['backbone', 'utils/template', 'utils/events'], function(Backbone, templa
 		className: 'opened-room active-room',
 				
 		events: {
-			'click .close': 'destroy'
+			'click .close'			: 'destroy',
+			'click .btn-tab-room' 	: 'switchChat'
+		},
+		
+		switchChat: function(){
+			events.trigger('room:chat-switch', this.model);
+		},
+		
+		hide: function(){
+			this.$el.removeClass('active-room');
+		},
+		
+		show: function(){
+			this.$el.addClass('active-room');
 		},
 		
 		destroy: function(){
