@@ -3,14 +3,16 @@ define(
 		 'backbone',
 		 'connectors/stomp-connector',
 		 'views/logout',
-		 'views/rooms'], function($, Backbone, StompConnector, LogoutView, RoomListView){
+		 'views/rooms',
+		 'views/room-registration'], function($, Backbone, StompConnector, LogoutView, RoomsView, RoomRegistrationView){
 
 	var HomeRouter = Backbone.Router.extend({
 		
 		routes:{
 			''			: 'index',
 			'rooms'		: 'listRooms',
-			'logout'	: 'logout'
+			'logout'	: 'logout',
+			'rooms/new'	: 'newRoom'
 		},
 		
 		initialize: function(){
@@ -21,7 +23,12 @@ define(
 		
 		listRooms: function(){
 			this.initModals();
-			this.roomListView.openModal();
+			this.roomsView.openModal();
+		},
+		
+		newRoom: function(){
+			this.roomsView.closeModal();
+			this.roomRegistrationView.openModal();
 		},
 		
 		logout: function(){
@@ -39,14 +46,23 @@ define(
 				this.logoutView = new LogoutView();
 				$body.append( this.logoutView.render().el );
 			}
-			
-			if (this.roomListView) {
-				this.roomListView.closeModal();
+
+			if (this.roomsView) {
+				this.roomsView.closeModal();
 				
 			} else {
-				this.roomListView = new RoomListView();
-				$body.append( this.roomListView.render().el );
+				this.roomsView = new RoomsView();
+				$body.append( this.roomsView.render().el );
 			}
+
+			if (this.roomRegistrationView) {
+				this.roomRegistrationView.closeModal();
+				
+			} else {
+				this.roomRegistrationView = new RoomRegistrationView();
+				$body.append( this.roomRegistrationView.render().el );
+			}
+			
 		}
 	
 	});

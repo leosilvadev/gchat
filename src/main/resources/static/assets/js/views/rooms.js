@@ -3,7 +3,8 @@ define(['jquery',
         'backbone',
         'collections/rooms',
         'views/room',
-        'utils/template'], function($, _, Backbone, RoomList, RoomView, template){
+        'utils/template',
+        'utils/events'], function($, _, Backbone, RoomList, RoomView, template, events){
 	
 	var RoomListView = Backbone.View.extend({
 		
@@ -19,13 +20,18 @@ define(['jquery',
 		},
 		
 		events: {
-			'keyup #search-name': 'listRooms',
-			'hidden.bs.modal': 'cleanModal'
+			'keyup #search-name'		: 'listRooms',
+			'hidden.bs.modal'			: 'cleanModal'
 		},
 		
 		cleanModal: function(){
 			this.$('#search-name').val('');
 			this.cleanRooms();
+		},
+		
+		createRoom: function(){
+			this.closeModal();
+			events.trigger('room:new');
 		},
 		
 		listRooms: function(){

@@ -5,9 +5,7 @@ define(['backbone'], function(Backbone){
 		urlRoot: '/rooms',
 		defaults: function(){
 			return {
-				name: 'Open room',
-				createdAt: new Date(),
-				users: 0				
+				name: 'Open room'	
 			}
 		}
 			

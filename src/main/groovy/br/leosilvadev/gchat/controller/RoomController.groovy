@@ -11,10 +11,11 @@ import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestParam
 
 import br.leosilvadev.gchat.events.NewRoomEvent
 import br.leosilvadev.gchat.manager.RoomsManager
+import br.leosilvadev.gchat.model.dto.HttpResponse
 import br.leosilvadev.gchat.model.dto.Room
 
 @Controller
@@ -29,7 +30,7 @@ class RoomController {
 		if (bindingResult.hasErrors()) return new ResponseEntity(HttpStatus.BAD_REQUEST)
 		
 		applicationContext.publishEvent(new NewRoomEvent(room))
-		new ResponseEntity(HttpStatus.CREATED)	
+		new ResponseEntity(new HttpResponse(message: 'Room created successfully!'), HttpStatus.CREATED)
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
