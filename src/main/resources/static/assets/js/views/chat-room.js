@@ -68,7 +68,6 @@ define(['backbone',
 		},
 		
 		showMessage: function(chatMessage){
-			console.log(chatMessage);
 			var chatMessageView = new ChatMessageView({model:chatMessage});
 			var $messages = this.$('.chat[data-code="'+this.model.get('code')+'"] .chat-content');
 			$messages.append( chatMessageView.render().el );
@@ -88,13 +87,14 @@ define(['backbone',
 				
 			});
 		},
-		
+
 		subscribe: function(room){
+			var view = this;
 			var roomCode = room.get('code');
 			
 			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
 				var chatMessage = new ChatMessage(JSON.parse(request.body));
-//				chatRoomView.showMessage(chatMessage);
+				view.showMessage(chatMessage);
 			});
 		},
 		
