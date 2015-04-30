@@ -1,8 +1,12 @@
 define(['backbone',
         'underscore',
         'models/room',
+		'models/chat-message',
+		'connectors/stomp-connector',
         'utils/template',
-        'utils/events'], function(Backbone, _, Room, template, events){
+        'utils/events',
+		'managers/tab-rooms',
+		'managers/chat-rooms'], function(Backbone, _, Room, ChatMessage, StompConnector, template, events){
 	
 	var RoomRegistrationView = Backbone.View.extend({
 		
@@ -33,10 +37,29 @@ define(['backbone',
 			room.save(null, {
 			    success: function (model, response) {
 			    	view.closeModal();
+			    	view.enterRoom(room);
 			    },
 			    error: function (model, response) {
 			        alert('Error! '+response.message);
 			    }
+			});
+		},
+		
+		enterRoom: function(room){
+			var roomCode = room.get('code');
+			var roomName = room.get('name');
+			
+			events.trigger('room:chat-new', room, function(){
+				$('#modal-rooms').modal('hide');
+			});
+
+			events.trigger('room:tab-new', room, function(){
+				$('#modal-rooms').modal('hide');
+			});
+			
+			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
+				var chatMessage = new ChatMessage(JSON.parse(request.body));
+				chatRoomView.showMessage(chatMessage);
 			});
 		},
 		

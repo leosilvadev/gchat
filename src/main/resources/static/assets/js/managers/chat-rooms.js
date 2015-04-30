@@ -11,6 +11,7 @@ define(['backbone', 'views/chat-room', 'utils/events'], function(Backbone, ChatR
 		
 		newChat: function(room, callback){
 			console.log('newChat');
+			console.log(room);
 			var chat = new ChatRoomView({model: room});
 			chat.render();
 			$('body').append(chat.el);

@@ -10,6 +10,8 @@ define(['backbone', 'views/tab-room', 'utils/events'], function(Backbone, TabRoo
 		},
 		
 		newTab: function(room, callback){
+			console.log('newTab');
+			console.log(room);
 			var tab = new TabRoomView({model: room});
 			tab.render();
 			$('#navbar-active-rooms').append(tab.el);
