@@ -2,14 +2,16 @@ define(['backbone',
         'models/chat-message',
         'collections/chat-messages',
         'views/chat-message',
+		'connectors/stomp-connector',
         'utils/template',
-        'utils/events'], function(Backbone, ChatMessage, ChatMessageList, ChatMessageView, template, events){
+        'utils/events'], function(Backbone, ChatMessage, ChatMessageList, ChatMessageView, StompConnector, template, events){
 	
 	var ChatRoomView = Backbone.View.extend({
 		
 		initialize: function(){
 			this.collection = new ChatMessageList();
 			this.collection.on('add', this.saveMessage, this);
+			this.subscribe(this.model);
 		},
 		
 		events: {
@@ -23,13 +25,15 @@ define(['backbone',
 			var message = this.$('.txt-message').val().trim();
 			if (message) {
 				this.ableButtonSendMessage();
-				if (event.keyCode===13) this.sendMessage(event);
+				if (event.keyCode===13) {
+					this.sendMessage(event);
+					this.$('.txt-message').val('');
+				}
 				
 			} else {
 				this.disableButtonSendMessage();
 			
 			}
-			this.$('.txt-message').val('');
 			
 		},
 	
@@ -64,6 +68,7 @@ define(['backbone',
 		},
 		
 		showMessage: function(chatMessage){
+			console.log(chatMessage);
 			var chatMessageView = new ChatMessageView({model:chatMessage});
 			var $messages = this.$('.chat[data-code="'+this.model.get('code')+'"] .chat-content');
 			$messages.append( chatMessageView.render().el );
@@ -84,7 +89,17 @@ define(['backbone',
 			});
 		},
 		
+		subscribe: function(room){
+			var roomCode = room.get('code');
+			
+			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
+				var chatMessage = new ChatMessage(JSON.parse(request.body));
+//				chatRoomView.showMessage(chatMessage);
+			});
+		},
+		
 		destroy: function(){
+			if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
 			this.remove();
 		},
 		

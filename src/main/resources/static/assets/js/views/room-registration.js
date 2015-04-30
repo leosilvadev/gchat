@@ -56,11 +56,6 @@ define(['backbone',
 			events.trigger('room:tab-new', room, function(){
 				$('#modal-rooms').modal('hide');
 			});
-			
-			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
-				var chatMessage = new ChatMessage(JSON.parse(request.body));
-				chatRoomView.showMessage(chatMessage);
-			});
 		},
 		
 		cleanModal: function(){

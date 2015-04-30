@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam
 
 import br.leosilvadev.gchat.events.NewRoomEvent
 import br.leosilvadev.gchat.manager.RoomsManager
-import br.leosilvadev.gchat.model.dto.RegisteredRoom
 import br.leosilvadev.gchat.model.dto.Room
 
 @Controller

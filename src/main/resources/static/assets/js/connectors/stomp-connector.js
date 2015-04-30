@@ -1,20 +1,23 @@
 define(['sockjs', 'stomp'], function(SockJS){
 
-	var StompConnector = {
+	var stompClient;
+	var socket;
+	
+	var StompConnector = function(){
 		
-		connect: function(){
+		this.connect = function(){
 			var self = this;
-			var socket = new SockJS('/messages');
-		    this.stompClient = Stomp.over(socket);
-		    this.stompClient.connect({});
-		},
+			socket = new SockJS('/messages');
+		    stompClient = Stomp.over(socket);
+		    stompClient.connect({});
+		};
 		
-		getConnection: function(){
-			return this.stompClient;
-		}
+		this.getConnection = function(){
+			return stompClient;
+		};
 			
 	};
 	
-	return StompConnector;
+	return new StompConnector();
 	
 });
