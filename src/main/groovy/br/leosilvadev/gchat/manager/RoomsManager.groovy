@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component
 
 import br.leosilvadev.gchat.exceptions.RoomNotFoundException
 import br.leosilvadev.gchat.exceptions.RoomValidationException
-import br.leosilvadev.gchat.model.dto.Room
+import br.leosilvadev.gchat.model.dto.ChatRoom
 import br.leosilvadev.gchat.security.UserSecurity
 
 @Component
@@ -12,7 +12,7 @@ class RoomsManager {
 
 	private List rooms = []
 	
-	def newRoom(Room room){
+	def newRoom(ChatRoom room){
 		if ( room.name ) {
 			rooms.add(room)
 		}

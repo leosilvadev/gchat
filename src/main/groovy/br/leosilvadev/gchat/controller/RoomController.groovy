@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam
 
 import br.leosilvadev.gchat.events.NewRoomEvent
 import br.leosilvadev.gchat.manager.RoomsManager
-import br.leosilvadev.gchat.model.dto.Room
+import br.leosilvadev.gchat.model.dto.ChatRoom
 
 @Controller
 @RequestMapping("/rooms")
@@ -25,7 +25,7 @@ class RoomController {
 	@Autowired RoomsManager roomsManager
 	
 	@RequestMapping(method=RequestMethod.POST)
-	def register(@Valid @RequestBody Room room, BindingResult bindingResult){
+	def register(@Valid @RequestBody ChatRoom room, BindingResult bindingResult){
 		if (bindingResult.hasErrors()) return new ResponseEntity(HttpStatus.BAD_REQUEST)
 		
 		applicationContext.publishEvent(new NewRoomEvent(room))

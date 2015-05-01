@@ -2,7 +2,7 @@ package br.leosilvadev.gchat.manager
 
 import spock.lang.Specification
 import br.leosilvadev.gchat.exceptions.RoomValidationException;
-import br.leosilvadev.gchat.model.dto.Room
+import br.leosilvadev.gchat.model.dto.ChatRoom
 
 class RoomCreationSpec extends Specification {
 
@@ -14,8 +14,8 @@ class RoomCreationSpec extends Specification {
 	
 	def "Should create Rooms"(){
 		given: "Some rooms"
-			def room1234 = new Room(name: "Room 1234")
-			def room4567 = new Room(name: "Room 1567")
+			def room1234 = new ChatRoom(name: "Room 1234")
+			def room4567 = new ChatRoom(name: "Room 1567")
 		
 		when: "The user create some rooms"
 			roomsManager.newRoom(room1234)
@@ -27,8 +27,8 @@ class RoomCreationSpec extends Specification {
 	
 	def "Should not bring a Room if room name does not match"(){
 		given: "Some rooms"
-			def room1234 = new Room(name: "Room 1234")
-			def room4567 = new Room(name: "Room 1567")
+			def room1234 = new ChatRoom(name: "Room 1234")
+			def room4567 = new ChatRoom(name: "Room 1567")
 		
 		when: "The user create some rooms"
 			roomsManager.newRoom(room1234)
@@ -40,7 +40,7 @@ class RoomCreationSpec extends Specification {
 	
 	def "Should not create Room without a name"(){
 		given: "A Room without name"
-			def room = new Room()
+			def room = new ChatRoom()
 			
 		when: "The user try to create it"
 			roomsManager.newRoom(room)

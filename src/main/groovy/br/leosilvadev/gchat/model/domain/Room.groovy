@@ -1,3 +1,5 @@
+
+
 package br.leosilvadev.gchat.model.domain
 
 import javax.persistence.Entity
@@ -32,6 +34,16 @@ class Room {
 	@ManyToOne
 	@JoinColumn(name="OWNER")
 	User owner
+	
+	def withName(name){ 
+		this.name = name
+		this
+	}
+	
+	def createdBy(user){
+		this.owner = user
+		this
+	}
 	
 	def addUser(user){
 		users << user

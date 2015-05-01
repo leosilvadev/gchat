@@ -3,7 +3,7 @@ package br.leosilvadev.gchat.manager
 import spock.lang.Specification
 import br.leosilvadev.gchat.exceptions.RoomNotFoundException;
 import br.leosilvadev.gchat.model.domain.User
-import br.leosilvadev.gchat.model.dto.Room
+import br.leosilvadev.gchat.model.dto.ChatRoom
 import br.leosilvadev.gchat.security.UserSecurity
 
 class RoomLoginSpec extends Specification {
@@ -16,7 +16,7 @@ class RoomLoginSpec extends Specification {
 	
 	def "Should login at a specific Room"(){
 		given: "A existent Room and logged User"
-			def room = new Room(code: "1234", name: "Room 1234")
+			def room = new ChatRoom(code: "1234", name: "Room 1234")
 			roomsManager.newRoom(room)
 			def user = new UserSecurity(new User(name: "Fake User", email: "fake@user.com"), "ANYCODE")
 			
@@ -29,7 +29,7 @@ class RoomLoginSpec extends Specification {
 	
 	def "Should not login if the Room does not exist"(){
 		given: "An non existent Room"
-			def room = new Room(code: "1234", name: "Room 1234")
+			def room = new ChatRoom(code: "1234", name: "Room 1234")
 			def user = new UserSecurity(new User(name: "Fake User", email: "fake@user.com"), "ANYCODE")
 			
 		when: "The logged User try to login at the Room"

@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 import org.springframework.context.ApplicationEvent
 
-import br.leosilvadev.gchat.model.dto.Room
+import br.leosilvadev.gchat.model.dto.ChatRoom
 
 class NewRoomEvent extends ApplicationEvent {
 
