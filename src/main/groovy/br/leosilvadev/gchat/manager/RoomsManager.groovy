@@ -14,7 +14,6 @@ class RoomsManager {
 	
 	def newRoom(Room room){
 		if ( room.name ) {
-			room.generateCode()
 			rooms.add(room)
 		}
 		else throw new RoomValidationException()
