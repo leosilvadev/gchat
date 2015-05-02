@@ -6,6 +6,7 @@ build/
 .springBeans
 /bin
 .idea
+phantomjsdriver.log
 
 # Ignore Gradle GUI config
 gradle-app.setting
