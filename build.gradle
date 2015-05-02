@@ -12,6 +12,7 @@ ext {
 		mysqlVersion 		= '5.1.34'
 		hibernateVersion 	= '4.3.8.Final'
 		cglibVersion 		= '3.1'
+		jedisVersion		= '2.7.0'
 		
 		objenesisVersion 	= '2.1'
 		
@@ -78,7 +79,7 @@ dependencies {
     compile("org.springframework:spring-messaging")
 	compile("cglib:cglib-nodep:$cglibVersion")
 	compile("org.codehaus.groovy:groovy-all:$groovyVersion")
-	
+	compile("redis.clients:jedis:$jedisVersion")
 	
 	testCompile("junit:junit")
 	testCompile("org.mockito:mockito-all:$mockitoVersion")
