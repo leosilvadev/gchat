@@ -10,6 +10,8 @@ buildscript {
 	}
 }
 
+//------------------------------------------------------------------------------------------------------
+// TASKS FOR DOWNLOAD AND INSTALL CHROME DRIVER
 task downloadChromeDriver {
 	def outputFile = file("$buildDir/webdriver/chromedriver.zip")
 	inputs.property("chromeDriverVersion", chromeDriverVersion)
@@ -27,7 +29,6 @@ task downloadChromeDriver {
 		FileUtils.copyURLToFile(new URL("http://chromedriver.storage.googleapis.com/${chromeDriverVersion}/chromedriver_${driverOsFilenamePart}.zip"), outputFile)
 	}
 }
-
 task unzipChromeDriver(type: Copy) {
 	def outputDir = file("$buildDir/webdriver/chromedriver")
 	dependsOn downloadChromeDriver
@@ -36,3 +37,46 @@ task unzipChromeDriver(type: Copy) {
 	from(zipTree(downloadChromeDriver.outputs.files.singleFile))
 	into(outputDir)
 }
+// TASKS FOR DOWNLOAD AND INSTALL CHROME DRIVER
+//------------------------------------------------------------------------------------------------------
+
+
+
+
+//------------------------------------------------------------------------------------------------------
+// TASKS FOR DOWNLOAD AND INSTALL PHANTONJS
+task downloadPhantomJs {
+	def osFilenamePart
+	if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+		osFilenamePart = "windows.zip"
+	} else if (Os.isFamily(Os.FAMILY_MAC)) {
+		osFilenamePart = "macosx.zip"
+	} else if (Os.isFamily(Os.FAMILY_UNIX)) {
+		osFilenamePart = Os.isArch("amd64") ? "linux-x86_64.tar.bz2" : "linux-i686.tar.bz2"
+	}
+
+	def filename = "phantomjs-$phantomJsVersion-$osFilenamePart"
+	def outputFile = file("$buildDir/webdriver/$filename")
+	inputs.property("phantomJsVersion", phantomJsVersion)
+	outputs.file(outputFile)
+
+	doLast {
+		FileUtils.copyURLToFile(new URL("https://bitbucket.org/ariya/phantomjs/downloads/$filename"), outputFile)
+	}
+}
+
+task unzipPhantomJs(type: Copy) {
+	def outputDir = file("$buildDir/webdriver/phantomjs")
+	dependsOn downloadPhantomJs
+	outputs.dir(outputDir)
+
+	def archive = downloadPhantomJs.outputs.files.singleFile
+
+	from(Os.isFamily(Os.FAMILY_MAC) || Os.isFamily(Os.FAMILY_WINDOWS) ? zipTree(archive) : tarTree(archive))
+	into(outputDir)
+	eachFile { FileCopyDetails fcp ->
+		fcp.relativePath = new RelativePath(!fcp.directory, *fcp.relativePath.segments[1..-1])
+	}
+}
+// TASKS FOR DOWNLOAD AND INSTALL PHANTONJS
+//------------------------------------------------------------------------------------------------------

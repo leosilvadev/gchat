@@ -7,10 +7,10 @@ import org.springframework.boot.test.IntegrationTest
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.test.context.web.WebAppConfiguration
 
-import br.leosilvadev.gchat.Application
+import br.leosilvadev.gchat.ApplicationTest
 import br.leosilvadev.gchat.utils.RandomString
 
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringApplicationConfiguration(classes = ApplicationTest.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:8080")
 class UserRegistrationIT extends GebSpec {
