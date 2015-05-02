@@ -7,4 +7,4 @@ before_script:
   - "wget https://services.gradle.org/distributions/gradle-2.3-bin.zip"
   - "unzip gradle-2.3* > /dev/null"
 
-script: "gradle-2.3*/bin/gradle test"
+script: "gradle-2.3*/bin/gradle test -Dspring.config.name=application-test"
