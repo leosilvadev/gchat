@@ -48,7 +48,7 @@ class UserRegistrationIT extends GebSpec {
 			
 		then: "A user must be saved"
 			$('#global-notifications > div.alert > span.message').text() == "User registered successfully!"
-		
+			2==1
 	}
 
 }
