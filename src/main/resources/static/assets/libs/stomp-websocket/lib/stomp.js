@@ -391,19 +391,19 @@
       this.subscriptions[headers.id] = callback;
       this._transmit("SUBSCRIBE", headers);
       client = this;
+      console.log(headers);
       return {
         id: headers.id,
         unsubscribe: function() {
-          return client.unsubscribe(headers.id);
+          return client.unsubscribe(headers);
         }
       };
     };
 
-    Client.prototype.unsubscribe = function(id) {
-      delete this.subscriptions[id];
-      return this._transmit("UNSUBSCRIBE", {
-        id: id
-      });
+    Client.prototype.unsubscribe = function(headers) {
+        console.log(headers);
+      delete this.subscriptions[headers.id];
+      return this._transmit("UNSUBSCRIBE", headers);
     };
 
     Client.prototype.begin = function(transaction) {

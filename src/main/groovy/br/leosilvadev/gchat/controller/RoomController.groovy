@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 
 import br.leosilvadev.gchat.events.NewRoomEvent
-import br.leosilvadev.gchat.manager.RoomsManager
 import br.leosilvadev.gchat.model.dto.ChatRoom
+import br.leosilvadev.gchat.model.services.RoomService
 
 @Controller
 @RequestMapping("/rooms")
 class RoomController {
 	
 	@Autowired ApplicationContext applicationContext
-	@Autowired RoomsManager roomsManager
+	@Autowired RoomService roomService
 	
 	@RequestMapping(method=RequestMethod.POST)
 	def register(@Valid @RequestBody ChatRoom room, BindingResult bindingResult){
@@ -34,7 +34,7 @@ class RoomController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	def list(@RequestParam(required=false) String roomName){
-		def rooms = roomsManager.rooms(roomName)
+		def rooms = roomService.allWithName roomName
 		new ResponseEntity(rooms, HttpStatus.OK)
 	}
 

@@ -95,7 +95,7 @@ define(['backbone',
 			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
 				var chatMessage = new ChatMessage(JSON.parse(request.body));
 				view.showMessage(chatMessage);
-			});
+			}, {roomCode: roomCode});
 		},
 		
 		hide: function(){
@@ -107,7 +107,8 @@ define(['backbone',
 		},
 		
 		destroy: function(){
-			if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
+			console.log(this.model.get('code'));
+			if (this.messagesSubscription) this.messagesSubscription.unsubscribe(null, {code:this.model.get('code')});
 			this.remove();
 		},
 		

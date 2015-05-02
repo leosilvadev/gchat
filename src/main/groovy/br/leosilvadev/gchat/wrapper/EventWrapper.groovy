@@ -9,19 +9,15 @@ class EventWrapper {
 	EventWrapper(event){ this.event = event }
 
 	UserSecurity sender(){
-		event.getMessage().getHeaders().get("simpUser").getPrincipal()
+		event.getMessage().getHeaders()?.get("simpUser")?.getPrincipal()
 	}
 	
 	String destination(){
-		event.getMessage().getHeaders().get("simpDestination")
+		event.getMessage().getHeaders()?.get("simpDestination")
 	}
 	
-	String loggedRoom(destination){
-		if ( destination.contains("-") ){
-			def brokenDest = destination.split("-")
-			if (brokenDest[0]?.equals("/topic/rooms")) return brokenDest[1]
-		}
-		return null
+	String roomCode(){
+		event.getMessage().getHeaders()?.get('nativeHeaders')?.get("roomCode")[0]
 	}
 	
 }

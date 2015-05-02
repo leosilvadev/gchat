@@ -15,9 +15,23 @@ class RoomService {
 	@Autowired UserService userService
 	@Autowired RoomRepository repository
 	
-	def register(ChatRoom chatRoom){
+	def register(chatRoom){
 		def room = new Room().withName(chatRoom.name).createdBy(userService.currentUser())
 		repository.save room
+	}
+	
+	def enter(roomCode, principal){
+		def room = repository.findOne roomCode
+		room.addUser userService.currentUser(principal)
+	}
+	
+	def logout(roomCode, principal){
+		def room = repository.findOne roomCode
+		room.removeUser userService.currentUser(principal)
+	}
+	
+	def allWithName(name){
+		repository.findAllByNameContaining name
 	}
 
 }

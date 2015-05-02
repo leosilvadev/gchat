@@ -30,4 +30,8 @@ class UserService {
 		repository.findOneByEmail user.getUsername()
 	}
 	
+	def currentUser(principal){
+		repository.findOneByEmail principal.getUsername()
+	}
+	
 }

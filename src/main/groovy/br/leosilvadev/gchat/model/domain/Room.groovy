@@ -49,6 +49,10 @@ class Room {
 		users << user
 	}
 	
+	def removeUser(user){
+		users.remove(user)
+	}
+	
 	@PrePersist
 	void prepareNewRoom(){
 		code = UUID.randomUUID().toString().replace("-", "")
