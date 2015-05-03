@@ -24,7 +24,7 @@ class UserController {
 
 	@Autowired UserService userService
 	
-	@Autowired Validator validator;
+	@Autowired Validator validator
 	@Autowired ChatUserValidator chatUserValidator
 	
 	@RequestMapping(method=RequestMethod.POST)

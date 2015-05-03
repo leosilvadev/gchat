@@ -22,7 +22,7 @@ class UserService {
 			.build chatUser
 			.onSuccess {println "User ${it.name} was saved succesfully!"}
 			.onError {println "Error saving user ${it.name}"}
-			.save repository
+			.saveOn repository
 	}
 	
 	def currentUser(){

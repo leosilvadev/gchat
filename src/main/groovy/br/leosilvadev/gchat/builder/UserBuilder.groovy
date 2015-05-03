@@ -43,7 +43,7 @@ class UserBuilder {
 			this
 		}
 		
-		def save(repository){
+		def saveOn(repository){
 			try {
 				repository.save(this.user)
 				if(successCallback) successCallback(user)

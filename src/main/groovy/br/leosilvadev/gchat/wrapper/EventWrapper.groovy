@@ -9,11 +9,11 @@ class EventWrapper {
 	EventWrapper(event){ this.event = event }
 
 	UserSecurity sender(){
-		event.getMessage().getHeaders()?.get("simpUser")?.getPrincipal()
+		event.message.headers?.simpUser?.principal
 	}
 	
 	String destination(){
-		event.getMessage().getHeaders()?.get("simpDestination")
+		event.message.headers?.simpDestination
 	}
 	
 	boolean isRoomsSubscriber(){
@@ -21,7 +21,9 @@ class EventWrapper {
 	}
 	
 	String roomCode(){
-		event.getMessage().getHeaders()?.get('nativeHeaders')?.get("roomCode")[0]
+		def nativeHeaders = event.message.headers?.nativeHeaders
+		def roomCode = nativeHeaders?.get("roomCode")[0]
+		roomCode
 	}
 	
 }

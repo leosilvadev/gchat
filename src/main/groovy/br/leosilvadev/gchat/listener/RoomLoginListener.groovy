@@ -23,7 +23,6 @@ class RoomLoginListener implements ApplicationListener<SessionSubscribeEvent> {
 		def principal = wrapper.sender()
 		def destination = wrapper.destination()
 		
-		
 		wrapper.isRoomsSubscriber() && roomService.enter(wrapper.roomCode(), principal)		
 	}
 
