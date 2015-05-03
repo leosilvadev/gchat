@@ -42,6 +42,7 @@ class Room {
 	
 	def createdBy(user){
 		this.owner = user
+		this.addUser user
 		this
 	}
 	

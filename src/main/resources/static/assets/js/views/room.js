@@ -9,7 +9,7 @@ define(
 		 'managers/tab-rooms',
 		 'managers/chat-rooms'], 
 		
-		function(Backbone, ChatRoomView, TabRoomView, ChatMessageList, ChatMessage, template, events){
+		function(Backbone, ChatRoomView, TabRoomView, ChatMessageList, ChatMessage, template, events, TabRoomsManager, ChatRoomsManager){
 	
 	var RoomView = Backbone.View.extend({
 		
@@ -20,19 +20,19 @@ define(
 		},
 		
 		enter: function(event){
-			var self = this;
-			var roomCode = this.model.get('code');
-			var roomName = this.model.get('name');
-			
-			$('.opened-room').removeClass('active-room');
-			
-			events.trigger('room:chat-new', this.model, function(){
+			if ( ChatRoomsManager.isNotLoggedIn(this.model)) {
+				$('.opened-room').removeClass('active-room');
+				
+				events.trigger('room:chat-new', this.model, function(){
+					$('#modal-rooms').modal('hide');
+				});
+				
+				events.trigger('room:tab-new', this.model, function(){
+					$('#modal-rooms').modal('hide');
+				});
+			} else {
 				$('#modal-rooms').modal('hide');
-			});
-
-			events.trigger('room:tab-new', this.model, function(){
-				$('#modal-rooms').modal('hide');
-			});
+			}
 		},
 		
 		destroy: function(){

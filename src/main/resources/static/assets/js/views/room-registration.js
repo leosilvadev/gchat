@@ -36,6 +36,8 @@ define(['backbone',
 			var room = new Room({name: roomName});
 			room.save(null, {
 			    success: function (model, response) {
+			    	console.log(room);
+			    	console.log(model);
 			    	view.closeModal();
 			    	view.enterRoom(room);
 			    },
@@ -46,9 +48,6 @@ define(['backbone',
 		},
 		
 		enterRoom: function(room){
-			var roomCode = room.get('code');
-			var roomName = room.get('name');
-			
 			events.trigger('room:chat-new', room, function(){
 				$('#modal-rooms').modal('hide');
 			});

@@ -37,18 +37,16 @@ define(['backbone',
 		},
 		
 		renderOne: function(user){
-			var chatUserView = new ChatUserView({model: user});
-			this.chatUserViews.push( chatUserView );
-			this.$el.append(chatUserView.render().el);
+			if(user.has('id')){
+				var chatUserView = new ChatUserView({model: user});
+				this.chatUserViews.push( chatUserView );
+				this.$el.append(chatUserView.render().el);
+			}
 		},
 		
 		render: function(){
 			this.$el.html('');
-			this.collection.each(function(user){
-				if(user.has('id')){
-					this.renderOne(user);
-				}
-			}, this);
+			this.collection.each(this.renderOne, this);
 			return this;
 		}
 		

@@ -15,6 +15,9 @@ define(['backbone',
 			this.collection = new ChatMessageList();
 			this.collection.on('add', this.saveMessage, this);
 			this.subscribe(this.model);
+
+			console.log(this.model);
+			this.usersView = new ChatUsersView({roomCode: this.model.get('code')});
 		},
 		
 		events: {
@@ -125,7 +128,6 @@ define(['backbone',
 				var template = _.template(html);
 				view.$el.html(template(view.model.attributes));
 				
-				view.usersView = new ChatUsersView({roomCode: view.model.get('code')});
 				view.$('.chat-users').html( view.usersView.render().el );
 			
 			});

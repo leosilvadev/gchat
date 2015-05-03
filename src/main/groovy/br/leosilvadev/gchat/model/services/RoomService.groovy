@@ -23,19 +23,24 @@ class RoomService {
 	def register(chatRoom){
 		def room = new Room().withName(chatRoom.name).createdBy(userService.currentUser())
 		repository.save room
+		chatRoom.code = room.code
+		chatRoom.createdAt = room.createdAt
 	}
 	
 	def enter(roomCode, principal){
 		def room = repository.findOne roomCode
 		def currentUser = userService.currentUser(principal)
-		room.addUser currentUser
 		
-		def topic = "/topic/rooms-"+room.code
-		def messageContent = "Let's welcome <b>" + currentUser.name + "</b>"
-		
-		def chatUser = new ChatUser(name: currentUser.name, email: currentUser.email)
-		
-		template.convertAndSend(topic, builder.newUser(messageContent, chatUser, ChatConstants.NEW_USER))
+		if ( !room.users.contains(currentUser) ){
+			room.addUser(currentUser)
+			
+			def topic = "/topic/rooms-"+room.code
+			def messageContent = "Let's welcome <b>" + currentUser.name + "</b>"
+			
+			def chatUser = new ChatUser(name: currentUser.name, email: currentUser.email)
+			
+			template.convertAndSend(topic, builder.newUser(messageContent, chatUser, ChatConstants.NEW_USER))
+		}
 	}
 	
 	def logout(roomCode, principal){

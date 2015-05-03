@@ -80,7 +80,7 @@ span.error-detail {
 	position: absolute;
 	bottom: 53px;
 	top: 53px;
-	background-color: rgba(52, 73, 94, 0.83);
+	background-color: rgba(242, 242, 242, 1);
 	width: 20%;
 	right: 0px;
 	border-left: 1px solid black;
@@ -90,12 +90,12 @@ span.error-detail {
 
 .chat-user{
 	padding-left: 10px;
-	color: rgb(205, 205, 205);
-	border-bottom: 1px solid rgb(80, 97, 115);
+	color: rgba(0, 0, 0, 0.52);
+	border-bottom: 1px solid rgb(221, 221, 221);
 }
 
 .chat-user:HOVER{
-	background-color: rgba(69, 90, 110, 1);
+	background-color: rgba(221, 217, 217, 1);
 	cursor: pointer;
 }
 

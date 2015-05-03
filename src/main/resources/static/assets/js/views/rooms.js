@@ -29,11 +29,6 @@ define(['jquery',
 			this.cleanRooms();
 		},
 		
-		createRoom: function(){
-			this.closeModal();
-			events.trigger('room:new');
-		},
-		
 		listRooms: function(){
 			this.cleanRooms();
 			var roomName = this.$('#search-name').val();
