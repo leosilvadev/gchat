@@ -13,7 +13,7 @@ import br.leosilvadev.gchat.utils.RandomString
 @SpringApplicationConfiguration(classes = ApplicationTest.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:8080")
-class UserRegistrationIT extends GebSpec {
+class UserRegistrationST extends GebSpec {
 	
 	def "Should not accept different passwords"(){
 		given: "A user in registration page"

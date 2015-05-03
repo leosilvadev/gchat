@@ -120,6 +120,10 @@ drivers.each { driver ->
 
 //Task for configure tests for chrome
 chromeTest {
+	filter {
+		includeTestsMatching "*ST"
+	}
+	
 	dependsOn unzipChromeDriver
 
 	def chromedriverFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "chromedriver.exe" : "chromedriver"
@@ -128,6 +132,10 @@ chromeTest {
 
 //Task for configure tests for phantomJS
 phantomJsTest {
+	filter {
+		includeTestsMatching "*ST"
+	}
+	
 	dependsOn unzipPhantomJs
 
 	def phantomJsFilename = Os.isFamily(Os.FAMILY_WINDOWS) ? "phantomjs.exe" : "bin/phantomjs"
