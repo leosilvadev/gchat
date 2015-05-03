@@ -1,10 +1,13 @@
 define(['backbone', 
+        'underscore',
         'models/chat-message',
+        'models/chat-user',
         'collections/chat-messages',
         'views/chat-message',
+        'views/chat-users',
 		'connectors/stomp-connector',
         'utils/template',
-        'utils/events'], function(Backbone, ChatMessage, ChatMessageList, ChatMessageView, StompConnector, template, events){
+        'utils/events'], function(Backbone, _, ChatMessage, ChatUser, ChatMessageList, ChatMessageView, ChatUsersView, StompConnector, template, events){
 	
 	var ChatRoomView = Backbone.View.extend({
 		
@@ -95,6 +98,10 @@ define(['backbone',
 			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
 				var chatMessage = new ChatMessage(JSON.parse(request.body));
 				view.showMessage(chatMessage);
+				if(chatMessage.has('user')){
+					view.usersView.addUser(new ChatUser(chatMessage.get('user')));
+				}
+				
 			}, {roomCode: roomCode});
 		},
 		
@@ -107,13 +114,21 @@ define(['backbone',
 		},
 		
 		destroy: function(){
-			console.log(this.model.get('code'));
 			if (this.messagesSubscription) this.messagesSubscription.unsubscribe(null, {code:this.model.get('code')});
+			this.usersView.destroy();
 			this.remove();
 		},
 		
 		render: function(){
-			template.html('_chat_room', this.$el, this.model.attributes);
+			var view = this;
+			$.get('templates/_chat_room.html').success(function(html){
+				var template = _.template(html);
+				view.$el.html(template(view.model.attributes));
+				
+				view.usersView = new ChatUsersView({roomCode: view.model.get('code')});
+				view.$('.chat-users').html( view.usersView.render().el );
+			
+			});
 			return this;
 		}
 		

@@ -12,7 +12,7 @@
 	font-size: 1.5em;
 }
 
-.btn-room-logout>span{
+.btn-room-logout>span {
 	margin-left: 10px;
 }
 
@@ -79,11 +79,24 @@ span.error-detail {
 	display: block;
 	position: absolute;
 	bottom: 53px;
-	top: 30px;
+	top: 53px;
 	background-color: rgba(52, 73, 94, 0.83);
 	width: 20%;
 	right: 0px;
 	border-left: 1px solid black;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.chat-user{
+	padding-left: 10px;
+	color: rgb(205, 205, 205);
+	border-bottom: 1px solid rgb(80, 97, 115);
+}
+
+.chat-user:HOVER{
+	background-color: rgba(69, 90, 110, 1);
+	cursor: pointer;
 }
 
 .sent-at {
@@ -137,9 +150,9 @@ ul.navbar-left>li>a:HOVER, ul.navbar-left>li>a {
 
 .room {
 	padding: 10px;
-  border: 2px solid rgb(189, 195, 199);
-  margin: 5px;
-  border-radius: 6px;
+	border: 2px solid rgb(189, 195, 199);
+	margin: 5px;
+	border-radius: 6px;
 }
 
 .room:HOVER {
@@ -147,11 +160,11 @@ ul.navbar-left>li>a:HOVER, ul.navbar-left>li>a {
 	cursor: pointer;
 }
 
-.to-right{
+.to-right {
 	text-align: right;
 }
 
-#global-notifications{
+#global-notifications {
 	margin-top: 60px;
 	margin-left: 10px;
 	margin-right: 10px;

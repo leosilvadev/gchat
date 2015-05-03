@@ -16,6 +16,10 @@ class EventWrapper {
 		event.getMessage().getHeaders()?.get("simpDestination")
 	}
 	
+	boolean isRoomsSubscriber(){
+		destination().split("/")[2].split("-")[0].equals("rooms")
+	}
+	
 	String roomCode(){
 		event.getMessage().getHeaders()?.get('nativeHeaders')?.get("roomCode")[0]
 	}

@@ -1,9 +1,6 @@
 package br.leosilvadev.gchat.controller
 
 import java.security.Principal
-import java.util.concurrent.ConcurrentHashMap
-
-import javax.annotation.PostConstruct
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -14,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.ResponseBody
 
 import br.leosilvadev.gchat.builder.MessageBuilder
 import br.leosilvadev.gchat.model.dto.Message
+import br.leosilvadev.gchat.model.services.RoomService
 
 @Controller
 @RequestMapping("/chat")
@@ -24,12 +23,12 @@ class ChatMessageController {
 	
 	@Autowired SimpMessagingTemplate template
 	@Autowired MessageBuilder builder
+	@Autowired RoomService roomService
 	
-	public static ConcurrentHashMap<String, String> users;
-	
-	@PostConstruct
-	def init(){
-		users = new ConcurrentHashMap<>()
+	@RequestMapping(value="/{room}/users", method=RequestMethod.GET)
+	@ResponseBody
+	def listUsers(@PathVariable String room){
+		roomService.listUsersFrom(room)
 	}
 	
 	@RequestMapping(value="/{room}/messages", method=RequestMethod.POST)
@@ -38,7 +37,7 @@ class ChatMessageController {
 		@PathVariable String room,
 		Principal loggedUser) {
 		
-		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message, room, loggedUser.getName()))
+		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message.content, room, loggedUser.getName()))
 		
 		new ResponseEntity(HttpStatus.CREATED)
     }

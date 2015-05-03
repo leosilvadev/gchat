@@ -1,17 +1,22 @@
 package br.leosilvadev.gchat.model.services
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
+import br.leosilvadev.gchat.builder.MessageBuilder
 import br.leosilvadev.gchat.model.domain.Room
-import br.leosilvadev.gchat.model.dto.ChatRoom
+import br.leosilvadev.gchat.model.dto.ChatUser
 import br.leosilvadev.gchat.repositories.RoomRepository
+import br.leosilvadev.gchat.utils.ChatConstants
 
 @Service
 @Transactional
 class RoomService {
 	
+	@Autowired MessageBuilder builder
+	@Autowired SimpMessagingTemplate template
 	@Autowired UserService userService
 	@Autowired RoomRepository repository
 	
@@ -22,7 +27,15 @@ class RoomService {
 	
 	def enter(roomCode, principal){
 		def room = repository.findOne roomCode
-		room.addUser userService.currentUser(principal)
+		def currentUser = userService.currentUser(principal)
+		room.addUser currentUser
+		
+		def topic = "/topic/rooms-"+room.code
+		def messageContent = "Let's welcome <b>" + currentUser.name + "</b>"
+		
+		def chatUser = new ChatUser(name: currentUser.name, email: currentUser.email)
+		
+		template.convertAndSend(topic, builder.newUser(messageContent, chatUser, ChatConstants.NEW_USER))
 	}
 	
 	def logout(roomCode, principal){
@@ -32,6 +45,12 @@ class RoomService {
 	
 	def allWithName(name){
 		repository.findAllByNameContaining name
+	}
+	
+	def listUsersFrom(roomCode){
+		def room = repository.findOne roomCode
+		def users = room.users
+		users
 	}
 
 }
