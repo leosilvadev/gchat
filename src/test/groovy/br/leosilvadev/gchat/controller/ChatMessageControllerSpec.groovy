@@ -37,7 +37,7 @@ class ChatMessageControllerSpec extends Specification {
 			response = chatMessageController.handlePublicMessage(message, "FAKE_ROOM", new FakePrincipal("FAKE_SENDER"))
 		
 		then: "Message is send to all users in the Room"
-			1 * messageBuilder.publicMessage(message, "FAKE_ROOM", "FAKE_SENDER") >> pubMessage
+			1 * messageBuilder.publicMessage("FAKE MESSAGE", "FAKE_ROOM", "FAKE_SENDER") >> pubMessage
 			1 * template.convertAndSend("/topic/rooms-FAKE_ROOM", pubMessage)
 			HttpStatus.CREATED == response.statusCode
 	}
