@@ -1,5 +1,3 @@
-
-
 package br.leosilvadev.gchat.model.domain
 
 import javax.persistence.Entity
