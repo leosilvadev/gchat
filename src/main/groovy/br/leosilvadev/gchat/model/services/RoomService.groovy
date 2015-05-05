@@ -1,13 +1,12 @@
 package br.leosilvadev.gchat.model.services
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-import br.leosilvadev.gchat.builder.MessageBuilder
 import br.leosilvadev.gchat.model.domain.Room
 import br.leosilvadev.gchat.model.dto.ChatUser
+import br.leosilvadev.gchat.notifiers.UserLoginNotifier;
 import br.leosilvadev.gchat.repositories.RoomRepository
 import br.leosilvadev.gchat.utils.ChatConstants
 
@@ -15,10 +14,9 @@ import br.leosilvadev.gchat.utils.ChatConstants
 @Transactional
 class RoomService {
 	
-	@Autowired MessageBuilder builder
-	@Autowired SimpMessagingTemplate template
-	@Autowired UserService userService
-	@Autowired RoomRepository repository
+	@Autowired UserService 		 userService
+	@Autowired RoomRepository 	 repository
+	@Autowired UserLoginNotifier notifier
 	
 	def register(chatRoom){
 		def room = new Room().withName(chatRoom.name).createdBy(userService.currentUser())
@@ -29,17 +27,11 @@ class RoomService {
 	
 	def enter(roomCode, principal){
 		def room = repository.findOne roomCode
-		def currentUser = userService.currentUser(principal)
+		def currentUser = userService.currentUser principal
 		
 		if ( !room.users.contains(currentUser) ){
 			room.addUser(currentUser)
-			
-			def topic = "/topic/rooms-"+room.code
-			def messageContent = "Let's welcome <b>" + currentUser.name + "</b>"
-			
-			def chatUser = new ChatUser(name: currentUser.name, email: currentUser.email)
-			
-			template.convertAndSend(topic, builder.newUser(messageContent, chatUser, ChatConstants.NEW_USER))
+			notifier.to(roomCode).by(currentUser).send()
 		}
 	}
 	
