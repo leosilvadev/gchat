@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="USERS")
-@EqualsAndHashCode(excludes=["id", "password", "roles"])
+@EqualsAndHashCode(includes=["email"])
 class User {
 
 	@Id
