@@ -131,7 +131,7 @@ define(['backbone',
 				view.$el.html(template(view.model.attributes));
 				
 				view.$('.chat-users').html( view.usersView.render().el );
-			
+				view.usersView.refreshUsers();
 			});
 			return this;
 		}

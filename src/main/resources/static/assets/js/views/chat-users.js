@@ -11,10 +11,11 @@ define(['backbone',
 			this.collection = new ChatUsers({room: this.roomCode});
 			this.listenTo(this.collection, 'reset', this.render);
 			this.listenTo(this.collection, 'add', this.renderOne);
-			
-			this.collection.fetch({reset: true});
-			
 			this.chatUserViews = [];
+		},
+		
+		refreshUsers: function(){
+			this.collection.fetch({reset: true});
 		},
 		
 		addUser: function(chatUser){
