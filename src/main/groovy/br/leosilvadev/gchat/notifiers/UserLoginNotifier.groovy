@@ -29,7 +29,7 @@ class UserLoginNotifier {
 		
 		LoginNotifierRequest by(user){
 			messageContent = "Let's welcome <b>${user.name}</b>".toString()
-			chatUser = new ChatUser(name: user.name, email: user.email)
+			chatUser = new ChatUser(id: user.id, name: user.name, email: user.email)
 			this
 		}
 		

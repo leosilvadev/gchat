@@ -9,8 +9,8 @@ define(['backbone',
 		initialize: function(options){
 			this.roomCode = options.roomCode;
 			this.collection = new ChatUsers({room: this.roomCode});
-			this.collection.on('reset', this.render, this);
-			this.collection.on('add', this.renderOne, this);
+			this.listenTo(this.collection, 'reset', this.render);
+			this.listenTo(this.collection, 'add', this.renderOne);
 			
 			this.collection.fetch({reset: true});
 			

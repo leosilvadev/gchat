@@ -10,6 +10,8 @@ import org.hibernate.validator.constraints.NotEmpty
 @EqualsAndHashCode(includes=["email"])
 class ChatUser {
 
+	Long id
+	
 	@NotNull @NotEmpty
 	String name
 	

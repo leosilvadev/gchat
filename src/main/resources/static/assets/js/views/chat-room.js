@@ -15,8 +15,7 @@ define(['backbone',
 			this.collection = new ChatMessageList();
 			this.collection.on('add', this.saveMessage, this);
 			this.subscribe(this.model);
-
-			console.log(this.model);
+			
 			this.usersView = new ChatUsersView({roomCode: this.model.get('code')});
 		},
 		
@@ -101,7 +100,10 @@ define(['backbone',
 			this.messagesSubscription = StompConnector.getConnection().subscribe('/topic/rooms-'+roomCode, function(request){
 				var chatMessage = new ChatMessage(JSON.parse(request.body));
 				view.showMessage(chatMessage);
+				console.log(chatMessage);
+				console.log(chatMessage.has('user'));
 				if(chatMessage.has('user')){
+					console.log('add user');
 					view.usersView.addUser(new ChatUser(chatMessage.get('user')));
 				}
 				
