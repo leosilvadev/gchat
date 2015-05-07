@@ -36,8 +36,6 @@ define(['backbone',
 			var room = new Room({name: roomName});
 			room.save(null, {
 			    success: function (model, response) {
-			    	console.log(room);
-			    	console.log(model);
 			    	view.closeModal();
 			    	view.enterRoom(room);
 			    },
