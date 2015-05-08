@@ -28,8 +28,14 @@ class ChatUserSpec extends Specification {
 			
 		then: "They should be the same"
 			areSameUsers
-			userOne.equals(userTwo)
 			userOne.hashCode() == userTwo.hashCode()
+			
+			
+		when: "User one is compared with itself"
+			areSameUsers = userOne.equals(userOne)
+		
+		then: "They should be the same"
+			areSameUsers
 			
 	}
 	
