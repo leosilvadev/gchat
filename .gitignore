@@ -6,6 +6,7 @@ build/
 .springBeans
 /bin
 .idea
+rebel.xml
 phantomjsdriver.log
 
 # Ignore Gradle GUI config
