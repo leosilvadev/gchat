@@ -1,0 +1,29 @@
+spring:
+    jpa:
+        open-in-view: true
+        show-sql: true
+        database: mysql
+        hibernate.ddl-auto: update
+        repositories.enabled: true
+        
+    datasource:
+        url: jdbc:mysql://localhost:3306/groovy_chat
+        username: root
+        password: root
+        
+    groovy:
+        template:
+            prefix: classpath:/views/
+            suffix: .gtl
+            
+            
+# GCHAT PROPERTIES
+gchat:
+    ssl:
+        enabled: true
+    keystore:
+        pass: groovychat
+        type: PKCS12
+        provider: SunJSSE
+        alias: tomcat
+        location: /security/keystore.p12
