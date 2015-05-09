@@ -1,5 +1,6 @@
 package br.leosilvadev.gchat.model.services
 
+import br.leosilvadev.gchat.notifiers.UserLogoutNotifier
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -14,9 +15,10 @@ import br.leosilvadev.gchat.utils.ChatConstants
 @Transactional
 class RoomService {
 	
-	@Autowired UserService 		 userService
-	@Autowired RoomRepository 	 repository
-	@Autowired UserLoginNotifier notifier
+	@Autowired UserService 		  userService
+	@Autowired RoomRepository 	  repository
+	@Autowired UserLoginNotifier  userLoginNotifier
+	@Autowired UserLogoutNotifier userLogoutNotifier
 	
 	def register(chatRoom){
 		def room = new Room().withName(chatRoom.name).createdBy(userService.currentUser())
@@ -31,13 +33,16 @@ class RoomService {
 		
 		if ( !room.users.contains(currentUser) ){
 			room.addUser(currentUser)
-			notifier.to(roomCode).by(currentUser).send()
+			userLoginNotifier.to(roomCode).by(currentUser).send()
 		}
 	}
 	
 	def logout(roomCode, principal){
 		def room = repository.findOne roomCode
+		def currentUser = userService.currentUser principal
+
 		room.removeUser userService.currentUser(principal)
+		userLogoutNotifier.to(roomCode).by(currentUser).send()
 	}
 	
 	def allWithName(name){

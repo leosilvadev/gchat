@@ -41,7 +41,7 @@ class ChatMessageController {
 		
 		new ResponseEntity(HttpStatus.CREATED)
     }
-		
+
 	@RequestMapping(value="/messages/{user}", method=RequestMethod.POST)
 	def handlePrivateMessage(
 		@RequestBody Message message, 

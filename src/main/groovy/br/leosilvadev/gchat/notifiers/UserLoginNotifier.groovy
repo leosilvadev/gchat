@@ -35,7 +35,7 @@ class UserLoginNotifier {
 		
 		void send(){
 			def topic = "/topic/rooms-${roomCode}".toString()
-			template.convertAndSend(topic, builder.newUser(messageContent, chatUser, ChatConstants.NEW_USER))
+			template.convertAndSend(topic, builder.newUser(messageContent, chatUser, ChatConstants.SYSTEM_MESSAGE))
 		}
 	}
 
