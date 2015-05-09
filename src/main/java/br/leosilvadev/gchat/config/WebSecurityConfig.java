@@ -12,14 +12,9 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
-
-
 import br.leosilvadev.gchat.model.domain.User;
 import br.leosilvadev.gchat.repositories.UserRepository;
 import br.leosilvadev.gchat.security.UserSecurity;
-import br.leosilvadev.gchat.utils.RandomString;
-
 
 @Configuration
 @EnableWebMvcSecurity
