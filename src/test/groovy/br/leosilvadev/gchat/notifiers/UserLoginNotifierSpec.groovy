@@ -23,17 +23,18 @@ class UserLoginNotifierSpec extends Specification {
 	
 	def "Should notify a User Login"(){
 		def chatUser = new ChatUser(name: "Fake", email: "fake@fake.com")
+		def newUserMessage
 		
 		given: "A room code and a user"
 			def roomCode = "1234"
 			def user 	 = new User(name:"Fake", email:"fake@fake.com")
 			
-		when: ""
+		when: "The the notifier receives a room code, a user and send"
 			notifier.to(roomCode).by(user).send()
 			
-		then: ""
-			1 * builder.newUser('Let\'s welcome <b>Fake</b>', chatUser, ChatConstants.NEW_USER)
-			
+		then: "A 'welcome' message must be sent to users in the room"
+			1 * builder.newUser('Let\'s welcome <b>Fake</b>', chatUser, ChatConstants.SYSTEM_MESSAGE) >> newUserMessage
+			1 * template.convertAndSend("/topic/rooms-1234", newUserMessage)
 	}
 	
 }
