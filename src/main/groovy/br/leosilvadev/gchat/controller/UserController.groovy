@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder
 import org.springframework.web.bind.annotation.InitBinder
 import org.springframework.web.bind.annotation.RequestBody
@@ -20,7 +21,7 @@ import br.leosilvadev.gchat.validators.ChatUserValidator
 
 @Controller
 @RequestMapping("/users")
-class UserController {
+class UserController extends GController {
 
 	@Autowired Publisher publisher
 	
@@ -28,9 +29,12 @@ class UserController {
 	@Autowired ChatUserValidator chatUserValidator
 	
 	@RequestMapping(method=RequestMethod.POST)
-	def register(@Valid @RequestBody ChatUser chatUser){
+	def register(@Valid @RequestBody ChatUser chatUser, BindingResult bindingResult){
+		if(bindingResult.hasErrors()) return badRequest()
+		
 		def user = publisher.publish(new ChatUserRegisteringEvent(chatUser))
-		new ResponseEntity(user, HttpStatus.CREATED)
+		
+		created(user)
 	}
 	
 	@InitBinder
