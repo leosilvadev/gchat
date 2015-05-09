@@ -1,9 +1,11 @@
 package br.leosilvadev.gchat.mail
 
-import br.leosilvadev.gchat.utils.ExtensionUtils;
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.JedisPool
 import spock.lang.Specification
+import br.leosilvadev.gchat.model.mail.MailMessage
+import br.leosilvadev.gchat.model.mail.MailMessageRegister
+import br.leosilvadev.gchat.utils.ExtensionUtils
 
 class MailMessageRegisterSpec extends Specification {
 	

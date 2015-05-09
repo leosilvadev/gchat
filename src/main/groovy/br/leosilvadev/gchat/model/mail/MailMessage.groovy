@@ -1,4 +1,4 @@
-package br.leosilvadev.gchat.mail
+package br.leosilvadev.gchat.model.mail
 
 class MailMessage {
 	

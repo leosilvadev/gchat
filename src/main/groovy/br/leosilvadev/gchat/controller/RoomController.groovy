@@ -3,7 +3,6 @@ package br.leosilvadev.gchat.controller
 import javax.validation.Valid
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.ApplicationContext
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 
 import br.leosilvadev.gchat.events.NewRoomEvent
+import br.leosilvadev.gchat.events.Publisher
 import br.leosilvadev.gchat.model.dto.ChatRoom
 import br.leosilvadev.gchat.model.services.RoomService
 
@@ -21,14 +21,14 @@ import br.leosilvadev.gchat.model.services.RoomService
 @RequestMapping("/rooms")
 class RoomController {
 	
-	@Autowired ApplicationContext applicationContext
+	@Autowired Publisher publisher
 	@Autowired RoomService roomService
 	
 	@RequestMapping(method=RequestMethod.POST)
 	def register(@Valid @RequestBody ChatRoom room, BindingResult bindingResult){
 		if (bindingResult.hasErrors()) return new ResponseEntity(HttpStatus.BAD_REQUEST)
 		
-		applicationContext.publishEvent(new NewRoomEvent(room))
+		publisher.publish(new NewRoomEvent(room))
 		new ResponseEntity(room, HttpStatus.CREATED)
 	}
 	
