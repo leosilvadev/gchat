@@ -1,0 +1,5 @@
+spring:
+	groovy:
+		template:
+			prefix: classpath:/views/
+			suffix: .gtl
