@@ -20,7 +20,7 @@ spring:
 # GCHAT PROPERTIES
 gchat:
     ssl:
-        enabled: true
+        enabled: false
     keystore:
         pass: groovychat
         type: PKCS12
