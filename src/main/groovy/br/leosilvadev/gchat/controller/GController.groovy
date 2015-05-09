@@ -5,16 +5,16 @@ import org.springframework.http.ResponseEntity
 
 class GController {
 	
-	def badRequest(){
-		new ResponseEntity(HttpStatus.BAD_REQUEST)
+	def badRequest(object){
+		object ? new ResponseEntity(object, HttpStatus.BAD_REQUEST) : new ResponseEntity(HttpStatus.BAD_REQUEST)
 	}
 	
 	def ok(object){
-		new ResponseEntity(object, HttpStatus.OK)
+		object ? new ResponseEntity(object, HttpStatus.OK) : new ResponseEntity(HttpStatus.OK)
 	}
 	
 	def created(object){
-		new ResponseEntity(object, HttpStatus.CREATED)
+		object ? new ResponseEntity(object, HttpStatus.CREATED) : new ResponseEntity(HttpStatus.CREATED)
 	}
 
 }

@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.RestController;
 
 import br.leosilvadev.gchat.builder.MessageBuilder
 import br.leosilvadev.gchat.model.dto.Message
 import br.leosilvadev.gchat.model.services.RoomService
 
-@Controller
+@RestController
 @RequestMapping("/chat")
-class ChatMessageController {
+class ChatMessageController extends GController {
 	
 	@Autowired SimpMessagingTemplate template
 	@Autowired MessageBuilder builder
 	@Autowired RoomService roomService
 	
 	@RequestMapping(value="/{room}/users", method=RequestMethod.GET)
-	@ResponseBody
 	def listUsers(@PathVariable String room){
-		roomService.listUsersFrom(room)
+		ok(roomService.listUsersFrom(room))
 	}
 	
 	@RequestMapping(value="/{room}/messages", method=RequestMethod.POST)
@@ -39,7 +39,7 @@ class ChatMessageController {
 		
 		template.convertAndSend("/topic/rooms-"+room, builder.publicMessage(message.content, room, loggedUser.getName()))
 		
-		new ResponseEntity(HttpStatus.CREATED)
+		created()
     }
 
 	@RequestMapping(value="/messages/{user}", method=RequestMethod.POST)
@@ -50,7 +50,7 @@ class ChatMessageController {
 		
 		template.convertAndSend("/queue/messages-"+user, builder.privateMessage(message, user, loggedUser.getName()))
 		
-		new ResponseEntity(HttpStatus.CREATED)
+		created()
 	}
 	
 }

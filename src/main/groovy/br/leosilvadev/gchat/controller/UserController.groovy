@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.InitBinder
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RestController;
 
 import br.leosilvadev.gchat.events.Publisher
 import br.leosilvadev.gchat.model.dto.ChatUser
 import br.leosilvadev.gchat.model.user.ChatUserRegisteringEvent
 import br.leosilvadev.gchat.validators.ChatUserValidator
 
-@Controller
+
+@RestController
 @RequestMapping("/users")
 class UserController extends GController {
 
