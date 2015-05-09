@@ -39,6 +39,8 @@ class User {
 	@ManyToMany
 	Set<Role> roles
 	
+	Boolean locked
+	
 	def save(repository, successCallback, errorCallback){
 		try {
 			repository.save(this)
