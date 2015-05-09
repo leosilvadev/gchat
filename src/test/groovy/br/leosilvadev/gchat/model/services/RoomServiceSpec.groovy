@@ -12,14 +12,14 @@ class RoomServiceSpec extends Specification {
 	def service
 	def repository
 	def userService
-	def notifier
+	def userLoginNotifier
 	
 	def setup(){
 		repository 	= Mock(RoomRepository)
 		userService = Mock(UserService)
-		notifier	= Mock(UserLoginNotifier)
+		userLoginNotifier	= Mock(UserLoginNotifier)
 		
-		service 	= new RoomService(repository: repository, userService: userService, notifier: notifier)
+		service 	= new RoomService(repository: repository, userService: userService, userLoginNotifier: userLoginNotifier)
 	}
 	
 	def "Should enter in a Room"(){
@@ -36,7 +36,7 @@ class RoomServiceSpec extends Specification {
 		then: "The user must be inside the room"
 			1 * repository.findOne("1234") 			>> room
 			1 * userService.currentUser(principal) 	>> user
-			1 * notifier.to("1234")					>> notifierRequest
+			1 * userLoginNotifier.to("1234")		>> notifierRequest
 			1 * notifierRequest.by(user)			>> notifierRequest
 			room.users.size() == 1
 		
