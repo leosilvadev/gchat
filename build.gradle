@@ -53,6 +53,7 @@ liquibase {
 	activities {
 		main {
 			changeLogFile 'migration/changelog-master.groovy'
+			
 			url 'jdbc:mysql://localhost:3306/groovy_chat'
 			username 'root'
 			password 'root'
@@ -177,10 +178,6 @@ test {
 	} else {
 		dependsOn tasks.systemTest
 	}
-}
-
-run {
-	dependsOn update
 }
 
 test.finalizedBy(jacocoTestReport)

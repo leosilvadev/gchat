@@ -67,5 +67,5 @@ databaseChangeLog {
 		addForeignKeyConstraint(baseColumnNames: 'rooms_code', baseTableName: 'room_users', constraintName: 'FK_lfofc82hdmf03gnvvpbx6fhn4', deferrable: false, initiallyDeferred: false, onDelete: 'NO ACTION', onUpdate: 'NO ACTION', referencedColumnNames: 'code', referencedTableName: 'rooms')
 	}
 	
-	includeAll(path: 'migration/v1.0.0/')
+	includeAll(path:'migration/v1.0.0')
 }
