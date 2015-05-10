@@ -3,7 +3,7 @@ spring:
         open-in-view: true
         show-sql: true
         database: mysql
-        hibernate.ddl-auto: update
+        hibernate.ddl-auto: none
         repositories.enabled: true
         
     datasource:
