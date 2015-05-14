@@ -31,6 +31,9 @@ class Application {
 		Object.metaClass.toJson {
 			jsonMapper.writeValueAsString(delegate)
 		}
+		String.metaClass.toObject { Class<?> clazz ->
+			jsonMapper.readValue(delegate, clazz)
+		}
 	}
 
 	@Bean LocalValidatorFactoryBean validator(){
