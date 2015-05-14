@@ -1,5 +1,7 @@
 package br.leosilvadev.gchat.model.mail
 
+import javax.annotation.PostConstruct
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
@@ -12,9 +14,13 @@ import br.leosilvadev.gchat.utils.ChatConstants
 @Component
 class MailMessageRegister implements ApplicationListener<UserRegisteredEvent> {
 	
-	public static final String QUEUE_MAILS_TO_SEND = "gchat:mails_to_send";
-
 	@Autowired JedisPool jedisPool
+	@Autowired MailMessageHandler mailMessageHandler
+	
+	@PostConstruct
+	def init(){
+		mailMessageHandler.listen()
+	}
 	
 	void onApplicationEvent(UserRegisteredEvent event) {
 		def user = event.source
@@ -23,7 +29,7 @@ class MailMessageRegister implements ApplicationListener<UserRegisteredEvent> {
 	
 	def register(MailMessage mail){
 		Jedis jedis = jedisPool.getResource()
-		jedis.lpush(QUEUE_MAILS_TO_SEND, mail.toJson())
+		jedis.lpush(MailConstants.QUEUE_MAILS_TO_SEND, mail.toJson())
 	}
 	
 }
