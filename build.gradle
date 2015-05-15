@@ -86,18 +86,23 @@ sourceSets.main.groovy.srcDirs = ["src/main/java", "src/main/groovy"]
 
 dependencies {	
 	runtime("javax.servlet:jstl:$jstlVersion")
-    
+	
+	compile("org.codehaus.groovy:groovy-all:$groovyVersion")
+	
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
 	compile("org.springframework.boot:spring-boot-starter-web")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework.boot:spring-boot-starter-websocket")
 	compile("org.springframework.boot:spring-boot-starter-security")
+	compile("org.springframework:spring-messaging")
+	
+	compile("javax.mail:mail:1.4.1")
+	compile("org.springframework:spring-context-support")
+	
+	compile("org.hibernate:hibernate-core:$hibernateVersion")
+    compile("cglib:cglib-nodep:$cglibVersion")
 	
 	compile("mysql:mysql-connector-java:$mysqlVersion")
-	compile("org.hibernate:hibernate-core:$hibernateVersion")
-    compile("org.springframework:spring-messaging")
-	compile("cglib:cglib-nodep:$cglibVersion")
-	compile("org.codehaus.groovy:groovy-all:$groovyVersion")
 	compile("redis.clients:jedis:$jedisVersion")
 	compile("com.h2database:h2")
 	
