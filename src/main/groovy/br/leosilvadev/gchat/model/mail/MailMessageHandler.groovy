@@ -4,17 +4,19 @@ import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
 
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.JedisPool
+import br.leosilvadev.gchat.events.MailMessageReadEvent
+import br.leosilvadev.gchat.events.Publisher
 
 @Component
 class MailMessageHandler {
 
 	@Autowired JedisPool jedisPool
-	@Autowired MailMessageSender mailMessageSender
+	@Autowired Publisher publisher
 	
 	private boolean shouldListen
 	private Jedis jedis
@@ -35,11 +37,16 @@ class MailMessageHandler {
 		while(shouldListen){
 			List jsonMessages = jedis.blpop(0, MailConstants.QUEUE_MAILS_TO_SEND)
 			jsonMessages.subList(1, jsonMessages.size()).each { message ->
-				println message
-				def mailMessage = message.toObject(MailMessage.class)
-				println mailMessage
+				def mailMessage = message.toObject MailMessage.class
+				publisher.publish new MailMessageReadEvent(mailMessage)
 			}
 		}
+	}
+	
+	@PreDestroy
+	def destroy(){
+		shouldListen = false
+		jedis.close()
 	}
 	
 }
