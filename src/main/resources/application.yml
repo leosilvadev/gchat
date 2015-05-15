@@ -16,7 +16,22 @@ spring:
             prefix: classpath:/views/
             suffix: .gtl
             
-            
+mail:
+    transport: smtp
+    debug: true
+    username: [GMAIL-USER]
+    password: [GMAIL-PASS]
+    smtp:
+        host: smtp.gmail.com
+        port: 465
+        auth: true
+        starttls: true
+        enablessl: true
+        socketfactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+    
 # GCHAT PROPERTIES
 gchat:
     ssl:
