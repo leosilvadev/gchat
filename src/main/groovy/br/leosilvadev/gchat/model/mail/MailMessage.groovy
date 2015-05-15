@@ -4,6 +4,7 @@ class MailMessage {
 	
 	String from
 	String to
+	String subject
 	String content
 
 }
