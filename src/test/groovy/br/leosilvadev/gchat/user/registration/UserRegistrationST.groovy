@@ -7,12 +7,12 @@ import org.springframework.boot.test.IntegrationTest
 import org.springframework.boot.test.SpringApplicationConfiguration
 import org.springframework.test.context.web.WebAppConfiguration
 
-import br.leosilvadev.gchat.ApplicationTest
+import br.leosilvadev.gchat.TestApplication
 import br.leosilvadev.gchat.utils.RandomString
 
-@SpringApplicationConfiguration(classes = ApplicationTest.class)
+@SpringApplicationConfiguration(classes = TestApplication.class)
 @WebAppConfiguration
-@IntegrationTest("server.port:9000")
+@IntegrationTest("server.port:8080")
 class UserRegistrationST extends GebSpec {
 	
 	def "Should not accept different passwords"(){

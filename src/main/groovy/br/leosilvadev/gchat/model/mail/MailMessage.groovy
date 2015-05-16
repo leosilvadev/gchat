@@ -1,6 +1,6 @@
 package br.leosilvadev.gchat.model.mail
 
-class MailMessage {
+class MailMessage implements Serializable {
 	
 	String from
 	String to

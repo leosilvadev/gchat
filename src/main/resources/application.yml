@@ -19,8 +19,8 @@ spring:
 mail:
     transport: smtp
     debug: true
-    username: [GMAIL-USER]
-    password: [GMAIL-PASS]
+    username: user
+    password: secret
     smtp:
         host: smtp.gmail.com
         port: 465
