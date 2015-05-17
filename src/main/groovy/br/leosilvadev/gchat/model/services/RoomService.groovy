@@ -1,15 +1,13 @@
 package br.leosilvadev.gchat.model.services
 
-import br.leosilvadev.gchat.notifiers.UserLogoutNotifier
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 import br.leosilvadev.gchat.model.domain.Room
-import br.leosilvadev.gchat.model.dto.ChatUser
-import br.leosilvadev.gchat.notifiers.UserLoginNotifier;
+import br.leosilvadev.gchat.notifiers.UserLoginNotifier
+import br.leosilvadev.gchat.notifiers.UserLogoutNotifier
 import br.leosilvadev.gchat.repositories.RoomRepository
-import br.leosilvadev.gchat.utils.ChatConstants
 
 @Service
 @Transactional

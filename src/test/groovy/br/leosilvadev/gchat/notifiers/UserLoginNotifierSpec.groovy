@@ -4,9 +4,9 @@ import org.springframework.messaging.simp.SimpMessagingTemplate
 
 import spock.lang.Specification
 import br.leosilvadev.gchat.builder.MessageBuilder
+import br.leosilvadev.gchat.constants.ChatConstants
 import br.leosilvadev.gchat.model.domain.User
 import br.leosilvadev.gchat.model.dto.ChatUser
-import br.leosilvadev.gchat.utils.ChatConstants
 
 class UserLoginNotifierSpec extends Specification {
 

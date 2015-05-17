@@ -1,27 +1,19 @@
 package br.leosilvadev.gchat.mail
 
-import redis.clients.jedis.Jedis
-import redis.clients.jedis.JedisPool
 import spock.lang.Specification
-import br.leosilvadev.gchat.model.mail.MailConstants;
-import br.leosilvadev.gchat.model.mail.MailMessage
-import br.leosilvadev.gchat.model.mail.MailMessageRegister
-import br.leosilvadev.gchat.utils.ChatConstants
+import br.leosilvadev.gchat.databases.managers.RedisManager
+import br.leosilvadev.gchat.mail.dto.MailMessage
 import br.leosilvadev.gchat.utils.ExtensionUtils
-
-import com.fasterxml.jackson.databind.ObjectMapper
 
 class MailMessageRegisterSpec extends Specification {
 	
 	MailMessageRegister register
-	JedisPool jedisPool
-	Jedis jedis
+	RedisManager manager
 	
 	def setup(){
-		jedisPool = Mock(JedisPool)
-		jedis = Mock(Jedis)
+		manager = Mock(RedisManager)
 		
-		register = new MailMessageRegister(jedisPool: jedisPool)
+		register = new MailMessageRegister(redisManager: manager)
 		
 		ExtensionUtils.extendObjects()
 	}
@@ -34,8 +26,7 @@ class MailMessageRegisterSpec extends Specification {
 			register.register(message)
 			
 		then: "It should be registered in correct queue"
-			1 * jedisPool.getResource() >> jedis
-			1 * jedis.lpush(MailConstants.QUEUE_MAILS_TO_SEND, message.toJson())
+			1 * manager.execute(_ as Closure)
 			
 	}
 	

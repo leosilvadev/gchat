@@ -1,4 +1,4 @@
-package br.leosilvadev.gchat.model.mail
+package br.leosilvadev.gchat.mail
 
 import javax.annotation.PostConstruct
 
@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
 
-import redis.clients.jedis.Jedis
-import redis.clients.jedis.JedisPool
+import br.leosilvadev.gchat.constants.ChatConstants
+import br.leosilvadev.gchat.constants.MailConstants
+import br.leosilvadev.gchat.databases.managers.RedisManager
 import br.leosilvadev.gchat.events.UserRegisteredEvent
-import br.leosilvadev.gchat.utils.ChatConstants
+import br.leosilvadev.gchat.mail.dto.MailMessage
 
 @Component
 class MailMessageRegister implements ApplicationListener<UserRegisteredEvent> {
 	
-	@Autowired JedisPool jedisPool
+	@Autowired RedisManager redisManager
 	@Autowired MailMessageHandler mailMessageHandler
 	
 	@PostConstruct
@@ -28,8 +29,9 @@ class MailMessageRegister implements ApplicationListener<UserRegisteredEvent> {
 	}
 	
 	def register(MailMessage mail){
-		Jedis jedis = jedisPool.getResource()
-		jedis.lpush(MailConstants.QUEUE_MAILS_TO_SEND, mail.toJson())
+		redisManager.execute({jedis ->
+			jedis.lpush(MailConstants.QUEUE_MAILS_TO_SEND, mail.toJson())
+		})
 	}
 	
 }

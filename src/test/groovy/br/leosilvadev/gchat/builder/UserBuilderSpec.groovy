@@ -43,7 +43,7 @@ class UserBuilderSpec extends Specification {
 	}
 	
 	def "Should not save a user and execute a callback"(){
-		def ex =new RuntimeException()
+		def ex = new RuntimeException()
 		def generatedUser = new User(email:"user@user.com")
 		
 		given: "A new user to be saved"

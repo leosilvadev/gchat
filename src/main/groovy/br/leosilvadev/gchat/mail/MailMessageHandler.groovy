@@ -1,4 +1,4 @@
-package br.leosilvadev.gchat.model.mail
+package br.leosilvadev.gchat.mail
 
 import javax.annotation.PostConstruct
 import javax.annotation.PreDestroy
@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component
 
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.JedisPool
+import br.leosilvadev.gchat.constants.MailConstants;
 import br.leosilvadev.gchat.events.MailMessageReadEvent
 import br.leosilvadev.gchat.events.Publisher
+import br.leosilvadev.gchat.mail.dto.MailMessage;
 
 @Component
 class MailMessageHandler {

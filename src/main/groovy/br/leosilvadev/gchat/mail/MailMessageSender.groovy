@@ -1,4 +1,4 @@
-package br.leosilvadev.gchat.model.mail
+package br.leosilvadev.gchat.mail
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationListener
@@ -7,6 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.stereotype.Component
 
 import br.leosilvadev.gchat.events.MailMessageReadEvent
+import br.leosilvadev.gchat.mail.dto.MailMessage;
 
 @Component
 class MailMessageSender implements ApplicationListener<MailMessageReadEvent> {

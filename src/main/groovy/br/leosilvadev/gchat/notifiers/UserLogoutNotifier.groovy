@@ -1,11 +1,12 @@
 package br.leosilvadev.gchat.notifiers
 
-import br.leosilvadev.gchat.builder.MessageBuilder
-import br.leosilvadev.gchat.model.dto.ChatUser
-import br.leosilvadev.gchat.utils.ChatConstants
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.stereotype.Component
+
+import br.leosilvadev.gchat.builder.MessageBuilder
+import br.leosilvadev.gchat.constants.ChatConstants;
+import br.leosilvadev.gchat.model.dto.ChatUser
 
 /**
  * Created by leonardo on 08/05/15.
