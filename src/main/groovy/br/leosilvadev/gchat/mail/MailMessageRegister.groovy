@@ -16,12 +16,6 @@ import br.leosilvadev.gchat.mail.dto.MailMessage
 class MailMessageRegister implements ApplicationListener<UserRegisteredEvent> {
 	
 	@Autowired RedisManager redisManager
-	@Autowired MailMessageHandler mailMessageHandler
-	
-	@PostConstruct
-	def init(){
-		mailMessageHandler.listen()
-	}
 	
 	void onApplicationEvent(UserRegisteredEvent event) {
 		def user = event.source

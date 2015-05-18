@@ -2,14 +2,14 @@ spring:
     jpa:
         open-in-view: true
         show-sql: true
-        database: mysql
+        database: POSTGRESQL
         hibernate.ddl-auto: none
         repositories.enabled: true
         
     datasource:
-        url: jdbc:mysql://localhost:3306/groovy_chat
-        username: root
-        password: root
+        url: jdbc:postgresql://localhost:5432/groovy_chat
+        username: gchat
+        password: gchat
         
     groovy:
         template:

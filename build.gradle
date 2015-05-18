@@ -10,7 +10,6 @@ ext {
 		springSecurityVersion = '4.0.0.RELEASE'
 		
 		jstlVersion			= '1.1.2'
-		mysqlVersion 		= '5.1.34'
 		hibernateVersion 	= '4.3.8.Final'
 		cglibVersion 		= '3.1'
 		jedisVersion		= '2.7.0'
@@ -34,9 +33,8 @@ buildscript {
     }
     dependencies {
 		classpath('net.saliman:gradle-liquibase-plugin:1.0.0')
-		classpath('mysql:mysql-connector-java:5.1.34')
+		classpath('org.postgresql:postgresql:9.4-1201-jdbc41')
         classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.2.RELEASE')
-		classpath('com.orange.redis-embedded:embedded-redis:0.6')
     }
 }
 
@@ -55,9 +53,9 @@ liquibase {
 		main {
 			changeLogFile 'migration/changelog-master.groovy'
 			
-			url 'jdbc:mysql://localhost:3306/groovy_chat'
-			username 'root'
-			password 'root'
+			url 'jdbc:postgresql://localhost:5432/groovy_chat'
+			username 'gchat'
+			password 'gchat'
 		}
 	}
 	runList = 'main'
@@ -103,7 +101,7 @@ dependencies {
 	compile("org.hibernate:hibernate-core:$hibernateVersion")
     compile("cglib:cglib-nodep:$cglibVersion")
 	
-	compile("mysql:mysql-connector-java:$mysqlVersion")
+	compile("org.postgresql:postgresql:9.4-1201-jdbc41")
 	compile("redis.clients:jedis:$jedisVersion")
 	compile("com.h2database:h2")
 	
