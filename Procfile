@@ -1,1 +1,1 @@
-web: java -jar build/libs/gchat-0.0.1.war
+web: ./build/install/app/bin/gchat
