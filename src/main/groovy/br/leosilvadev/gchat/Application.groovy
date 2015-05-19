@@ -30,7 +30,7 @@ class Application {
 			
 			System.setProperty("spring.datasource.url", dbUrl)
 			System.setProperty("spring.datasource.username", username)
-			System.setProperty("spring.datasource.username", password)
+			System.setProperty("spring.datasource.password", password)
 		}
 	}
 
