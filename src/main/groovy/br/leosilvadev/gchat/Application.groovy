@@ -23,10 +23,15 @@ class Application {
 	public static configureDatabase() {
 		def url = System.getenv().DATABASE_URL
 		if ( url ) {
+			println url
 			URI dbUri = new URI(System.getenv().DATABASE_URL)
 			String username = dbUri.getUserInfo().split(":")[0]
 			String password = dbUri.getUserInfo().split(":")[1]
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
+			
+			println dbUrl
+			println username
+			println password
 			
 			System.setProperty("spring.datasource.url", dbUrl)
 			System.setProperty("spring.datasource.username", username)
