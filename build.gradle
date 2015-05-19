@@ -192,5 +192,5 @@ jacoco {
 }
 
 task stage() {
-	dependsOn installApp
+	dependsOn build
 }

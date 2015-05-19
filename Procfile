@@ -1,1 +1,1 @@
-web: ./gradlew run
+web: java -jar -Dport=$PORT build/libs/gchat-0.0.1.war
