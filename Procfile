@@ -1,1 +1,1 @@
-web: ./build/install/app/bin/gchat
+web: ./build/install/gchat/bin/gchat
