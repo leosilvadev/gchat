@@ -23,15 +23,10 @@ class Application {
 	public static configureDatabase() {
 		def url = System.getenv().HEROKU_POSTGRESQL_GREEN_URL
 		if ( url ) {
-			println url
-			URI dbUri = new URI(System.getenv().DATABASE_URL)
+			URI dbUri = new URI(System.getenv().HEROKU_POSTGRESQL_GREEN_URL)
 			String username = dbUri.getUserInfo().split(":")[0]
 			String password = dbUri.getUserInfo().split(":")[1]
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
-			
-			println dbUrl
-			println username
-			println password
 			
 			System.setProperty("spring.datasource.url", dbUrl)
 			System.setProperty("spring.datasource.username", username)
