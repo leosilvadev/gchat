@@ -19,7 +19,7 @@ class UserBuilder {
 			email: chatUser.email,
 			name: chatUser.name,
 			password: encoder.encode(chatUser.password),
-			locked: Boolean.TRUE, 
+			locked: Boolean.FALSE, 
 			roles: [roleManager.userRole()]
 		)
 		new UserRegistration(user)

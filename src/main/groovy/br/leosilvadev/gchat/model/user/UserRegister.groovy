@@ -22,7 +22,7 @@ class UserRegister implements ApplicationListener<ChatUserRegisteringEvent> {
 								.onError {println "Error saving user ${it.name}"}
 								.saveOn repository
 								
-		publisher.publish(new UserRegisteredEvent(user))
+//		publisher.publish(new UserRegisteredEvent(user))
 	}
 
 }
