@@ -190,3 +190,7 @@ test.finalizedBy(jacocoTestReport)
 jacoco {
 	reportsDir = file("$buildDir/reports/coverage")
 }
+
+stage {
+	dependsOn installApp
+}

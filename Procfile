@@ -1,1 +1,1 @@
-web: ./gradlew run
+web: ./build/install/gchat/bin/gchat
