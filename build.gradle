@@ -53,9 +53,9 @@ liquibase {
 		main {
 			changeLogFile 'migration/changelog-master.groovy'
 			
-			url 'jdbc:postgresql://localhost:5432/groovy_chat'
-			username 'gchat'
-			password 'gchat'
+			url System.getenv().LIQUIBASE_GCHAT_URL
+			username System.getenv().LIQUIBASE_GCHAT_USERNAME
+			password System.getenv().LIQUIBASE_GCHAT_PASSWORD
 		}
 	}
 	runList = 'main'
