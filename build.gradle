@@ -177,10 +177,12 @@ test {
     filter {
         includeTestsMatching "*Spec"
     }
-	if (System.env.CI) {
-		dependsOn tasks.systemTestCI
-	} else {
-		dependsOn tasks.systemTest
+	if (!System.env.HEROKU) {
+		if (System.env.CI) {
+			dependsOn tasks.systemTestCI
+		} else {
+			dependsOn tasks.systemTest
+		}
 	}
 }
 
