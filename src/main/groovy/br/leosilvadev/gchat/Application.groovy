@@ -21,7 +21,7 @@ class Application {
 	}
 
 	public static configureDatabase() {
-		def url = System.getenv().DATABASE_URL
+		def url = System.getenv().HEROKU_POSTGRESQL_GREEN_URL
 		if ( url ) {
 			println url
 			URI dbUri = new URI(System.getenv().DATABASE_URL)
