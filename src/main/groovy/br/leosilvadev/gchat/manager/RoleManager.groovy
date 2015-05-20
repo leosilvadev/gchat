@@ -8,8 +8,8 @@ import br.leosilvadev.gchat.repositories.RoleRepository
 @Component
 class RoleManager {
 	
-	private static final String USER_ROLE = "USER";
-	private static final String ADMIN_ROLE = "ADMIN";
+	private static final String USER_ROLE = "ROLE_USER";
+	private static final String ADMIN_ROLE = "ROLE_ADMIN";
 	
 	@Autowired RoleRepository repository
 	
