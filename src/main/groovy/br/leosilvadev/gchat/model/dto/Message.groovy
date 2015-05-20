@@ -6,6 +6,7 @@ class Message {
 	
 	String from
 	String content
+	String roomCode
 	String sentAt = Time.now()
 		
 }
