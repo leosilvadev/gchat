@@ -83,8 +83,9 @@ define(['backbone',
 			var txtMessage = this.$('.txt-message');
 			txtMessage.attr('disabled', 'disabled');
 			
-			this.$(".chat-content").animate({ 
-				scrollTop: this.$('.chat-content').height() + 500
+			var chatContent = this.$(".chat-content");
+			chatContent.animate({ 
+				scrollTop: chatContent.height() * chatContent.height()
 				
 			}, 1000, function(){
 				txtMessage.removeAttr('disabled');
