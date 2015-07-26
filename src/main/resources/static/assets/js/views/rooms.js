@@ -13,8 +13,7 @@ define(['jquery',
 		
 		initialize: function(){
 			this.collection = new RoomList();
-			this.collection.on('reset', this.addAll, this);
-			this.collection.on('add', this.addOne, this);
+			this.collection.on('sync', this.addAll, this);
 			
 			this.rooms = [];
 		},
@@ -30,7 +29,6 @@ define(['jquery',
 		},
 		
 		listRooms: function(){
-			this.cleanRooms();
 			var roomName = this.$('#search-name').val();
 			this.collection.fetch({data:{roomName:roomName}});
 		},
@@ -43,6 +41,7 @@ define(['jquery',
 		},
 		
 		addAll: function(){
+			this.cleanRooms();
 			this.collection.forEach(this.addOne, this);
 		},
 		
