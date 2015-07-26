@@ -180,6 +180,8 @@ test {
     }
 	if (System.env.CI) {
 		dependsOn tasks.systemTestCI
+	} else {
+		dependsOn tasks.systemTest
 	}
 }
 
