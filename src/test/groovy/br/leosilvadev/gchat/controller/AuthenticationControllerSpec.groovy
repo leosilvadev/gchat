@@ -3,9 +3,8 @@ package br.leosilvadev.gchat.controller
 import org.springframework.http.HttpStatus
 
 import spock.lang.Specification
-import br.leosilvadev.gchat.exceptions.AuthenticationException
 import br.leosilvadev.gchat.mail.dto.Authentication
-import br.leosilvadev.gchat.mail.dto.Authentication.Authenticated;
+import br.leosilvadev.gchat.mail.dto.Authentication.Authenticated
 import br.leosilvadev.gchat.model.services.UserService
 
 class AuthenticationControllerSpec extends Specification {
