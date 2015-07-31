@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
 
 import br.leosilvadev.gchat.constants.ChatConstants
-import br.leosilvadev.gchat.constants.MailConstants
+import br.leosilvadev.gchat.constants.RedisKeys
 import br.leosilvadev.gchat.databases.managers.RedisManager
 import br.leosilvadev.gchat.events.UserRegisteredEvent
 import br.leosilvadev.gchat.mail.dto.MailMessage
@@ -24,7 +24,7 @@ class MailMessageRegister implements ApplicationListener<UserRegisteredEvent> {
 	
 	def register(MailMessage mail){
 		redisManager.execute({jedis ->
-			jedis.lpush(MailConstants.QUEUE_MAILS_TO_SEND, mail.toJson())
+			jedis.lpush(RedisKeys.QUEUE_MAILS_TO_SEND, mail.toJson())
 		})
 	}
 	

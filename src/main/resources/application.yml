@@ -18,6 +18,10 @@ spring:
             
 # GCHAT PROPERTIES
 gchat:
+    auth:
+        token:
+            expiretime:
+                seconds: 1800
     ssl:
         enabled: false
     keystore:

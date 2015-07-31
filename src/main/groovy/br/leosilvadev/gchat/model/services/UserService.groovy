@@ -1,10 +1,12 @@
 package br.leosilvadev.gchat.model.services
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
+import redis.clients.jedis.Jedis
+import br.leosilvadev.gchat.databases.managers.RedisManager
 import br.leosilvadev.gchat.mail.dto.Authentication
 import br.leosilvadev.gchat.repositories.UserRepository
 import br.leosilvadev.gchat.security.UserSecurity
@@ -23,12 +25,8 @@ class UserService {
 		repository.findOneByEmail principal.getUsername()
 	}
 	
-	def authenticate(username, password, onSuccess=null, onFailure=null){
-		def user = repository.findOneByEmailAndPassword(username, password.hash())
-		def authentication = new Authentication(username, password)
-		
-		if( user && onSuccess) return onSuccess(authentication.authenticated())
-		if(!user && onFailure) return onFailure(authentication)
+	def findByUsernameAndPassword(username, password){
+		repository.findOneByEmailAndPassword(username, password.hash())
 	}
 	
 }
