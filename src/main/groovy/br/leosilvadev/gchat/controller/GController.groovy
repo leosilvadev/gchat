@@ -16,5 +16,9 @@ class GController {
 	def created(object){
 		object ? new ResponseEntity(object, HttpStatus.CREATED) : new ResponseEntity(HttpStatus.CREATED)
 	}
+	
+	def unauthorized(object){
+		object ? new ResponseEntity(object, HttpStatus.UNAUTHORIZED) : new ResponseEntity(HttpStatus.UNAUTHORIZED)
+	}
 
 }

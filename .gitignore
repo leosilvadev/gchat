@@ -1,4 +1,5 @@
 .gradle
+.groovy/
 build/
 .classpath
 .project

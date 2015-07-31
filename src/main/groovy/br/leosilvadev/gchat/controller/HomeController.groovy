@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 
 @Controller
 @RequestMapping("/home")
-class HomeController {
+class HomeController extends GController {
 
 	@RequestMapping(method=RequestMethod.GET)
 	def home(){
