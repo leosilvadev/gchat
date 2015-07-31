@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
+import br.leosilvadev.gchat.mail.dto.Authentication
 import br.leosilvadev.gchat.repositories.UserRepository
 import br.leosilvadev.gchat.security.UserSecurity
 
@@ -19,6 +20,13 @@ class UserService {
 	
 	def currentUser(principal){
 		repository.findOneByEmail principal.getUsername()
+	}
+	
+	def authenticate(username, password, onSuccess, onFailure){
+		def user = repository.findOneByEmailAndPassword(username, password)
+		def authentication = new Authentication(username, password)
+		user ? onSuccess(authentication.authenticated()) : onFailure(authentication)
+		
 	}
 	
 }
