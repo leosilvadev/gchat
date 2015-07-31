@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.embedded.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include
@@ -43,17 +44,23 @@ class Application {
 	}
 	
 	Application(){
-		ObjectMapper jsonMapper = new ObjectMapper()
+		def jsonMapper = new ObjectMapper()
 		jsonMapper.setSerializationInclusion(Include.NON_NULL)
-		extendObjects(jsonMapper)
+		
+		def encoder = new ShaPasswordEncoder(256)
+		
+		extendObjects(jsonMapper, encoder)
 	}
 	
-	def extendObjects(jsonMapper){
+	def extendObjects(jsonMapper, encoder){
 		Object.metaClass.toJson {
 			jsonMapper.writeValueAsString(delegate)
 		}
 		String.metaClass.toObject { Class<?> clazz ->
 			jsonMapper.readValue(delegate, clazz)
+		}
+		String.metaClass.hash {
+			encoder.encodePassword(delegate, delegate)
 		}
 	}
 
