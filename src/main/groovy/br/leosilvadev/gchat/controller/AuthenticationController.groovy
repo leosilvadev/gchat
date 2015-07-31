@@ -20,7 +20,7 @@ class AuthenticationController extends GController {
 	}
 	
 	def authenticateOnFailure = { authentication ->
-		unauthorized(authentication)
+		unauthorized([message:"Invalid access data"])
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

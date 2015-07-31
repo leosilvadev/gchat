@@ -56,7 +56,7 @@ class AuthenticationControllerSpec extends Specification {
 		
 		and: "The client must receive an OK response"
 			response.statusCode == HttpStatus.UNAUTHORIZED
-			response.body instanceof Authentication
+			response.body.message == "Invalid access data"
 	}
 	
 }

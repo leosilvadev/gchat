@@ -22,11 +22,12 @@ class UserService {
 		repository.findOneByEmail principal.getUsername()
 	}
 	
-	def authenticate(username, password, onSuccess, onFailure){
+	def authenticate(username, password, onSuccess=null, onFailure=null){
 		def user = repository.findOneByEmailAndPassword(username, password)
 		def authentication = new Authentication(username, password)
-		user ? onSuccess(authentication.authenticated()) : onFailure(authentication)
 		
+		if( user && onSuccess) onSuccess(authentication.authenticated())
+		if(!user && onFailure) onFailure(authentication)
 	}
 	
 }
