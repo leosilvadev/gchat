@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/")
-class VisitorController extends GController {
+class VisitorController {
 
 	@RequestMapping(method=RequestMethod.GET)
 	def index(){

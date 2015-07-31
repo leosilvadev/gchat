@@ -94,7 +94,6 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-actuator")
 	compile("org.springframework.boot:spring-boot-starter-websocket")
 	compile("org.springframework.boot:spring-boot-starter-security")
-	compile("org.springframework.social:spring-social-facebook:2.0.1.RELEASE")
 	compile("org.springframework:spring-messaging")
 	
 	compile("javax.mail:mail:1.4.1")
