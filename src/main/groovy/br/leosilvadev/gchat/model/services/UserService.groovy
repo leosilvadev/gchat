@@ -1,6 +1,7 @@
 package br.leosilvadev.gchat.model.services
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 
@@ -23,11 +24,11 @@ class UserService {
 	}
 	
 	def authenticate(username, password, onSuccess=null, onFailure=null){
-		def user = repository.findOneByEmailAndPassword(username, password)
+		def user = repository.findOneByEmailAndPassword(username, password.hash())
 		def authentication = new Authentication(username, password)
 		
-		if( user && onSuccess) onSuccess(authentication.authenticated())
-		if(!user && onFailure) onFailure(authentication)
+		if( user && onSuccess) return onSuccess(authentication.authenticated())
+		if(!user && onFailure) return onFailure(authentication)
 	}
 	
 }

@@ -16,7 +16,7 @@ class AuthenticationController extends GController {
 	@Autowired UserService userService
 	
 	def authenticateOnSuccess = { authenticated ->
-		ok(authenticated)
+		ok([token: authenticated.token])
 	}
 	
 	def authenticateOnFailure = { authentication ->
