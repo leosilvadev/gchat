@@ -9,6 +9,8 @@ import org.springframework.security.authentication.encoding.ShaPasswordEncoder
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include
+import com.fasterxml.jackson.core.JsonParser.Feature;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper
 
 @SpringBootApplication
@@ -44,8 +46,10 @@ class Application {
 	}
 	
 	Application(){
-		def jsonMapper = new ObjectMapper()
+		ObjectMapper jsonMapper = new ObjectMapper()
 		jsonMapper.setSerializationInclusion(Include.NON_NULL)
+		jsonMapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)
+		jsonMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 		
 		def encoder = new ShaPasswordEncoder(256)
 		
@@ -76,7 +80,11 @@ class Application {
 	}
 	
 	@Bean ObjectMapper jsonMapper(){
-		new ObjectMapper();
+		def mapper = new ObjectMapper();
+		mapper.setSerializationInclusion(Include.NON_NULL)
+		mapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true)
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+		mapper
 	}
 	
 }
