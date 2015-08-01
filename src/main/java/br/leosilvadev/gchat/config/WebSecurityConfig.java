@@ -70,6 +70,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
 	@Bean
 	public ShaPasswordEncoder encoder(){
+		return buildEncoder();
+	}
+	
+	public static ShaPasswordEncoder buildEncoder(){
 		return new ShaPasswordEncoder(256);
 	}
     
