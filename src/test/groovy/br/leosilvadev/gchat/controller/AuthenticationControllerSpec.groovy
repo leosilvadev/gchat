@@ -3,21 +3,22 @@ package br.leosilvadev.gchat.controller
 import org.springframework.http.HttpStatus
 
 import spock.lang.Specification
+import br.leosilvadev.gchat.auth.Authenticator;
+import br.leosilvadev.gchat.exceptions.AuthTokenGenerationException;
 import br.leosilvadev.gchat.mail.dto.Authentication
 import br.leosilvadev.gchat.mail.dto.Authentication.Authenticated
-import br.leosilvadev.gchat.model.services.UserService
 
 class AuthenticationControllerSpec extends Specification {
 
 	AuthenticationController controller
-	UserService userService
+	Authenticator authenticator
 	def onSuccess
 	def onFailure
 	
 	def setup(){
-		userService = Mock(UserService)
+		authenticator = Mock(Authenticator)
 		
-		controller = new AuthenticationController(userService: userService)
+		controller = new AuthenticationController(authenticator: authenticator)
 		onSuccess = controller.authenticateOnSuccess
 		onFailure = controller.authenticateOnFailure
 	}
@@ -33,11 +34,10 @@ class AuthenticationControllerSpec extends Specification {
 			response = controller.authenticate(authentication)
 		
 		then: "When the user is authenticated"
-			1 * userService.authenticate("Leonardo", "123456", onSuccess, onFailure) >> { onSuccess(authenticated) }
+			1 * authenticator.authenticate("Leonardo", "123456", onSuccess, onFailure) >> { onSuccess(authenticated) }
 		
 		and: "The client must receive an OK response"
 			response.statusCode == HttpStatus.OK
-			response.body instanceof Authenticated
 			response.body.token
 	}
 	
@@ -52,11 +52,11 @@ class AuthenticationControllerSpec extends Specification {
 			response = controller.authenticate(authentication)
 		
 		then: "When the user is authenticated"
-			1 * userService.authenticate("Leonardo", "123456", onSuccess, onFailure) >> { onFailure(authentication) }
+			1 * authenticator.authenticate("Leonardo", "123456", onSuccess, onFailure) >> { onFailure(new AuthTokenGenerationException("Error")) }
 		
 		and: "The client must receive an OK response"
 			response.statusCode == HttpStatus.UNAUTHORIZED
-			response.body.message == "Invalid access data"
+			response.body.message == "Error"
 	}
 	
 }
