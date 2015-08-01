@@ -1,6 +1,6 @@
 package br.leosilvadev.gchat.builder
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder
 
 import spock.lang.Specification
 import br.leosilvadev.gchat.manager.RoleManager
@@ -14,14 +14,14 @@ class UserBuilderSpec extends Specification {
 	
 	UserBuilder userBuilder
 	RoleManager roleManager
-	BCryptPasswordEncoder encoder
+	ShaPasswordEncoder encoder
 	
 	Closure callback
 	
 	def setup(){
 		repository = Mock(UserRepository)
 		roleManager = Mock(RoleManager)
-		encoder = Mock(BCryptPasswordEncoder)
+		encoder = Mock(ShaPasswordEncoder)
 		
 		callback = Mock(Closure)
 		
@@ -39,7 +39,7 @@ class UserBuilderSpec extends Specification {
 		then: "User have to be saved and the callback must execute"
 			1 * callback.call(generatedUser)
 			1 * repository.save(generatedUser)
-			1 * encoder.encode("user")
+			1 * encoder.encodePassword("user", "user")
 	}
 	
 	def "Should not save a user and execute a callback"(){
@@ -53,7 +53,7 @@ class UserBuilderSpec extends Specification {
 			userBuilder.build(chatUser).onError(callback).saveOn(repository)
 			
 		then: "If the user has a problemn, error callback must execute"
-			1 * encoder.encode("user")
+			1 * encoder.encodePassword("user", "user")
 			1 * repository.save(generatedUser) >> { throw ex }
 			1 * callback.call(generatedUser, ex)
 			
