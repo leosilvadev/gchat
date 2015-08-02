@@ -22,21 +22,15 @@ class TokenAuthFilter extends FilterSecurityInterceptor {
 	
 	@Override
 	void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-		def path = req.getRequestURI()
-		if(path.equalsIgnoreCase("/auth")){
+		def token = req.getHeader("X-Auth-Token")
+		tokenValidator.validate(token, { user -> 
+			SecurityContextHolder.getContext().setAuthentication(new TokenAuthentication(user, token, true))
 			chain.doFilter(req, res)
 			
-		} else {
-			def token = req.getHeader("X-Auth-Token")
-			tokenValidator.validate(token, { user -> 
-				SecurityContextHolder.getContext().setAuthentication(new TokenAuthentication(user, token, true))
-				chain.doFilter(req, res)
-				
-			}, { ex -> 
-				res.sendError(401, ex.getMessage())
-			
-			})
-		}
+		}, { ex -> 
+			res.sendError(401, ex.getMessage())
+		
+		})
 	}
 
 	void init(FilterConfig filterConfig) {
