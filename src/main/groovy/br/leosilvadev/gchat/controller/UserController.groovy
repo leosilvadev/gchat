@@ -22,7 +22,7 @@ import br.leosilvadev.gchat.validators.ChatUserValidator
 
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/rest/v1/users")
 class UserController extends GController {
 
 	@Autowired Publisher publisher

@@ -19,7 +19,7 @@ import br.leosilvadev.gchat.model.dto.Message
 import br.leosilvadev.gchat.model.services.RoomService
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("/rest/v1/chat")
 class ChatMessageController extends GController {
 	
 	@Autowired SimpMessagingTemplate template

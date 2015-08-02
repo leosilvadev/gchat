@@ -17,7 +17,7 @@ import br.leosilvadev.gchat.model.services.RoomService
 
 
 @RestController
-@RequestMapping("/rooms")
+@RequestMapping("/rest/v1/rooms")
 class RoomController extends GController {
 	
 	@Autowired Publisher publisher
