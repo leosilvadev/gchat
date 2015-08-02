@@ -6,8 +6,8 @@ class AuthenticationSpec extends Specification {
 
 	def "Should validate two objects with same username and password"(){
 		given: "Two Authentication objects"
-			def auth1 = new Authentication("admin", "secret")
-			def auth2 = new Authentication("admin", "secret")
+			def auth1 = new AuthenticationRequest("admin", "secret")
+			def auth2 = new AuthenticationRequest("admin", "secret")
 			
 		when: "The objects are compared"
 			def areEquals = auth1.equals(auth2)
@@ -18,8 +18,8 @@ class AuthenticationSpec extends Specification {
 	
 	def "Should validate two objects with same username but different password"(){
 		given: "Two Authentication objects"
-			def auth1 = new Authentication("admin", "secret")
-			def auth2 = new Authentication("admin", "secret2")
+			def auth1 = new AuthenticationRequest("admin", "secret")
+			def auth2 = new AuthenticationRequest("admin", "secret2")
 			
 		when: "The objects are compared"
 			def areEquals = auth1.equals(auth2)
@@ -30,8 +30,8 @@ class AuthenticationSpec extends Specification {
 	
 	def "Should validate two objects with same password but different username"(){
 		given: "Two Authentication objects"
-			def auth1 = new Authentication("admin", "secret")
-			def auth2 = new Authentication("admin2", "secret")
+			def auth1 = new AuthenticationRequest("admin", "secret")
+			def auth2 = new AuthenticationRequest("admin2", "secret")
 			
 		when: "The objects are compared"
 			def areEquals = auth1.equals(auth2)
@@ -42,7 +42,7 @@ class AuthenticationSpec extends Specification {
 	
 	def "Should validate two objects with different types"(){
 		given: "Two objects"
-			def auth = new Authentication("admin", "secret")
+			def auth = new AuthenticationRequest("admin", "secret")
 			def object = new Object()
 			
 		when: "The objects are compared"
@@ -54,7 +54,7 @@ class AuthenticationSpec extends Specification {
 	
 	def "Should validate two objects with null object"(){
 		given: "One object"
-			def auth = new Authentication("admin", "secret")
+			def auth = new AuthenticationRequest("admin", "secret")
 			
 		when: "The objects are compared"
 			def areEquals = auth.equals(null)

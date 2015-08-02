@@ -8,7 +8,7 @@ import redis.clients.jedis.Jedis
 import br.leosilvadev.gchat.databases.managers.RedisManager
 import br.leosilvadev.gchat.exceptions.AuthTokenGenerationException
 import br.leosilvadev.gchat.exceptions.NoAuthenticatedException
-import br.leosilvadev.gchat.mail.dto.Authentication
+import br.leosilvadev.gchat.mail.dto.AuthenticationRequest
 import br.leosilvadev.gchat.model.services.UserService
 
 @Component
@@ -22,7 +22,7 @@ class Authenticator {
 	
 	def authenticate(username, password, onSuccess, onFailure){
 		def user = userService.findByUsernameAndPassword(username, password)
-		def authentication = new Authentication(username, password)
+		def authentication = new AuthenticationRequest(username, password)
 		
 		if(!user) onFailure(new NoAuthenticatedException("Invalid authentication"))
 		

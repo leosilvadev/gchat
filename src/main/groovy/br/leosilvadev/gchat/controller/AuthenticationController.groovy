@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 import br.leosilvadev.gchat.auth.Authenticator
-import br.leosilvadev.gchat.mail.dto.Authentication
+import br.leosilvadev.gchat.mail.dto.AuthenticationRequest
 
 @RestController
 @RequestMapping("/auth")
@@ -27,7 +27,7 @@ class AuthenticationController extends GController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	def authenticate(@RequestBody Authentication authentication){
+	def authenticate(@RequestBody AuthenticationRequest authentication){
 		authenticator.authenticate(
 			authentication.username, 
 			authentication.password,

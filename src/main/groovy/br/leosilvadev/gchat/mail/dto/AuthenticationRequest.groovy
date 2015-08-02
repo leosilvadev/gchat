@@ -5,18 +5,18 @@ import groovy.transform.Immutable
 
 @Immutable
 @EqualsAndHashCode
-class Authentication {
+class AuthenticationRequest {
 
 	String username
 	String password
 	
 	def authenticated(){
-		new Authenticated(this, UUID.randomUUID().toString())
+		new AuthenticatedRequest(this, UUID.randomUUID().toString())
 	}
 	
 	@Immutable
-	static class Authenticated {
-		@Delegate Authentication authentication
+	static class AuthenticatedRequest {
+		@Delegate AuthenticationRequest authentication
 		String token
 	}
 	

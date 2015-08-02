@@ -3,10 +3,9 @@ package br.leosilvadev.gchat.controller
 import org.springframework.http.HttpStatus
 
 import spock.lang.Specification
-import br.leosilvadev.gchat.auth.Authenticator;
-import br.leosilvadev.gchat.exceptions.AuthTokenGenerationException;
-import br.leosilvadev.gchat.mail.dto.Authentication
-import br.leosilvadev.gchat.mail.dto.Authentication.Authenticated
+import br.leosilvadev.gchat.auth.Authenticator
+import br.leosilvadev.gchat.exceptions.AuthTokenGenerationException
+import br.leosilvadev.gchat.mail.dto.AuthenticationRequest
 
 class AuthenticationControllerSpec extends Specification {
 
@@ -24,11 +23,11 @@ class AuthenticationControllerSpec extends Specification {
 	}
 	
 	def "Should respond an OK response when the user authenticates correctly"(){
-		def authenticated = new Authentication("Leonardo", "123456").authenticated()
+		def authenticated = new AuthenticationRequest("Leonardo", "123456").authenticated()
 		def response
 		
 		given: "A valid authentication"
-			def authentication = new Authentication("Leonardo", "123456")
+			def authentication = new AuthenticationRequest("Leonardo", "123456")
 		
 		when: "The user try to authenticate"
 			response = controller.authenticate(authentication)
@@ -42,11 +41,11 @@ class AuthenticationControllerSpec extends Specification {
 	}
 	
 	def "Should respond UNAUTHORIZED response when the user authentication fails"(){
-		def notAuthenticated = new Authentication("Leonardo", "123456")
+		def notAuthenticated = new AuthenticationRequest("Leonardo", "123456")
 		def response
 		
 		given: "A valid authentication"
-			def authentication = new Authentication("Leonardo", "123456")
+			def authentication = new AuthenticationRequest("Leonardo", "123456")
 		
 		when: "The user try to authenticate"
 			response = controller.authenticate(authentication)

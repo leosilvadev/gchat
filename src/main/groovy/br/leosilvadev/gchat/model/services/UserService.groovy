@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 
 import redis.clients.jedis.Jedis
 import br.leosilvadev.gchat.databases.managers.RedisManager
-import br.leosilvadev.gchat.mail.dto.Authentication
+import br.leosilvadev.gchat.mail.dto.AuthenticationRequest
 import br.leosilvadev.gchat.repositories.UserRepository
 import br.leosilvadev.gchat.security.UserSecurity
 
