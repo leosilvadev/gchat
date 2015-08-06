@@ -1,6 +1,7 @@
 package br.leosilvadev.gchat.wrapper
 
-import br.leosilvadev.gchat.security.UserSecurity;
+import br.leosilvadev.gchat.model.domain.User;
+
 
 class EventWrapper {
 	
@@ -8,7 +9,7 @@ class EventWrapper {
 	
 	EventWrapper(event){ this.event = event }
 
-	UserSecurity sender(){
+	User sender(){
 		event.message.headers?.simpUser?.principal
 	}
 	

@@ -5,12 +5,11 @@ import org.springframework.messaging.support.GenericMessage
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 
 import br.leosilvadev.gchat.model.domain.User
-import br.leosilvadev.gchat.security.UserSecurity
 
 class EventTestFactory {
 
-	static UserSecurity buildUserSecurity(String name, String code){
-		new UserSecurity(new User(name: name), code)
+	static User buildUserSecurity(String name, String code){
+		new User(name: name)
 	}
 	
 	static UsernamePasswordAuthenticationToken buildAuthorization(String name, String code){

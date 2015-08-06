@@ -1,4 +1,4 @@
-package br.leosilvadev.gchat.controller
+package br.leosilvadev.gchat.users.controller.v1
 
 import javax.validation.Valid
 import javax.validation.Validator
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController;
 
+import br.leosilvadev.gchat.controller.GController;
 import br.leosilvadev.gchat.events.Publisher
 import br.leosilvadev.gchat.model.dto.ChatUser
 import br.leosilvadev.gchat.model.user.ChatUserRegisteringEvent
@@ -22,7 +23,7 @@ import br.leosilvadev.gchat.validators.ChatUserValidator
 
 
 @RestController
-@RequestMapping("/rest/v1/users")
+@RequestMapping("/api/v1/users")
 class UserController extends GController {
 
 	@Autowired Publisher publisher

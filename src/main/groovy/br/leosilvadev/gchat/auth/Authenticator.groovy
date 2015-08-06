@@ -29,8 +29,7 @@ class Authenticator {
 		def authenticated = authentication.authenticated()
 		
 		redisManager.execute({ Jedis jedis ->
-			jedis.set(authenticated.token, user.id.toString())
-			jedis.expire(authenticated.token, tokenExpireTime)
+			jedis.setex(authenticated.token, tokenExpireTime, user.id.toString())
 			onSuccess(authenticated)
 			
 		}, { ex ->

@@ -19,6 +19,8 @@ spring:
 # GCHAT PROPERTIES
 gchat:
     auth:
+        permitted:
+            urls: /, /auth, /logout
         token:
             expiretime:
                 seconds: 1800

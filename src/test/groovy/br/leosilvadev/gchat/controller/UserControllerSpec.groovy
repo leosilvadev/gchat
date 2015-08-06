@@ -8,6 +8,7 @@ import spock.lang.Specification
 import br.leosilvadev.gchat.events.Publisher
 import br.leosilvadev.gchat.model.dto.ChatUser
 import br.leosilvadev.gchat.model.user.ChatUserRegisteringEvent
+import br.leosilvadev.gchat.users.controller.v1.UserController;
 
 class UserControllerSpec extends Specification {
 	
