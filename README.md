@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/leosilvadev/gchat.svg?branch=master)](https://travis-ci.org/leosilvadev/gchat)
+[![Build Status](https://travis-ci.org/leosilvadev/ng-easy-calendar.svg?branch=master)](https://travis-ci.org/leosilvadev/gchat)
 
 # GChat
 Tiny-chat example using Gradle, Groovy, GroovyTemplate, Java and Spring (Data, MVC and Websocket)
